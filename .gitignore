@@ -1,0 +1,8 @@
+*~
+*.d
+core*
+*.root
+*.txt
+*.swp
+macros/
+*.par

@@ -34,7 +34,7 @@ mkdir build
 cd build
 cmake ../R3BRoot/
 . config.sh
-make -j4
+make -j8
 ~~~
 
 ### Some details of the asyeos set-up
@@ -116,11 +116,11 @@ This directory contains all the data TCloneArray structures for the different le
 
 This directory contains all the readers related to asyeos detectors :
 
-- R3BAsyChimeraReader for the Chimera detector
+- R3BChimeraReader for the Chimera detector
 - 
 and UCESB data structures are located at asyeossource/ext :
 
-- ext_h101_asychimera.h
+- ext_h101_chimera.h
 
 this allows to get data at mapped level (raw data of each detector).
 
