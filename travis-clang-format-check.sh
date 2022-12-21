@@ -13,7 +13,7 @@ fi
 
 if [ "$TRAVIS" != "true" ] ; then
   # Not in a pull request, so compare against parent commit
-  base_commit="HEAD^"
+  base_commit="origin/dev"
   echo "Checking against parent commit $(git rev-parse $base_commit)"
 else
   base_commit="$TRAVIS_COMMIT_RANGE"
