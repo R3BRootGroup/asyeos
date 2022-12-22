@@ -1,34 +1,32 @@
-# Purpose
+# AsyEOS Software
 
+## The AsyEOS Framework
 AsyEOS folder inside R3BRoot describes the AsyEOS detectors which are going to be employed in the AsyEOS/R3B experiments.
 
-The R3BRoot software is based on the FairRoot framework and can be used to perform Monte Carlo simulations and experimental data analysis of the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments at the FAIR research center (Facility for Antiproton and Ion Research).
+The R3BRoot software is based on the FairRoot framework and can be used to perform Monte Carlo simulations and experimental data analysis of the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments at the GSI-FAIR research center (Facility for Antiproton and Ion Research).
 
+## Discussion Forum
 For the software-related user support you can post a new topic on our [forum](https://forum.gsi.de/index.php?t=index&cat=40&) or you could use the GitHub issues.
 
+## Step by Step Installation
 
-# Install
+### Required Software
 
-### Required software
+First, you will need to install FairSoft and FairRoot. For more details:
 
-First, you will need to install FairSoft and FairRoot. For more details: [instructions](https://www.r3broot.gsi.de/installation).
+1. Install [FairSoft](https://github.com/FairRootGroup/FairSoft)
 
-### Installation of R3BRoot and asyeos (as part of R3BRoot)
+2. Install [FairRoot](http://fairroot.gsi.de)
+
+### Installation of R3BRoot and AsyEOS (as part of R3BRoot)
 
 ~~~bash
 export SIMPATH=%PATH_TO_FAIRSOFT%
 export FAIRROOTPATH=%PATH_TO_FAIRROOT%
-git clone https://github.com/R3BRootGroup/R3BRoot.git
+git clone -b dev https://github.com/R3BRootGroup/R3BRoot.git
 cd R3BRoot
-git checkout dev
-git clone https://github.com/R3BRootGroup/macros.git
-cd macros
-git checkout dev
-cd ..
-git clone https://github.com/R3BRootGroup/asyeos.git
-cd asyeos
-git checkout dev
-cd ..
+git clone -b dev https://github.com/R3BRootGroup/macros.git
+git clone -b dev https://github.com/R3BRootGroup/asyeos.git
 cd ..
 mkdir build
 cd build
@@ -37,7 +35,7 @@ cmake ../R3BRoot/
 make -j8
 ~~~
 
-### Some details of the asyeos set-up
+### Some Details of the AsyEOS Setup
 
 - Chimera:
 COMPLETE DESCRIPTION
@@ -47,7 +45,7 @@ COMPLETE DESCRIPTION
 
 - 
 
-# Simulations (ongoing work)
+## Simulations (ongoing work)
 
 Some simulations will be included inside the asyeos directory. You can find the subdirectories:
 
@@ -104,7 +102,7 @@ root -l sim.root
 [] evt->StartViewer();
 ~~~
 
-# Data Analysis (ongoing work)
+## Data Analysis (ongoing work)
 
 Data analysis is included inside the asyeos directory. You can find the subdirectories :
 
