@@ -1,4 +1,4 @@
-# Create a library called "libasySofChim" which includes the source files given in
+# Create a library called "libR3BAsyChim" which includes the source files given in
 # the array .
 # The extension is already found.  Any number of sources could be listed here.
 
@@ -12,6 +12,8 @@ ${R3BROOT_SOURCE_DIR}/tracking
 ${R3BASY_SOURCE_DIR}/asydata
 ${R3BASY_SOURCE_DIR}/asydata/chimeraData
 ${R3BASY_SOURCE_DIR}/chimera
+${R3BASY_SOURCE_DIR}/chimera/sim
+${R3BASY_SOURCE_DIR}/chimera/pars
 )
 
 include_directories( ${INCLUDE_DIRECTORIES})
@@ -21,13 +23,17 @@ set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} )
 
 link_directories( ${LINK_DIRECTORIES})
 
-set(SRCS
-#Put here your sourcefiles
-R3BAsyChimera.cxx
-R3BAsyChimeraContFact.cxx
-#R3BAsyChimeraTreat.cxx
-R3BAsyChimeraDigi.cxx
-)
+file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx )
+
+#set(SRCS
+##Put here your sourcefiles
+#R3BAsyChimera.cxx
+#R3BAsyChimeraContFact.cxx
+##R3BAsyChimeraTreat.cxx
+#R3BAsyChimeraDigi.cxx
+#R3BAsyChimeraCalPar.cxx
+#R3BAsyChimeraHitPar.cxx
+#)
 
 # fill list of header files from list of source files
 # by exchanging the file extension
@@ -36,6 +42,6 @@ CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 set(LINKDEF AsyChimLinkDef.h)
 set(LIBRARY_NAME R3BAsyChim)
 set(DEPENDENCIES
-    Base R3BBase R3BData R3BasyData)
+    Base R3BBase R3BData R3BAsyData)
 
 GENERATE_LIBRARY()

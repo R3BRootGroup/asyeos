@@ -89,7 +89,7 @@ class R3BAsyChimeraPoint : public FairMCPoint
     void SetDetCopyID(Int_t id) { fDetCopyID = id; };
 
     /** Output to screen **/
-    virtual void Print(const Option_t* opt) const;
+    //virtual void Print(const Option_t* opt) const;
 
   protected:
     Double32_t fX_out, fY_out, fZ_out;

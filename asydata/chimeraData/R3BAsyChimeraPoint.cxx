@@ -56,15 +56,15 @@ R3BAsyChimeraPoint::~R3BAsyChimeraPoint() {}
 // -------------------------------------------------------------------------
 
 // -----   Public method Print   -------------------------------------------
-void R3BAsyChimeraPoint::Print(const Option_t* opt) const
-{
-    cout << "-I- R3BAsyChimeraPoint: STS Point for track " << fTrackID << " in detector " << fDetectorID << endl;
-    cout << "    Position (" << fX << ", " << fY << ", " << fZ << ") cm" << endl;
-    cout << "    Momentum (" << fPx << ", " << fPy << ", " << fPz << ") GeV" << endl;
-    cout << "    Time " << fTime << " ns,  Length " << fLength << " cm,  Energy loss " << fELoss * 1.0e06 << " keV";
-    cout << "    lightYield " << fLightYield * 1.0e03 << " MeVeq,  slow " << fSlow * 1.0e03 << " MeVeq"
-         << endl;
-}
+//void R3BAsyChimeraPoint::Print(const Option_t* opt) const
+//{
+//    cout << "-I- R3BAsyChimeraPoint: STS Point for track " << fTrackID << " in detector " << fDetectorID << endl;
+//    cout << "    Position (" << fX << ", " << fY << ", " << fZ << ") cm" << endl;
+//    cout << "    Momentum (" << fPx << ", " << fPy << ", " << fPz << ") GeV" << endl;
+//    cout << "    Time " << fTime << " ns,  Length " << fLength << " cm,  Energy loss " << fELoss * 1.0e06 << " keV";
+//    cout << "    lightYield " << fLightYield * 1.0e03 << " MeVeq,  slow " << fSlow * 1.0e03 << " MeVeq"
+//         << endl;
+//}
 // -------------------------------------------------------------------------
 
 // -----   Point x coordinate from linear extrapolation   ------------------
