@@ -8,6 +8,18 @@ The R3BRoot software is based on the FairRoot framework and can be used to perfo
 ## Discussion Forum
 For the software-related user support you can post a new topic on our [forum](https://forum.gsi.de/index.php?t=index&cat=40&) or you could use the GitHub issues.
 
+## Release Information
+Please visit [releases](https://github.com/R3BRootGroup/asyeos/releases)
+
+## Contributing
+Please ask your questions, request features, and report issues by [creating a github issue](https://github.com/R3BRootGroup/asyeos/issues/new/choose).
+
+## Code Formatting
+The AsyEOS project (as part of R3BRoot) uses clang-format-15 to ensure a common code formatting. The script "clang-format-all.sh" can be used for this purpose: 
+~~~bash
+source util/clang-format-all.sh
+~~~
+
 ## Step by Step Installation
 
 ### Required Software
