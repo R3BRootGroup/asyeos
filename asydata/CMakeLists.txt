@@ -30,8 +30,8 @@ chimeraData/R3BAsyChimeraHitData.cxx
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 SET(HEADERS ${HEADERS} ${R3BROOT_SOURCE_DIR}/r3bdata/R3BDetectorList.h )
 
-set(LINKDEF  R3BasyDataLinkDef.h)
-set(LIBRARY_NAME R3BasyData)
+set(LINKDEF  R3BAsyDataLinkDef.h)
+set(LIBRARY_NAME R3BAsyData)
 set(DEPENDENCIES
     Base FairTools R3BData R3BBase Core m)
 
