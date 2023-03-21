@@ -146,7 +146,6 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol)
         if (TVirtualMC::GetMC()->IsTrackExiting() || TVirtualMC::GetMC()->IsTrackStop() || 
 	    TVirtualMC::GetMC()->IsTrackDisappeared())
         {
-
             fTrackID = TVirtualMC::GetMC()->GetStack()->GetCurrentTrackNumber();
             fParentTrackID = TVirtualMC::GetMC()->GetStack()->GetCurrentParentTrackNumber();
             fVolumeID = vol->getMCid();
