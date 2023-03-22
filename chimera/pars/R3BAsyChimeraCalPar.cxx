@@ -33,14 +33,11 @@ R3BAsyChimeraCalPar::R3BAsyChimeraCalPar(const char* name, const char* title, co
     : FairParGenericSet(name, title, context)
 
 {
- // just template, start version
+    // just template, start version
 }
 
 // ----  Destructor ------------------------------------------------------------
-R3BAsyChimeraCalPar::~R3BAsyChimeraCalPar()
-{
-  clear();
-}
+R3BAsyChimeraCalPar::~R3BAsyChimeraCalPar() { clear(); }
 
 // ----  Method clear ----------------------------------------------------------
 void R3BAsyChimeraCalPar::clear()
@@ -58,8 +55,6 @@ void R3BAsyChimeraCalPar::putParams(FairParamList* list)
         R3BLOG(fatal, "Could not find FairParamList");
         return;
     }
-
-
 }
 
 // ----  Method getParams ------------------------------------------------------
@@ -79,9 +74,6 @@ Bool_t R3BAsyChimeraCalPar::getParams(FairParamList* list)
 void R3BAsyChimeraCalPar::print() { printParams(); }
 
 // ----  Method printParams ----------------------------------------------------
-void R3BAsyChimeraCalPar::printParams()
-{
-   R3BLOG(info, "Chimera parameters not yet defined");
-}
+void R3BAsyChimeraCalPar::printParams() { R3BLOG(info, "Chimera parameters not yet defined"); }
 
 ClassImp(R3BAsyChimeraCalPar);
