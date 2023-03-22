@@ -9,8 +9,8 @@
 
 #include "FairLogger.h"
 #include "FairRuntimeDb.h"
-#include "R3BTGeoPar.h"
 #include "R3BLogger.h"
+#include "R3BTGeoPar.h"
 
 #include "R3BAsyChimeraCalPar.h"
 #include "R3BAsyChimeraHitPar.h"
@@ -72,6 +72,5 @@ FairParSet* R3BAsyChimeraContFact::createContainer(FairContainer* c)
 
     return p;
 }
-
 
 ClassImp(R3BAsyChimeraContFact)
