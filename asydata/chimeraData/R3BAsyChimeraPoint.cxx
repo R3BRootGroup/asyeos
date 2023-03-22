@@ -22,19 +22,19 @@ R3BAsyChimeraPoint::R3BAsyChimeraPoint()
 
 // -----   Standard constructor   ------------------------------------------
 R3BAsyChimeraPoint::R3BAsyChimeraPoint(Int_t trackID,
-                                 Int_t detID,
-                                 Int_t detCopyID,
-                                 Double_t Z,
-                                 Double_t A,
-                                 TVector3 posIn,
-                                 TVector3 posOut,
-                                 TVector3 momIn,
-                                 TVector3 momOut,
-                                 Double_t tof,
-                                 Double_t length,
-                                 Double_t eLoss,
-                                 Double_t lightYield,
-                                 Double_t slow)
+                                       Int_t detID,
+                                       Int_t detCopyID,
+                                       Double_t Z,
+                                       Double_t A,
+                                       TVector3 posIn,
+                                       TVector3 posOut,
+                                       TVector3 momIn,
+                                       TVector3 momOut,
+                                       Double_t tof,
+                                       Double_t length,
+                                       Double_t eLoss,
+                                       Double_t lightYield,
+                                       Double_t slow)
     : FairMCPoint(trackID, detID, posIn, momIn, tof, length, eLoss)
 {
     fDetCopyID = detCopyID;
@@ -46,8 +46,8 @@ R3BAsyChimeraPoint::R3BAsyChimeraPoint(Int_t trackID,
     fPz_out = momOut.Pz();
     fZFF = Z;
     fAFF = A;
-    fLightYield=lightYield;
-    fSlow= slow;
+    fLightYield = lightYield;
+    fSlow = slow;
 }
 // -------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ R3BAsyChimeraPoint::~R3BAsyChimeraPoint() {}
 // -------------------------------------------------------------------------
 
 // -----   Public method Print   -------------------------------------------
-//void R3BAsyChimeraPoint::Print(const Option_t* opt) const
+// void R3BAsyChimeraPoint::Print(const Option_t* opt) const
 //{
 //    cout << "-I- R3BAsyChimeraPoint: STS Point for track " << fTrackID << " in detector " << fDetectorID << endl;
 //    cout << "    Position (" << fX << ", " << fY << ", " << fZ << ") cm" << endl;

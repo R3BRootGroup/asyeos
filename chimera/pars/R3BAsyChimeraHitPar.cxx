@@ -20,8 +20,8 @@
 #include "FairLogger.h"
 #include "FairParamList.h"
 
-#include "R3BLogger.h"
 #include "R3BAsyChimeraHitPar.h"
+#include "R3BLogger.h"
 
 #include "TArrayF.h"
 #include "TMath.h"
@@ -33,14 +33,10 @@
 R3BAsyChimeraHitPar::R3BAsyChimeraHitPar(const char* name, const char* title, const char* context)
     : FairParGenericSet(name, title, context)
 {
-
 }
 
 // ----  Destructor ------------------------------------------------------------
-R3BAsyChimeraHitPar::~R3BAsyChimeraHitPar()
-{
-    clear();
-}
+R3BAsyChimeraHitPar::~R3BAsyChimeraHitPar() { clear(); }
 
 // ----  Method clear ----------------------------------------------------------
 void R3BAsyChimeraHitPar::clear()
@@ -57,8 +53,6 @@ void R3BAsyChimeraHitPar::putParams(FairParamList* list)
     {
         return;
     }
-
-
 }
 
 // ----  Method getParams ------------------------------------------------------
@@ -71,8 +65,6 @@ Bool_t R3BAsyChimeraHitPar::getParams(FairParamList* list)
         return kFALSE;
     }
 
-
-
     return kTRUE;
 }
 
@@ -83,7 +75,6 @@ void R3BAsyChimeraHitPar::print() { printParams(); }
 void R3BAsyChimeraHitPar::printParams()
 {
     R3BLOG(info, "R3BAsyChimeraHitPar::printParams() AsyChimera detector Parameters");
-
 }
 
 ClassImp(R3BAsyChimeraHitPar);
