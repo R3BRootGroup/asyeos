@@ -20,13 +20,13 @@
 
 R3BAsyChimera::R3BAsyChimera() : R3BAsyChimera("") {}
 
-R3BAsyChimera::R3BAsyChimera(const TString& geoFile,
-                             const TGeoTranslation& trans,
-                             const TGeoRotation& rot)
+R3BAsyChimera::R3BAsyChimera(const TString &geoFile,
+                             const TGeoTranslation &trans,
+                             const TGeoRotation &rot)
     : R3BAsyChimera(geoFile, {trans, rot}) {}
 
-R3BAsyChimera::R3BAsyChimera(const TString& geoFile,
-                             const TGeoCombiTrans& combi)
+R3BAsyChimera::R3BAsyChimera(const TString &geoFile,
+                             const TGeoCombiTrans &combi)
     : R3BDetector("R3BAsyChimera", kCHIMERA, geoFile, combi),
       fAsyChimeraCollection(new TClonesArray("R3BAsyChimeraPoint")),
       fPosIndex(0) {
@@ -55,12 +55,12 @@ void R3BAsyChimera::Initialize() {
 
   fBirkCS0 = 1.;
   // 1  fBirkCS1 =  1.2/dP;
-  fBirkCS1 = 0.033 / dP;  // 2 0.013 0.023
+  fBirkCS1 = 0.033 / dP; // 2 0.013 0.023
   fBirkCS2 = 0. / (dP * dP);
 }
 
 // -----   Public method ProcessHits  --------------------------------------
-Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol) {
+Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
   /** This method is called from the MC stepping */
 
   // Set parameters at entrance of volume. Reset ELoss.
@@ -68,17 +68,17 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol) {
     fELoss = 0.;
     fLightYield = 0.;
     fSlow = 0;
-    fNSteps = 0;  // FIXME
+    fNSteps = 0; // FIXME
     fTime = TVirtualMC::GetMC()->TrackTime() * 1.0e09;
     fLength = TVirtualMC::GetMC()->TrackLength();
     TVirtualMC::GetMC()->TrackPosition(fPosIn);
     TVirtualMC::GetMC()->TrackMomentum(fMomIn);
     fEinc = TVirtualMC::GetMC()->Etot() -
-            TVirtualMC::GetMC()->TrackMass();  // be aware!! Relativistic mass!
+            TVirtualMC::GetMC()->TrackMass(); // be aware!! Relativistic mass!
   }
 
   // Sum energy loss for all steps in the active volume
-  fELoss += TVirtualMC::GetMC()->Edep() * 1000.;  // in MeV;
+  fELoss += TVirtualMC::GetMC()->Edep() * 1000.; // in MeV;
 
   Double_t M_in = TVirtualMC::GetMC()->TrackMass() * 1000.;
   // Charge and mass are now obtained from PDG Code
@@ -89,7 +89,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol) {
   Double_t fA_in = M_in / U_MEV;
   Double_t fZ_in = TVirtualMC::GetMC()->TrackCharge();
 
-  Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.;  // in MeV
+  Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.; // in MeV
   TString ptype = TVirtualMC::GetMC()->GetStack()->GetCurrentTrack()->GetName();
 
   Double_t lightYield = dE;
@@ -128,7 +128,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol) {
       fLightYield = fLightYield + lightYield;
       lightYieldxcm = lightYield / MCstep;
       slow =
-          slow / (1. + birkCS1Mod * dedxcm + fBirkCS2 * dedxcm * dedxcm);  // 2
+          slow / (1. + birkCS1Mod * dedxcm + fBirkCS2 * dedxcm * dedxcm); // 2
       fSlow = fSlow + slow;
     }
   }
@@ -163,7 +163,8 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol) {
                fLength, fELoss, fLightYield, fSlow);
 
       // Increment number of AsyChimeraPoints for this track
-      R3BStack* stack = static_cast<R3BStack*>(TVirtualMC::GetMC()->GetStack());
+      R3BStack *stack = 
+          static_cast<R3BStack*>(TVirtualMC::GetMC()->GetStack());
       stack->AddPoint(kCHIMERA);
       ResetParameters();
     }
@@ -186,7 +187,7 @@ void R3BAsyChimera::Register() {
 }
 
 // -----   Public method GetCollection   --------------------------------------
-TClonesArray* R3BAsyChimera::GetCollection(Int_t iColl) const {
+TClonesArray *R3BAsyChimera::GetCollection(Int_t iColl) const {
   if (iColl == 0)
     return fAsyChimeraCollection;
   else {
@@ -195,7 +196,7 @@ TClonesArray* R3BAsyChimera::GetCollection(Int_t iColl) const {
 }
 
 // -----   Public method Print   ----------------------------------------------
-void R3BAsyChimera::Print(Option_t* option) const {
+void R3BAsyChimera::Print(Option_t *option) const {
   Int_t nHits = fAsyChimeraCollection->GetEntriesFast();
   R3BLOG(info, nHits << " points registered in this event");
 }
@@ -214,7 +215,7 @@ R3BAsyChimeraPoint* R3BAsyChimera::AddPoint(Int_t trackID, Int_t detID,
                                             Double_t time, Double_t length,
                                             Double_t eLoss, Double_t LightYield,
                                             Double_t slow) {
-  TClonesArray& clref = *fAsyChimeraCollection;
+  TClonesArray &clref = *fAsyChimeraCollection;
   Int_t size = clref.GetEntriesFast();
   if (fVerboseLevel > 1) {
     R3BLOG(info, "Adding point at ("

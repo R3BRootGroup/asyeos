@@ -29,8 +29,8 @@
 #include "TString.h"
 
 // ---- Standard Constructor ---------------------------------------------------
-R3BAsyChimeraCalPar::R3BAsyChimeraCalPar(const char* name, const char* title,
-                                         const char* context)
+R3BAsyChimeraCalPar::R3BAsyChimeraCalPar(const char *name, const char *title,
+                                         const char *context)
     : FairParGenericSet(name, title, context)
 
 {
@@ -47,7 +47,7 @@ void R3BAsyChimeraCalPar::clear() {
 }
 
 // ----  Method putParams ------------------------------------------------------
-void R3BAsyChimeraCalPar::putParams(FairParamList* list) {
+void R3BAsyChimeraCalPar::putParams(FairParamList *list) {
   R3BLOG(info, "called");
   if (!list) {
     R3BLOG(fatal, "Could not find FairParamList");
@@ -56,7 +56,7 @@ void R3BAsyChimeraCalPar::putParams(FairParamList* list) {
 }
 
 // ----  Method getParams ------------------------------------------------------
-Bool_t R3BAsyChimeraCalPar::getParams(FairParamList* list) {
+Bool_t R3BAsyChimeraCalPar::getParams(FairParamList *list) {
   R3BLOG(info, "called");
   if (!list) {
     R3BLOG(fatal, "Could not find FairParamList");
