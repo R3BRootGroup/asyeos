@@ -162,7 +162,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
                fLength, fELoss, fLightYield, fSlow);
 
       // Increment number of AsyChimeraPoints for this track
-      R3BStack *stack = 
+      R3BStack *stack =
           static_cast<R3BStack *>(TVirtualMC::GetMC()->GetStack());
       stack->AddPoint(kCHIMERA);
       ResetParameters();
