@@ -164,7 +164,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
 
       // Increment number of AsyChimeraPoints for this track
       R3BStack *stack = 
-          static_cast<R3BStack*>(TVirtualMC::GetMC()->GetStack());
+          static_cast<R3BStack *>(TVirtualMC::GetMC()->GetStack());
       stack->AddPoint(kCHIMERA);
       ResetParameters();
     }
@@ -208,7 +208,7 @@ void R3BAsyChimera::Reset() {
 }
 
 // -----   Private method AddPoint --------------------------------------------
-R3BAsyChimeraPoint* R3BAsyChimera::AddPoint(Int_t trackID, Int_t detID,
+R3BAsyChimeraPoint *R3BAsyChimera::AddPoint(Int_t trackID, Int_t detID,
                                             Int_t volid, Double_t Z, Double_t A,
                                             TVector3 posIn, TVector3 posOut,
                                             TVector3 momIn, TVector3 momOut,
