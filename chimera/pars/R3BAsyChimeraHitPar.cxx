@@ -30,8 +30,8 @@
 #include <iostream>
 
 // ---- Standard Constructor ---------------------------------------------------
-R3BAsyChimeraHitPar::R3BAsyChimeraHitPar(const char* name, const char* title,
-                                         const char* context)
+R3BAsyChimeraHitPar::R3BAsyChimeraHitPar(const char *name, const char *title,
+                                         const char *context)
     : FairParGenericSet(name, title, context) {}
 
 // ----  Destructor ------------------------------------------------------------
@@ -44,7 +44,7 @@ void R3BAsyChimeraHitPar::clear() {
 }
 
 // ----  Method putParams ------------------------------------------------------
-void R3BAsyChimeraHitPar::putParams(FairParamList* list) {
+void R3BAsyChimeraHitPar::putParams(FairParamList *list) {
   R3BLOG(info, "R3BAsyChimeraHitPar::putParams() called");
   if (!list) {
     return;
@@ -52,7 +52,7 @@ void R3BAsyChimeraHitPar::putParams(FairParamList* list) {
 }
 
 // ----  Method getParams ------------------------------------------------------
-Bool_t R3BAsyChimeraHitPar::getParams(FairParamList* list) {
+Bool_t R3BAsyChimeraHitPar::getParams(FairParamList *list) {
   R3BLOG(info, "R3BAsyChimeraHitPar::getParams() called");
   if (!list) {
     R3BLOG(fatal, "Could not find FairParamList");

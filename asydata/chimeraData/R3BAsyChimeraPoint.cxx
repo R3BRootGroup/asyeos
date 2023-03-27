@@ -62,7 +62,8 @@ R3BAsyChimeraPoint::~R3BAsyChimeraPoint() {}
 // -----   Point x coordinate from linear extrapolation   ------------------
 Double_t R3BAsyChimeraPoint::GetX(Double_t z) const {
   //  cout << fZ << " " << z << " " << fZ_out << endl;
-  if ((fZ_out - z) * (fZ - z) >= 0.) return (fX_out + fX) / 2.;
+  if ((fZ_out - z) * (fZ - z) >= 0.) 
+    return (fX_out + fX) / 2.;
   Double_t dz = fZ_out - fZ;
   return (fX + (z - fZ) / dz * (fX_out - fX));
 }
@@ -70,7 +71,8 @@ Double_t R3BAsyChimeraPoint::GetX(Double_t z) const {
 
 // -----   Point y coordinate from linear extrapolation   ------------------
 Double_t R3BAsyChimeraPoint::GetY(Double_t z) const {
-  if ((fZ_out - z) * (fZ - z) >= 0.) return (fY_out + fY) / 2.;
+  if ((fZ_out - z) * (fZ - z) >= 0.) 
+    return (fY_out + fY) / 2.;
   Double_t dz = fZ_out - fZ;
   //  if ( TMath::Abs(dz) < 1.e-3 ) return (fY_out+fY)/2.;
   return (fY + (z - fZ) / dz * (fY_out - fY));
@@ -80,7 +82,8 @@ Double_t R3BAsyChimeraPoint::GetY(Double_t z) const {
 // -----   Public method IsUsable   ----------------------------------------
 Bool_t R3BAsyChimeraPoint::IsUsable() const {
   Double_t dz = fZ_out - fZ;
-  if (TMath::Abs(dz) < 1.e-4) return kFALSE;
+  if (TMath::Abs(dz) < 1.e-4) 
+    return kFALSE;
   return kTRUE;
 }
 // -------------------------------------------------------------------------
