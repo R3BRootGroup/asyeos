@@ -1,7 +1,6 @@
 // ----------------------------------------------------------------------
 //								    -----
-//  Factory for the parameter containers in libR3BAsyChimera           -----
-//         Created 03/11/19  by J.L. Rodriguez-Sanchez              -----
+//  Factory for the parameter containers in libR3BAsyChimera        -----
 //								    -----
 // ----------------------------------------------------------------------
 

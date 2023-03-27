@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------
 //								    -----
-//  Factory for the parameter containers in libR3BAsyChimera           -----
-//								    -----
+//  Factory for the parameter containers in libR3BAsyChimera        -----
+//        created 27/03/2023 by E. De Filippo and P. Russotto	    -----
 // ----------------------------------------------------------------------
 
 #ifndef R3BAsyChimeraContFact_H
