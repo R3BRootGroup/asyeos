@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------------
-// -----                      R3BAsyChimeraPoint header file              -----
-// -----                  Created 06/12/17  by JL Rodriguez            -----
+// -----                  R3BAsyChimeraPoint header file               -----
+// -----    Created 27/03/23  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
 /**  R3BAsyChimeraPoint.h
@@ -91,7 +91,7 @@ class R3BAsyChimeraPoint : public FairMCPoint
     /** Output to screen **/
     //virtual void Print(const Option_t* opt) const;
 
-  protected:
+  private:
     Double32_t fX_out, fY_out, fZ_out;
     Double32_t fPx_out, fPy_out, fPz_out;
     Int_t fDetCopyID;
