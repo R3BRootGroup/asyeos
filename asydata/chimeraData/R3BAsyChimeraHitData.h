@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------
+// -----          R3BAsyChimeraHitData header file              -----
+// -----    Created 27/03/23  by E. De Filippo and P. Russotto  -----
+// ------------------------------------------------------------------
+
 #ifndef R3BAsyChimeraHitData_H
 #define R3BAsyChimeraHitData_H
 #include "TObject.h"
@@ -35,11 +40,10 @@ class R3BAsyChimeraHitData : public TObject
     void SetSlow(Double_t slow) { fSlow = slow; };
     void SetTof(Double_t t) { fToF = t; };
 
-  protected:
+  private:
     Int_t fDetId;
     Double_t fELoss, fFast, fSlow, fToF;
 
-  public:
     ClassDef(R3BAsyChimeraHitData, 1)
 };
 
