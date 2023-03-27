@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------
+// -----          R3BAsyChimera header file                     -----
+// -----    Created 27/03/23  by E. De Filippo and P. Russotto  -----
+// ------------------------------------------------------------------
+
 #ifndef R3BAsyChimera_H
 #define R3BAsyChimera_H
 
