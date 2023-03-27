@@ -12,8 +12,8 @@
  ******************************************************************************/
 
 // ---------------------------------------------------------------
-// -----             R3BTwimCalPar source file               -----
-// -----       Created 24/11/19 by J.L. Rodriguez-Sanchez    -----
+// -----             R3BChimeraCalPar header file            -----
+// -----   Created 27/03/23 by E. De Filippo and P. Russotto -----
 // ---------------------------------------------------------------
 
 #ifndef R3BAsyChimeraCalPar_H
