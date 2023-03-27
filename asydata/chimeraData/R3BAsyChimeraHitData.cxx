@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------
-// -----                     R3BAsyChimeraHitData source file             -----
+// -----                  R3BAsyChimeraHitData source file             -----
 // -------------------------------------------------------------------------
 
 #include "R3BAsyChimeraHitData.h"
