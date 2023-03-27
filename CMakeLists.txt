@@ -15,6 +15,6 @@ message("    - ${Cyan}ASYEOS_DIR${CR} = ${BGreen}${R3BASY_SOURCE_DIR}${CR}")
 # ASYEOS specific
 if(WITH_UCESB) 
    add_subdirectory(asysource) 
-endif(WITH_UCESB) 
+endif(WITH_UCESB)
 add_subdirectory(chimera)
 add_subdirectory(asydata)
