@@ -17,12 +17,11 @@
 // -----------------------------------------------------------------
 
 #include "R3BAsyChimeraCalPar.h"
-#include "R3BLogger.h"
 
 #include "FairDetParIo.h"
 #include "FairLogger.h"
 #include "FairParamList.h"
-
+#include "R3BLogger.h"
 #include "TArrayF.h"
 #include "TArrayI.h"
 #include "TMath.h"

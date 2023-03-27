@@ -16,18 +16,17 @@
 // -----       Created 24/11/19 by J.L. Rodriguez-Sanchez       -----
 // ------------------------------------------------------------------
 
+#include "R3BAsyChimeraHitPar.h"
+
+#include <iostream>
+
 #include "FairDetParIo.h"
 #include "FairLogger.h"
 #include "FairParamList.h"
-
-#include "R3BAsyChimeraHitPar.h"
 #include "R3BLogger.h"
-
 #include "TArrayF.h"
 #include "TMath.h"
 #include "TString.h"
-
-#include <iostream>
 
 // ---- Standard Constructor ---------------------------------------------------
 R3BAsyChimeraHitPar::R3BAsyChimeraHitPar(const char* name, const char* title,

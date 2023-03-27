@@ -6,7 +6,12 @@
 
 // -----   Default constructor   -------------------------------------------
 R3BAsyChimeraHitData::R3BAsyChimeraHitData()
-    : fDetId(0), fELoss(0.), fFast(0.), fSlow(0.), fToF(0.) {}
+    : fDetId(0),
+      fELoss(0.),
+      fFast(0.),
+
+      fSlow(0.),
+      fToF(0.) {}
 
 // -----   Standard constructor   ------------------------------------------
 R3BAsyChimeraHitData::R3BAsyChimeraHitData(Int_t ndet, Double_t eloss,

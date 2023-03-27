@@ -19,60 +19,57 @@
 #ifndef R3BAsyChimeraHitPar_H
 #define R3BAsyChimeraHitPar_H 1
 
-#include "FairParGenericSet.h"
-#include "R3BTsplinePar.h"
-#include "TArrayF.h"
-#include "TArrayI.h"
-#include "TObjArray.h"
-#include "TObject.h"
-#include "TSpline.h"
 #include <TObjString.h>
+
+#include <iostream>
 #include <vector>
 
 #include "FairDetParIo.h"
 #include "FairLogger.h"
+#include "FairParGenericSet.h"
 #include "FairParamList.h"
+#include "R3BTsplinePar.h"
 #include "TArrayF.h"
+#include "TArrayI.h"
 #include "TMath.h"
+#include "TObjArray.h"
+#include "TObject.h"
+#include "TSpline.h"
 #include "TString.h"
-
-#include <iostream>
 
 class FairParamList;
 
-class R3BAsyChimeraHitPar : public FairParGenericSet
-{
-  public:
-    /** Standard constructor **/
-    R3BAsyChimeraHitPar(const char* name = "AsyChimeraHitPar",
-                  const char* title = "AsyChimera Hit Parameters",
-                  const char* context = "AsyChimeraHitParContext");
+class R3BAsyChimeraHitPar : public FairParGenericSet {
+ public:
+  /** Standard constructor **/
+  R3BAsyChimeraHitPar(const char* name = "AsyChimeraHitPar",
+                      const char* title = "AsyChimera Hit Parameters",
+                      const char* context = "AsyChimeraHitParContext");
 
-    /** Destructor **/
-    virtual ~R3BAsyChimeraHitPar();
+  /** Destructor **/
+  virtual ~R3BAsyChimeraHitPar();
 
-    /** Method to reset all parameters **/
-    virtual void clear();
+  /** Method to reset all parameters **/
+  virtual void clear();
 
-    /** Method to store all parameters using FairRuntimeDB **/
-    virtual void putParams(FairParamList* list);
+  /** Method to store all parameters using FairRuntimeDB **/
+  virtual void putParams(FairParamList* list);
 
-    /** Method to retrieve all parameters using FairRuntimeDB**/
-    Bool_t getParams(FairParamList* list);
+  /** Method to retrieve all parameters using FairRuntimeDB**/
+  Bool_t getParams(FairParamList* list);
 
-    /** Method to print values of parameters to the standard output **/
-    virtual void print();
-    void printParams();
+  /** Method to print values of parameters to the standard output **/
+  virtual void print();
+  void printParams();
 
-    // Create more Methods if you need them!
+  // Create more Methods if you need them!
 
-  private:
+ private:
+  const R3BAsyChimeraHitPar& operator=(
+      const R3BAsyChimeraHitPar&);                 /*< an assignment operator>*/
+  R3BAsyChimeraHitPar(const R3BAsyChimeraHitPar&); /*< a copy constructor >*/
 
-
-    const R3BAsyChimeraHitPar& operator=(const R3BAsyChimeraHitPar&); /*< an assignment operator>*/
-    R3BAsyChimeraHitPar(const R3BAsyChimeraHitPar&);                  /*< a copy constructor >*/
-
-    ClassDef(R3BAsyChimeraHitPar, 1);
+  ClassDef(R3BAsyChimeraHitPar, 1);
 };
 
 #endif
