@@ -15,8 +15,7 @@ if [ 0 != $? ]; then
     exit 1
 fi
 
-# Not in a pull request, so compare against parent commit 
-UPSTREAM=$(git remote -v | grep git@github.com[:/]R3BRootGroup/asyeos.git | cut -f1 | uniq)
+# Not in a pull request, so compare against parent commit
 git fetch --all
 base_commit="origin/dev"
 echo "Checking against parent commit $(git rev-parse $base_commit)"

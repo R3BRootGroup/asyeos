@@ -23,7 +23,8 @@ class R3BAsyChimeraHitData : public TObject {
   /** Accessors **/
   Int_t GetDetId() const { return fDetId; }
   Double_t GetEloss() const { return fELoss; }
-  Double_t GetFast() const { return fFast; }
+  Double_t GetFast() 
+  const { return fFast; }
   Double_t GetSlow() const { return fSlow; }
   Double_t GetToF() const { return fToF; }
 
