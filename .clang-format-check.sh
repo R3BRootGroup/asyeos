@@ -44,8 +44,7 @@ for f in $filesToCheck; do
 done
 
 if test -n "$fail" ; then
-    echo -e "\033[1;31mYou must pass the clang-format checks before submitting a pull request.\033[0m"
-    echo "Changes:"
+    echo -e "\033[1;31mYou must pass the clang-format checks before submitting a pull request for the files: \033[0m"
     for f in $filesToCheck; do
         d=$(diff -u "$f" <($CLANG_FORMAT -style=file "$f") || true)
 	if ! [ -z "$d" ]; then
