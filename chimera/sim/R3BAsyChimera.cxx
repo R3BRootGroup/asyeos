@@ -55,7 +55,7 @@ void R3BAsyChimera::Initialize() {
 
   fBirkCS0 = 1.;
   // 1  fBirkCS1 =  1.2/dP;
-  fBirkCS1 = 0.033 / dP; // 2 0.013 0.023
+  fBirkCS1 = 0.033 / dP;  // 2 0.013 0.023
   fBirkCS2 = 0. / (dP * dP);
 }
 
@@ -68,17 +68,17 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
     fELoss = 0.;
     fLightYield = 0.;
     fSlow = 0;
-    fNSteps = 0; // FIXME
+    fNSteps = 0;  // FIXME
     fTime = TVirtualMC::GetMC()->TrackTime() * 1.0e09;
     fLength = TVirtualMC::GetMC()->TrackLength();
     TVirtualMC::GetMC()->TrackPosition(fPosIn);
     TVirtualMC::GetMC()->TrackMomentum(fMomIn);
     fEinc = TVirtualMC::GetMC()->Etot() -
-            TVirtualMC::GetMC()->TrackMass(); // be aware!! Relativistic mass!
+            TVirtualMC::GetMC()->TrackMass();  // be aware!! Relativistic mass!
   }
 
   // Sum energy loss for all steps in the active volume
-  fELoss += TVirtualMC::GetMC()->Edep() * 1000.; // in MeV;
+  fELoss += TVirtualMC::GetMC()->Edep() * 1000.;  // in MeV;
 
   Double_t M_in = TVirtualMC::GetMC()->TrackMass() * 1000.;
   // Charge and mass are now obtained from PDG Code
@@ -89,7 +89,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
   Double_t fA_in = M_in / U_MEV;
   Double_t fZ_in = TVirtualMC::GetMC()->TrackCharge();
 
-  Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.; // in MeV
+  Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.;  // in MeV
   TString ptype = TVirtualMC::GetMC()->GetStack()->GetCurrentTrack()->GetName();
 
   Double_t lightYield = dE;
@@ -128,7 +128,7 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume *vol) {
       fLightYield = fLightYield + lightYield;
       lightYieldxcm = lightYield / MCstep;
       slow =
-          slow / (1. + birkCS1Mod * dedxcm + fBirkCS2 * dedxcm * dedxcm); // 2
+          slow / (1. + birkCS1Mod * dedxcm + fBirkCS2 * dedxcm * dedxcm);  // 2
       fSlow = fSlow + slow;
     }
   }
