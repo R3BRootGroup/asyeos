@@ -18,5 +18,6 @@ jobs:
       - name: Code formatting
         run: |
           cd $GITHUB_WORKSPACE
+          sudo apt-get install clang-format-15
           ./.clang-format-check.sh clang-format-15
         shell: bash
