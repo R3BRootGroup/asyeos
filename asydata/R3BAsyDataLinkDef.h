@@ -6,8 +6,8 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
-// Point classes for simulation
-#pragma link C++ class R3BAsyChimeraPoint+ ;
-#pragma link C++ class R3BAsyChimeraHitData+ ;
+// Point classes for simulation 
+#pragma link C++ class R3BAsyChimeraPoint+;
+#pragma link C++ class R3BAsyChimeraHitData+;
 
 #endif

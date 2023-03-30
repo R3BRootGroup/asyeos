@@ -11,10 +11,10 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-// ---------------------------------------------------------------
-// -----             R3BChimeraCalPar header file            -----
-// -----   Created 27/03/23 by E. De Filippo and P. Russotto -----
-// ---------------------------------------------------------------
+// ----------------------------------------------------------------
+// -----             R3BChimeraCalPar header file            ------
+// -----   Created 27/03/23 by E. De Filippo and P. Russotto ------
+// ----------------------------------------------------------------
 
 #ifndef R3BAsyChimeraCalPar_H
 #define R3BAsyChimeraCalPar_H 1

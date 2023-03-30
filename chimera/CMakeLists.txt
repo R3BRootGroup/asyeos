@@ -1,5 +1,5 @@
 # Create a library called "libR3BAsyChim" which includes the source files given in
-# the array .
+# the array.
 # The extension is already found.  Any number of sources could be listed here.
 
 Set(SYSTEM_INCLUDE_DIRECTORIES ${SYSTEM_INCLUDE_DIRECTORIES} ${BASE_INCLUDE_DIRECTORIES} )

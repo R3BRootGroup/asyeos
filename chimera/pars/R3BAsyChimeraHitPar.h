@@ -11,10 +11,10 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-// --------------------------------------------------------------
-// -----            R3BAsyChimeraHitPar header file         -----
-// ----- Created 27/03/23 by E. De Filippo and P. Russotto  -----
-// --------------------------------------------------------------
+// ---------------------------------------------------------------
+// -----            R3BAsyChimeraHitPar header file         ------
+// ----- Created 27/03/23 by E. De Filippo and P. Russotto  ------
+// ---------------------------------------------------------------
 
 #ifndef R3BAsyChimeraHitPar_H
 #define R3BAsyChimeraHitPar_H 1

@@ -28,7 +28,7 @@ chimeraData/R3BAsyChimeraHitData.cxx
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
-SET(HEADERS ${HEADERS} ${R3BROOT_SOURCE_DIR}/r3bdata/R3BDetectorList.h )
+SET(HEADERS ${HEADERS} ${R3BROOT_SOURCE_DIR}/r3bdata/R3BDetectorList.h)
 
 set(LINKDEF  R3BAsyDataLinkDef.h)
 set(LIBRARY_NAME R3BAsyData)

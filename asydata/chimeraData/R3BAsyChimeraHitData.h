@@ -1,7 +1,7 @@
-// ------------------------------------------------------------------
-// -----          R3BAsyChimeraHitData header file              -----
-// -----    Created 27/03/23  by E. De Filippo and P. Russotto  -----
-// ------------------------------------------------------------------
+// -------------------------------------------------------------------
+// -----          R3BAsyChimeraHitData header file              ------
+// -----    Created 27/03/23  by E. De Filippo and P. Russotto  ------
+// -------------------------------------------------------------------
 
 #ifndef R3BAsyChimeraHitData_H
 #define R3BAsyChimeraHitData_H
