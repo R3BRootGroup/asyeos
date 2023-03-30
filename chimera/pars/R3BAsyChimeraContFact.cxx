@@ -8,12 +8,10 @@
 
 #include "FairLogger.h"
 #include "FairRuntimeDb.h"
-#include "R3BLogger.h"
-#include "R3BTGeoPar.h"
-
 #include "R3BAsyChimeraCalPar.h"
 #include "R3BAsyChimeraHitPar.h"
-
+#include "R3BLogger.h"
+#include "R3BTGeoPar.h"
 #include "TClass.h"
 
 static R3BAsyChimeraContFact gR3BAsyChimeraContFact;
