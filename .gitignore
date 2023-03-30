@@ -30,7 +30,7 @@
 # ROOT specific files
 *.d
 *.pcm
-*.root
+
 
 # Storage files
 *.gam
