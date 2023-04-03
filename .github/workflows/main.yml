@@ -28,10 +28,10 @@ jobs:
           ./.clang-format-check.sh clang-format-15
         shell: bash
 
-# Single job called "build-r3broot-asyeos-ubuntu18"
-  build-r3broot-asyeos-ubuntu18:
+# Single job called "build-r3broot-asyeos-ubuntu22"
+  build-r3broot-asyeos-ubuntu22:
     # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     needs: clang-format
     if: always()
 
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a set of commands using the runners shell
-      - name: Configuration and build ubuntu-18.04
+      - name: Configuration and build ubuntu-22.04
         run: |
           sudo apt-get install lsb-release
           wget https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
@@ -55,8 +55,8 @@ jobs:
           sudo cp .githubfiles/fairsoft.gsi.de.conf /etc/cvmfs/config.d
           sudo mkdir -p /cvmfs/fairsoft.gsi.de
           sudo mount -t cvmfs fairsoft.gsi.de /cvmfs/fairsoft.gsi.de
-          export SIMPATH=/cvmfs/fairsoft.gsi.de/ubuntu1804/fairsoft/nov20
-          export FAIRROOTPATH=/cvmfs/fairsoft.gsi.de/ubuntu1804/fairroot/v18.4.2_fs_nov20
+          export SIMPATH=/cvmfs/fairsoft.gsi.de/ubuntu2204/fairsoft/nov22p1
+          export FAIRROOTPATH=/cvmfs/fairsoft.gsi.de/ubuntu2204/fairroot/v18.8.1_nov22p1
           cd ..
           git clone https://github.com/R3BRootGroup/R3BRoot.git
           mv asyeos R3BRoot
