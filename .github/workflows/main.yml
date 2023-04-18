@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI C17++
+name: CI-CD
 
 # Controls when the action will run. 
 on:
@@ -24,6 +24,7 @@ jobs:
       - name: Code formatting
         run: |
           cd $GITHUB_WORKSPACE
+          sudo apt-get update
           sudo apt-get install clang-format-15
           ./.clang-format-check.sh clang-format-15
         shell: bash
@@ -74,6 +75,8 @@ jobs:
           cmake ..
           source config.sh
           make -j 35
+          cd ..
+          ./Dart.sh Experimental ./asyeos/.githubfiles/dart_experimental_nov22p1.cfg
         shell: bash
     
 # Single job called "build-r3broot-asyeos-debian10"
