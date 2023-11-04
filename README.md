@@ -35,10 +35,10 @@ First, you will need to install FairSoft and FairRoot. For more details:
 ~~~bash
 export SIMPATH=%PATH_TO_FAIRSOFT%
 export FAIRROOTPATH=%PATH_TO_FAIRROOT%
-git clone -b dev https://github.com/R3BRootGroup/R3BRoot.git
+git clone https://github.com/R3BRootGroup/R3BRoot.git
 cd R3BRoot
-git clone -b dev https://github.com/R3BRootGroup/macros.git
-git clone -b dev https://github.com/R3BRootGroup/asyeos.git
+git clone https://github.com/R3BRootGroup/macros.git
+git clone https://github.com/R3BRootGroup/asyeos.git
 cd ..
 mkdir build
 cd build
