@@ -22,7 +22,7 @@ If applicable, add logs or screenshots to help explain your problem.
 **System information (please complete the following information):**
  - OS: [e.g. MacOS 12, Fedora 33, Ubuntu 20.04]
  - Compiler: [e.g. GCC 9.4, Clang 13]
- - Environment: [e.g. FairSoft version, FairRoot version, R3BRoot version]
+ - Environment: [e.g. FairSoft version, FairRoot version]
 
 **Additional context**
 Add any other context about the problem here.
