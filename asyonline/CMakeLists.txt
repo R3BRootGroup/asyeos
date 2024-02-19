@@ -1,42 +1,36 @@
-# Create a library called "libR3BasyData" which includes the source files given in
+# Create a library called "libR3BAsyOnline" which includes the source files given in
 # the array .
 # The extension is already found.  Any number of sources could be listed here.
 
 Set(SYSTEM_INCLUDE_DIRECTORIES ${SYSTEM_INCLUDE_DIRECTORIES} ${BASE_INCLUDE_DIRECTORIES} )
 
 set(INCLUDE_DIRECTORIES
+#put here all directories where header files are located
+${R3BROOT_SOURCE_DIR}/r3bbase
 ${R3BROOT_SOURCE_DIR}/r3bdata
-${R3BROOT_SOURCE_DIR}/r3bdata/califaData
-${R3BROOT_SOURCE_DIR}/r3bdata/neulandData
 ${R3BASY_SOURCE_DIR}/asydata
 ${R3BASY_SOURCE_DIR}/asydata/chimeraData
-${R3BASY_SOURCE_DIR}/asydata/krabData
+${R3BASY_SOURCE_DIR}/asyonline
 )
 
 include_directories( ${INCLUDE_DIRECTORIES})
 include_directories(SYSTEM ${SYSTEM_INCLUDE_DIRECTORIES})
 
-set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} )
+set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} ) 
 
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
-chimeraData/R3BAsyChimeraPoint.cxx
-chimeraData/R3BAsyChimeraHitData.cxx
-chimeraData/R3BAsyChimeraMappedData.cxx
-krabData/R3BAsyKrabPoint.cxx
-krabData/R3BAsyKrabHitData.cxx
+R3BAsyChimeraOnlineSpectra.cxx
 )
-
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
-SET(HEADERS ${HEADERS} ${R3BROOT_SOURCE_DIR}/r3bdata/R3BDetectorList.h)
 
-set(LINKDEF  R3BAsyDataLinkDef.h)
-set(LIBRARY_NAME R3BAsyData)
+set(LINKDEF AsyOnlineLinkDef.h)
+set(LIBRARY_NAME R3BAsyOnline)
 set(DEPENDENCIES
-    Base FairTools R3BData R3BBase Core m)
+    Spectrum Base FairTools R3BBase R3BData)
 
 GENERATE_LIBRARY()
