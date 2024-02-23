@@ -1,5 +1,7 @@
 # AsyEOS Software
 
+[![static analysis](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml) [![CI-CD](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml)
+
 ## The AsyEOS Framework
 AsyEOS folder inside R3BRoot describes the AsyEOS detectors which are going to be employed in the AsyEOS/R3B experiments.
 
