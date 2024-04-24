@@ -10,6 +10,9 @@
 #pragma link C++ class R3BAsyChimeraPoint+;
 #pragma link C++ class R3BAsyChimeraHitData+;
 #pragma link C++ class R3BAsyChimeraMappedData+;
+#pragma link C++ class R3BAsyChimeraArrayData+;
 #pragma link C++ class R3BAsyKrabPoint+;
 #pragma link C++ class R3BAsyKrabHitData+;
+#pragma link C++ class R3BAsyKrabMappedData+;
+#pragma link C++ class R3BAsyKrabArrayData+;
 #endif

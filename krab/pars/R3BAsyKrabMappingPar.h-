@@ -1,0 +1,110 @@
+// -------------------------------------------------------------------------
+// -----               R3BAsyKrabMappingPar header file                -----
+// -----    Created 19/04/24  by E. De Filippo and P. Russotto         -----
+// -------------------------------------------------------------------------
+
+/******************************************************************************
+ *   Copyright (C) 2019 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2019-2024 Members of R3B Collaboration                     *
+ *                                                                            *
+ *             This software is distributed under the terms of the            *
+ *                 GNU General Public Licence (GPL) version 3,                *
+ *                    copied verbatim in the file "LICENSE".                  *
+ *                                                                            *
+ * In applying this license GSI does not waive the privileges and immunities  *
+ * granted to it by virtue of its status as an Intergovernmental Organization *
+ * or submit itself to any jurisdiction.                                      *
+ ******************************************************************************/
+ 
+#pragma once
+
+#include <FairParGenericSet.h>
+#include <Rtypes.h>
+#include <stdint.h>
+
+#include <vector>
+
+#define triggerbox_number_of_boards 6
+#define triggerbox_number_of_FPGA_per_board 5
+#define num_channels 26
+
+class FairParamList;
+
+class R3BAsyKrabMappingPar : public FairParGenericSet {
+ public:
+  /** Standard constructor **/
+  R3BAsyKrabMappingPar(const char* name = "KrabMappingPar",
+                       const char* title = "KRAB Mapping Parameters",
+                       const char* context = "KrabMappingParContext",
+                       const char* NameInFile = "TBOX-Krab ");
+
+  /** Destructor **/
+  virtual ~R3BAsyKrabMappingPar();
+
+  /** Method to reset all parameters **/
+  virtual void clear();
+
+  /** Method to store all parameters using FairRuntimeDB **/
+  virtual void putParams(FairParamList* list);
+
+  /** Method to retrieve all parameters using FairRuntimeDB**/
+  Bool_t getParams(FairParamList* list);
+
+  /** Method to print values of parameters to the standard output **/
+  virtual void print();
+  void printParams();
+
+  /** Accessor functions **/
+  Int_t GetGeoVersion() const { return fGeoVersion; }
+  Int_t Getxtbox(Int_t detid) { return (Int_t)fxtbox[detid]; }
+  Int_t Getxtboxang(Int_t detid) { return (Int_t)fxtboxang[detid]; }
+  Int_t Getxtboxring(Int_t detid) { return (Int_t)fxtboxring[detid]; }
+  Int_t Getxtboxringch(Int_t detid) { return (Int_t)fxtboxringch[detid]; }
+
+  void SetGeoVersion(Int_t v) { fGeoVersion = v; }
+
+ private:
+  Int_t fxring[triggerbox_number_of_boards][triggerbox_number_of_FPGA_per_board]
+              [num_channels];
+  Int_t fxringch[triggerbox_number_of_boards]
+                [triggerbox_number_of_FPGA_per_board][num_channels];
+  Float_t fxringang[triggerbox_number_of_boards]
+                   [triggerbox_number_of_FPGA_per_board][num_channels];
+
+  Int_t fxtboxring[triggerbox_number_of_boards *
+                   triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxch[triggerbox_number_of_boards *
+                 triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtbox[triggerbox_number_of_boards *
+               triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxringch[triggerbox_number_of_boards *
+                     triggerbox_number_of_FPGA_per_board * num_channels];
+  Float_t fxtboxang[triggerbox_number_of_boards *
+                    triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxboard[triggerbox_number_of_boards *
+                    triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxinp[triggerbox_number_of_boards *
+                  triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxfpga[triggerbox_number_of_boards *
+                   triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxfpgach[triggerbox_number_of_boards *
+                     triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxcrock[triggerbox_number_of_boards *
+                    triggerbox_number_of_FPGA_per_board * num_channels];
+  Int_t fxtboxcrockch[triggerbox_number_of_boards *
+                      triggerbox_number_of_FPGA_per_board * num_channels];
+
+  const char* fNameInFile;
+  Int_t fGeoVersion;
+
+  /** Method to fill all parameters using FairRuntimeDB **/
+  Bool_t fillParams(const Text_t* name, Int_t* values, FairParamList* list,
+                    const Int_t nValues = 1);
+
+  const R3BAsyKrabMappingPar& operator=(
+      const R3BAsyKrabMappingPar&); /*< an assignment operator>*/
+  R3BAsyKrabMappingPar(const R3BAsyKrabMappingPar&); /*< a copy constructor >*/
+
+ public:
+  ClassDef(R3BAsyKrabMappingPar, 1);
+};

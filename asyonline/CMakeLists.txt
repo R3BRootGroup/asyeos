@@ -10,6 +10,7 @@ ${R3BROOT_SOURCE_DIR}/r3bbase
 ${R3BROOT_SOURCE_DIR}/r3bdata
 ${R3BASY_SOURCE_DIR}/asydata
 ${R3BASY_SOURCE_DIR}/asydata/chimeraData
+${R3BASY_SOURCE_DIR}/asydata/krabData
 ${R3BASY_SOURCE_DIR}/asyonline
 )
 
@@ -28,7 +29,7 @@ R3BAsyChimeraOnlineSpectra.cxx
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-set(LINKDEF AsyOnlineLinkDef.h)
+set(LINKDEF R3BAsyOnlineLinkDef.h)
 set(LIBRARY_NAME R3BAsyOnline)
 set(DEPENDENCIES
     Spectrum Base FairTools R3BBase R3BData)

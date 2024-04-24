@@ -14,6 +14,7 @@ ${R3BASY_SOURCE_DIR}/asydata/krabData
 ${R3BASY_SOURCE_DIR}/krab
 ${R3BASY_SOURCE_DIR}/krab/sim
 ${R3BASY_SOURCE_DIR}/krab/pars
+${R3BASY_SOURCE_DIR}/krab/ana
 )
 
 include_directories( ${INCLUDE_DIRECTORIES})
@@ -23,15 +24,17 @@ set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} )
 
 link_directories( ${LINK_DIRECTORIES})
 
-file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx )
-
+file(GLOB SRCS 
+./sim/*.cxx  
+./pars/*.cxx 
+./ana/*.cxx )
 
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-set(LINKDEF AsyKrabLinkDef.h)
+set(LINKDEF R3BAsyKrabLinkDef.h)
 set(LIBRARY_NAME R3BAsyKrab)
 set(DEPENDENCIES
     Base R3BBase R3BData R3BAsyData)

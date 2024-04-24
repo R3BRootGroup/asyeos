@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CLANG_FORMAT_BIN="clang-format-15"
+CLANG_FORMAT_BIN="clang-format-13"
 
 FILES=$(find . -type f \( -iname "*.h" ! -iname "*.pb.h" ! -iname "*LinkDef.h" ! -iname "ext_h101_*.h" -o -iname "*.hpp" -o -iname "*.cxx" -o -iname "*.cpp" -o -iname "*.tpl" -o -iname "*.c" -o -iname "*.C" \) -not \( -path "./macros/*" -prune \))
 

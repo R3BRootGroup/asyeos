@@ -14,6 +14,7 @@ ${R3BASY_SOURCE_DIR}/asydata/chimeraData
 ${R3BASY_SOURCE_DIR}/chimera
 ${R3BASY_SOURCE_DIR}/chimera/sim
 ${R3BASY_SOURCE_DIR}/chimera/pars
+${R3BASY_SOURCE_DIR}/chimera/ana
 )
 
 include_directories( ${INCLUDE_DIRECTORIES})
@@ -23,7 +24,7 @@ set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} )
 
 link_directories( ${LINK_DIRECTORIES})
 
-file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx )
+file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx ./ana/*.cxx)
 
 #set(SRCS
 ##Put here your sourcefiles
@@ -40,7 +41,7 @@ file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx )
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-set(LINKDEF AsyChimLinkDef.h)
+set(LINKDEF R3BAsyChimLinkDef.h)
 set(LIBRARY_NAME R3BAsyChim)
 set(DEPENDENCIES
     Base R3BBase R3BData R3BAsyData)

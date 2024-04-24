@@ -1,7 +1,7 @@
-// -------------------------------------------------------------------------
-// -----               R3BAsyChimeraMappedData header file             -----
-// -----    Created 19/04/24  by E. De Filippo and P. Russotto         -----
-// -------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// -----              R3BAsyKrabMappedData header file                 ------
+// -----    Created 19/04/24  by E. De Filippo and P. Russotto         ------
+// --------------------------------------------------------------------------
 
 /******************************************************************************
  *   Copyright (C) 2019 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
@@ -16,31 +16,31 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BASYCHIMERAMAPPEDITEM_H
-#define R3BASYCHIMERAMAPPEDITEM_H
+#ifndef R3BASYKRABMAPPEDITEM_H
+#define R3BASYKRABMAPPEDITEM_H
 
 #include "TObject.h"
 
-class R3BAsyChimeraMappedData : public TObject {
+class R3BAsyKrabMappedData : public TObject {
  public:
-  R3BAsyChimeraMappedData();
-  R3BAsyChimeraMappedData(UInt_t, UInt_t, UInt_t, UInt_t, UInt_t);
+  R3BAsyKrabMappedData();
+  R3BAsyKrabMappedData(UInt_t, UInt_t, Float_t, Float_t, Float_t);
 
-  UInt_t GetDetectorId() const;
-  UInt_t GetSideId() const;
-  UInt_t GetStripId() const;
-  UInt_t GetEnergy() const;
-  UInt_t GetTime() const;
+  UInt_t GetRing() const;
+  UInt_t GetSector() const;
+  Float_t GetPhi() const;
+  Float_t Getqx() const;
+  Float_t Getqy() const;
 
  private:
-  UInt_t fDetector;  // 1..n
-  UInt_t fSide;      // 1 = front, 2 = back
-  UInt_t fStrip;     // 0..31
-  UInt_t fEnergy;
-  UInt_t fTime;
+  UInt_t fRing;
+  UInt_t fSector;
+  Float_t fPhi;
+  Float_t fqx;
+  Float_t fqy;
 
  public:
-  ClassDef(R3BAsyChimeraMappedData, 1)
+  ClassDef(R3BAsyKrabMappedData, 1)
 };
 
 #endif

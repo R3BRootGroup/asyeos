@@ -6,8 +6,9 @@
 
 #pragma link C++ class R3BAsyKrab + ;
 #pragma link C++ class R3BAsyKrabContFact + ;
-//#pragma link C++ class R3BAsyChimeraDigi+ ;
 #pragma link C++ class R3BAsyKrabCalPar + ;
 #pragma link C++ class R3BAsyKrabHitPar + ;
+#pragma link C++ class R3BAsyKrabMappingPar + ;
+#pragma link C++ class R3BAsyKrabDoArray + ;
 
 #endif

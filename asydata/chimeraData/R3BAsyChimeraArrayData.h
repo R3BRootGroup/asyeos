@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------
-// -----               R3BAsyChimeraMappedData header file             -----
+// -----              R3BAsyChimeraArrayData header file               -----
 // -----    Created 19/04/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
@@ -16,31 +16,40 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BASYCHIMERAMAPPEDITEM_H
-#define R3BASYCHIMERAMAPPEDITEM_H
+#ifndef R3BASYCHIMERAARRAYITEM_H
+#define R3BASYCHIMERAARRAYITEM_H
 
 #include "TObject.h"
+const int dmaxx = 128;
 
-class R3BAsyChimeraMappedData : public TObject {
+class R3BAsyChimeraArrayData : public TObject {
  public:
-  R3BAsyChimeraMappedData();
-  R3BAsyChimeraMappedData(UInt_t, UInt_t, UInt_t, UInt_t, UInt_t);
+  R3BAsyChimeraArrayData();
+  R3BAsyChimeraArrayData(UInt_t, UInt_t *, UInt_t *, UInt_t *, UInt_t *,
+                         UInt_t *, UInt_t, UInt_t);
+  virtual ~R3BAsyChimeraArrayData() {}
 
-  UInt_t GetDetectorId() const;
-  UInt_t GetSideId() const;
-  UInt_t GetStripId() const;
-  UInt_t GetEnergy() const;
-  UInt_t GetTime() const;
+  UInt_t GetMulti() const;
+  UInt_t GetDetectorId(int) const;
+  UInt_t GetSideId(int) const;
+  UInt_t GetStripId(int) const;
+  UInt_t GetEnergy(int) const;
+  UInt_t GetTime(int) const;
+  UInt_t GetMultiE12() const;
+  UInt_t GetMultiEFB1() const;
 
  private:
-  UInt_t fDetector;  // 1..n
-  UInt_t fSide;      // 1 = front, 2 = back
-  UInt_t fStrip;     // 0..31
-  UInt_t fEnergy;
-  UInt_t fTime;
+  UInt_t fMulti;
+  UInt_t *fDet;        //[fMulti]
+  UInt_t *fSide;       //[fMulti]
+  UInt_t *fStrip;      //[fMulti]
+  UInt_t *fRawEnergy;  //[fMulti]
+  UInt_t *fRawTime;    //[fMulti]
+  UInt_t fMultiE12;
+  UInt_t fMultiEFB1;
 
  public:
-  ClassDef(R3BAsyChimeraMappedData, 1)
+  ClassDef(R3BAsyChimeraArrayData, 1)
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 #pragma link C++ class R3BAsyChimera+ ;
 #pragma link C++ class R3BAsyChimeraContFact+ ;
-//#pragma link C++ class R3BAsyChimeraDigi+ ;
+#pragma link C++ class R3BAsyChimeraDoArray+ ;
 #pragma link C++ class R3BAsyChimeraCalPar+;
 #pragma link C++ class R3BAsyChimeraHitPar+;
 

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
 //								    ------
-//  Factory for the parameter containers in libR3BAsyKrab        ------
+//  Factory for the parameter containers in libR3BAsyKrab           ------
 //        created 24/10/2023 by E. De Filippo and P. Russotto	    ------
 // -----------------------------------------------------------------------
 
