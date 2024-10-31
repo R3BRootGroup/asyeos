@@ -1,11 +1,6 @@
-// ------------------------------------------------------------
-// -----              R3BAsyChimeraOnlineSpectra             -----
-// -----           Fill SOFIA online histograms           -----
-// ------------------------------------------------------------
-
-/*
- * This task should fill histograms with SOFIA online data
- */
+// --------------------------------------------------------------------------
+// -----            R3BAsyChimeraOnlineSpectra source file             ------
+// --------------------------------------------------------------------------
 
 #include "R3BAsyChimeraOnlineSpectra.h"
 
@@ -65,14 +60,14 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init() {
   if (verbose) LOG(info) << "R3BAsyChimeraOnlineSpectra::Init line 72";
 
   FairRunOnline* run = FairRunOnline::Instance();
-  run->GetHttpServer()->Register("", this);
+  // for online server  run->GetHttpServer()->Register("", this);
 
   // Register command to reset histograms
-  // run->GetHttpServer()->RegisterCommand("Reset_Chimera",
+  // for online server  run->GetHttpServer()->RegisterCommand("Reset_Chimera",
   // Form("/Objects/%s/->Reset_Histo()", GetName()));
 
   // --- ------------------------------------- --- //
-  // --- get access to mapped data of the TofW --- //
+  // --- get access to mapped data of CHIMERA --- //
   // --- ------------------------------------- --- //
   if (verbose) LOG(info) << "R3BAsyChimeraOnlineSpectra::Init line 80";
 
@@ -90,60 +85,93 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init() {
   char Name2[255];
   char Name3[255];
 
-  // Chimera/Farcos main folder
-  TFolder* mainfol = new TFolder("Chimera", "Si Strips");
-  TFolder* mapfol = new TFolder("Map", "Map Si Strips");
-  mainfol->Add(mapfol);
+  c_CHIMERA_numtel =
+      new TCanvas("c_CHIMERA_numtel", "CHIMERA_numtel", 0, 0, 1200, 1200);
+  fh1_CHIMERA_numtel =
+      new TH1I("fh1_CHIMERA_numtel", "CHIMERA_numtel", 400, -0.5, 399.5);
+  fh1_CHIMERA_numtel_wtime = new TH1I("fh1_CHIMERA_numtel_wtime",
+                                      "CHIMERA_numtel_wtime", 400, -0.5, 399.5);
 
-  c_1_rawEnergy_front =
-      new TCanvas("c_1_rawEnergy_front", "1_rawEnergy_front", 0, 0, 2400, 1200);
-  c_1_rawEnergy_front->Divide(8, 4);
-  c_1_rawTime_front =
-      new TCanvas("c_1_rawTime_front", "1_rawTime_front", 0, 0, 2400, 1200);
-  c_1_rawTime_front->Divide(8, 4);
-  c_1_rawEnergy_vs_rawTime_front =
-      new TCanvas("c_1_rawEnergy_vs_rawTime_front",
-                  "1_rawEnergy_vs_rawTime_front", 0, 0, 2400, 1200);
-  c_1_rawEnergy_vs_rawTime_front->Divide(8, 4);
+  c_CHIMERA_multi =
+      new TCanvas("c_CHIMERA_multi", "CHIMERA_multi", 0, 0, 1200, 1200);
+  fh1_CHIMERA_rawmulti =
+      new TH1I("fh1_CHIMERA_rawmulti", "CHIMERA_rawmulti", 100, -0.5, 99.5);
+  fh1_CHIMERA_timemulti =
+      new TH1I("fh1_CHIMERA_timemulti", "CHIMERA_timemulti", 100, -0.5, 99.5);
+  fh1_CHIMERA_multi_fast =
+      new TH1I("fh1_CHIMERA_multi_fast", "CHIMERA_multi_fast", 100, -0.5, 99.5);
+  fh1_CHIMERA_multi_slow =
+      new TH1I("fh1_CHIMERA_multi_slow", "CHIMERA_multi_slow", 100, -0.5, 99.5);
+  fh1_CHIMERA_multi_sil =
+      new TH1I("fh1_CHIMERA_multi_sil", "CHIMERA_multi_sil", 100, -0.5, 99.5);
 
-  c_1_multi_front =
-      new TCanvas("c_1_multi_front", "1_multi_front", 0, 0, 800, 800);
-  c_1_multi_front->Divide(2, 2);
-  mapfol->Add(c_1_multi_front);
+  c_CHIMERA_fast =
+      new TCanvas("c_CHIMERA_fast", "CHIMERA_fast", 0, 0, 1200, 1200);
+  fh2_CHIMERA_numtel_fastLG =
+      new TH2I("fh2_CHIMERA_numtel_fastLG", "CHIMERA_numtel_fastLG", 400, -0.5,
+               399.5, 500, 0, 4000);
+  fh2_CHIMERA_numtel_fastHG =
+      new TH2I("fh2_CHIMERA_numtel_fastHG", "CHIMERA_numtel_fastHG", 400, -0.5,
+               399.5, 500, 0, 4000);
+
+  c_CHIMERA_slow =
+      new TCanvas("c_CHIMERA_slow", "CHIMERA_slow", 0, 0, 1200, 1200);
+  fh2_CHIMERA_numtel_slowLG =
+      new TH2I("fh2_CHIMERA_numtel_slowLG", "CHIMERA_numtel_slowLG", 400, -0.5,
+               399.5, 500, 0, 4000);
+  fh2_CHIMERA_numtel_slowHG =
+      new TH2I("fh2_CHIMERA_numtel_slowHG", "CHIMERA_numtel_slowHG", 400, -0.5,
+               399.5, 500, 0, 4000);
+
+  c_CHIMERA_patt =
+      new TCanvas("c_CHIMERA_patt", "CHIMERA_patt", 0, 0, 2400, 1200);
+  c_CHIMERA_patt->Divide(8, 4);
 
   int nch = 500;
   int xymin = -0.5;
   int xymax = 4199.5;
 
-  for (Int_t j = 0; j < Nstrips; j++) {
-    sprintf(Name1, "AsyChimera_1_rawEnergy_front_%i", j);
-    fh1_1_rawEnergy_front[j] = new TH1I(Name1, Name1, nch, xymin, xymax);
-    fh1_1_rawEnergy_front[j]->GetXaxis()->SetTitle("raw Energy (ch)");
-    fh1_1_rawEnergy_front[j]->GetYaxis()->SetTitle("Yield");
-    c_1_rawEnergy_front->cd(j + 1);
-    fh1_1_rawEnergy_front[j]->Draw();
-
-    sprintf(Name2, "AsyChimera_1_rawTime_front_%i", j);
-    fh1_1_rawTime_front[j] = new TH1I(Name2, Name2, nch, xymin, xymax);
-    fh1_1_rawTime_front[j]->GetXaxis()->SetTitle("raw Time (ch)");
-    fh1_1_rawTime_front[j]->GetYaxis()->SetTitle("Yield");
-    c_1_rawTime_front->cd(j + 1);
-    fh1_1_rawTime_front[j]->Draw();
-
-    sprintf(Name3, "AsyChimera_1_rawEnergy_vs_rawTime_front_%i", j);
-    fh2_1_rawEnergy_vs_rawTime_front[j] =
-        new TH2F(Name3, Name3, nch, xymin, xymax, nch, xymin, xymax);
-    fh2_1_rawEnergy_vs_rawTime_front[j]->GetXaxis()->SetTitle("raw Time (ch)");
-    fh2_1_rawEnergy_vs_rawTime_front[j]->GetYaxis()->SetTitle(
-        "raw Energy (ch)");
-    c_1_rawEnergy_vs_rawTime_front->cd(j + 1);
-    fh2_1_rawEnergy_vs_rawTime_front[j]->Draw("Zcol");
+  for (Int_t j = 0; j < 32; j++) {
+    sprintf(Name1, "AsyChimera_patt_%i", j);
+    fh1_CHIMERA_patt[j] = new TH1I(Name1, Name1, nch, xymin, xymax);
+    fh1_CHIMERA_patt[j]->GetXaxis()->SetTitle("patt (ch)");
+    fh1_CHIMERA_patt[j]->GetYaxis()->SetTitle("Yield");
+    c_CHIMERA_patt->cd(j + 1);
+    fh1_CHIMERA_patt[j]->Draw();
   }
+  // Chimera main folder
+  TFolder* mainfol = new TFolder("Chimera", "raw data");
+  mainfol->Add(mainfol);
+  c_CHIMERA_numtel->cd();
+  fh1_CHIMERA_numtel->Draw();
+  fh1_CHIMERA_numtel->SetLineColor(1);
+  fh1_CHIMERA_numtel_wtime->Draw("same");
+  fh1_CHIMERA_numtel_wtime->SetLineColor(2);
 
-  fh1_1_multi_front = new TH1I("AsyChimera_1_multi_front",
-                               "AsyChimera_1_multi_front", 32, -0.5, 31.5);
-  c_1_multi_front->cd(1);
-  fh1_1_multi_front->Draw();
+  c_CHIMERA_multi->Divide(2, 2);
+  c_CHIMERA_multi->cd(1);
+  fh1_CHIMERA_rawmulti->Draw();
+  fh1_CHIMERA_rawmulti->SetLineColor(1);
+  fh1_CHIMERA_timemulti->Draw("same");
+  fh1_CHIMERA_timemulti->SetLineColor(2);
+  c_CHIMERA_multi->cd(2);
+  fh1_CHIMERA_multi_fast->Draw();
+  c_CHIMERA_multi->cd(3);
+  fh1_CHIMERA_multi_slow->Draw();
+  c_CHIMERA_multi->cd(4);
+  fh1_CHIMERA_multi_sil->Draw();
+
+  c_CHIMERA_fast->Divide(1, 2);
+  c_CHIMERA_fast->cd(1);
+  fh2_CHIMERA_numtel_fastHG->Draw("zcol");
+  c_CHIMERA_fast->cd(2);
+  fh2_CHIMERA_numtel_fastLG->Draw("zcol");
+
+  c_CHIMERA_slow->Divide(1, 2);
+  c_CHIMERA_slow->cd(1);
+  fh2_CHIMERA_numtel_slowHG->Draw("zcol");
+  c_CHIMERA_slow->cd(2);
+  fh2_CHIMERA_numtel_slowLG->Draw("zcol");
 
   run->AddObject(mainfol);
   LOG(info) << "R3BAsyChimeraOnlineSpectra::Init DONE";
@@ -153,13 +181,22 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init() {
 void R3BAsyChimeraOnlineSpectra::Reset_Histo() {
   LOG(info) << "R3BAsyChimeraOnlineSpectra::Reset_Histo";
   // reset mapped data (for defined spectra)
-  for (Int_t i = 0; i < Nstrips; i++) {
-    fh1_1_rawEnergy_front[i]->Reset();
-    fh1_1_rawTime_front[i]->Reset();
-    fh2_1_rawEnergy_vs_rawTime_front[i]->Reset();
+
+  for (Int_t i = 0; i < 32; i++) {
+    fh1_CHIMERA_patt[i]->Reset();
   }
-  // Multiplicity reset
-  fh1_1_multi_front->Reset();
+
+  fh1_CHIMERA_numtel->Reset();
+  fh1_CHIMERA_numtel_wtime->Reset();
+  fh1_CHIMERA_rawmulti->Reset();
+  fh1_CHIMERA_timemulti->Reset();
+  fh1_CHIMERA_multi_fast->Reset();
+  fh1_CHIMERA_multi_slow->Reset();
+  fh1_CHIMERA_multi_sil->Reset();
+  fh2_CHIMERA_numtel_fastLG->Reset();
+  fh2_CHIMERA_numtel_fastHG->Reset();
+  fh2_CHIMERA_numtel_slowLG->Reset();
+  fh2_CHIMERA_numtel_slowHG->Reset();
 }
 
 void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option) {
@@ -168,12 +205,10 @@ void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option) {
     LOG(fatal) << "R3BAsyChimeraOnlineSpectra::Exec FairRootManager not found";
 
   Int_t nHits;
-  UShort_t iDet;
-  UShort_t iSide;
-  UShort_t iCh;
-  UShort_t rawEnergy;
-  UShort_t rawTime;
-  UShort_t multi_front_1 = 0;
+  UShort_t rawmulti = 0, timemulti = 0, multi_fast = 0, multi_slow = 0,
+           multi_sil = 0;
+  UShort_t iNumTel, iFastHG, iFastLG, iSlowHG, iSlowLG, iTimeCsI, iSilHG,
+      iSilLG, iTimeSil, iPatt;
 
   if (fMappedItemsChimera && fMappedItemsChimera->GetEntriesFast()) {
     // --- --------------------- --- //
@@ -184,23 +219,41 @@ void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option) {
       R3BAsyChimeraMappedData* hitmapped =
           (R3BAsyChimeraMappedData*)fMappedItemsChimera->At(ihit);
       if (!hitmapped) continue;
-      iDet = hitmapped->GetDetectorId();
-      iSide = hitmapped->GetSideId();
-      iCh = hitmapped->GetStripId();
-      rawEnergy = hitmapped->GetEnergy();
-      rawTime = hitmapped->GetTime();
-      // std::cout << iDet << " " << iSide << " " << iCh << std::endl;
-      if (iDet == 1 && iSide == 1 && iCh < Nstrips) {
-        if (rawEnergy > 0) fh1_1_rawEnergy_front[iCh]->Fill(rawEnergy);
-        if (rawTime > 0) fh1_1_rawTime_front[iCh]->Fill(rawTime);
-        if (rawEnergy > 0 && rawTime > 0) {
-          fh2_1_rawEnergy_vs_rawTime_front[iCh]->Fill(rawTime, rawEnergy);
-          multi_front_1++;
-        }
+      iNumTel = hitmapped->GetNumTel();
+      fh1_CHIMERA_numtel->Fill(iNumTel);
+      iFastHG = hitmapped->GetFastHG();
+      iFastLG = hitmapped->GetFastLG();
+      iSlowHG = hitmapped->GetSlowHG();
+      iSlowLG = hitmapped->GetSlowLG();
+      iTimeCsI = hitmapped->GetTimeCsI();
+      iSilHG = hitmapped->GetSilHG();
+      iSilLG = hitmapped->GetSilLG();
+      iTimeSil = hitmapped->GetTimeSil();
+      iPatt = hitmapped->GetPatt();
+      rawmulti++;
+      if (iTimeSil > 0 || iTimeCsI > 0) {
+        timemulti++;
+        fh1_CHIMERA_numtel_wtime->Fill(iNumTel);
+      }
+      if ((iFastHG > 0 || iFastLG > 0) && iTimeCsI > 0) multi_fast++;
+      if ((iSlowHG > 0 || iSlowLG > 0) && iTimeCsI > 0) multi_slow++;
+      if ((iSilHG > 0 || iSilLG > 0) && iTimeSil > 0) multi_sil++;
+      if (iFastLG) fh2_CHIMERA_numtel_fastLG->Fill(iNumTel, iFastLG);
+      if (iFastHG) fh2_CHIMERA_numtel_fastHG->Fill(iNumTel, iFastHG);
+      if (iSlowLG) fh2_CHIMERA_numtel_slowLG->Fill(iNumTel, iSlowLG);
+      if (iSlowHG) fh2_CHIMERA_numtel_slowHG->Fill(iNumTel, iSlowHG);
+
+      if (iNumTel >= 0 && iNumTel <= 31) {
+        if (iPatt > 0) fh1_CHIMERA_patt[iNumTel]->Fill(iPatt);
       }
     }
   }
-  fh1_1_multi_front->Fill(multi_front_1);
+
+  fh1_CHIMERA_rawmulti->Fill(rawmulti);
+  fh1_CHIMERA_timemulti->Fill(timemulti);
+  fh1_CHIMERA_multi_fast->Fill(multi_fast);
+  fh1_CHIMERA_multi_slow->Fill(multi_slow);
+  fh1_CHIMERA_multi_sil->Fill(multi_sil);
 
   fNEvents += 1;
 }
@@ -212,15 +265,18 @@ void R3BAsyChimeraOnlineSpectra::FinishEvent() {
 }
 
 void R3BAsyChimeraOnlineSpectra::FinishTask() {
-  LOG(info) << "Double click (somewhere) into c_1_rawEnergy_vs_rawTime_front "
-               "canvas to terminate....";
-  c_1_rawEnergy_vs_rawTime_front->WaitPrimitive();
-
   if (fMappedItemsChimera) {
-    c_1_rawEnergy_front->Write();
-    c_1_rawTime_front->Write();
-    c_1_rawEnergy_vs_rawTime_front->Write();
-    c_1_multi_front->Write();
+    c_CHIMERA_numtel->Update();
+    c_CHIMERA_multi->Update();
+    c_CHIMERA_fast->Update();
+    c_CHIMERA_slow->Update();
+    c_CHIMERA_patt->Update();
+
+    c_CHIMERA_numtel->Write();
+    c_CHIMERA_multi->Write();
+    c_CHIMERA_fast->Write();
+    c_CHIMERA_slow->Write();
+    c_CHIMERA_patt->Write();
   }
 }
 ClassImp(R3BAsyChimeraOnlineSpectra)

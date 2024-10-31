@@ -1,7 +1,6 @@
-
 // -------------------------------------------------------------------------
-// -----            R3BAsyChimeraOnlineSpectra header file             -----
-// -----    Created 15/10/24  by E. De Filippo and P. Russotto         -----
+// -----            R3BAsyChimeraDoArray header file                   -----
+// -----    Created 19/04/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
 /******************************************************************************
@@ -17,8 +16,8 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BAsyChimeraOnlineSpectra_H
-#define R3BAsyChimeraOnlineSpectra_H
+#ifndef R3BAsyChimeraDoArray_H
+#define R3BAsyChimeraDoArray_H
 
 #include <R3BShared.h>
 
@@ -29,10 +28,17 @@
 #include <sstream>
 
 #include "FairTask.h"
+#include "R3BAsyChimeraArrayData.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
 #include "TMath.h"
+
+// to be fixed
+#define Nstrips 32
+#define NbChs 2
+const int dmax = 128;
+const int dmaxs = 32;
 
 class TClonesArray;
 class R3BEventHeader;
@@ -40,13 +46,13 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyChimeraOnlineSpectra : public FairTask {
+class R3BAsyChimeraDoArray : public FairTask {
  public:
   /**
    * Default constructor.
    * Creates an instance of the task with default parameters.
    */
-  R3BAsyChimeraOnlineSpectra();
+  R3BAsyChimeraDoArray();
 
   /**
    * Standard constructor.
@@ -54,13 +60,13 @@ class R3BAsyChimeraOnlineSpectra : public FairTask {
    * @param name a name of the task.
    * @param iVerbose a verbosity level.
    */
-  R3BAsyChimeraOnlineSpectra(const char* name, Int_t iVerbose = 1);
+  R3BAsyChimeraDoArray(const char* name, Int_t iVerbose = 1);
 
   /**
    * Destructor.
    * Frees the memory used by the object.
    */
-  virtual ~R3BAsyChimeraOnlineSpectra();
+  virtual ~R3BAsyChimeraDoArray();
 
   /**
    * Method for task initialization.
@@ -77,55 +83,54 @@ class R3BAsyChimeraOnlineSpectra : public FairTask {
    */
   virtual void Exec(Option_t* option);
 
-  /**
-   * A method for finish of processing of an event.
-   * Is called by the framework for each event after executing
-   * the tasks.
-   */
-  virtual void FinishEvent();
-
-  /**
-   * Method for finish of the task execution.
-   * Is called by the framework after processing the event loop.
-   */
-  virtual void FinishTask();
-
-  /**
-   * Methods to clean histograms.
-   */
-  virtual void Reset_Histo();
+  // Reset
+  virtual void Reset();
 
  private:
   TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
-
+  TClonesArray* fChimeraArrayData;
   // check for trigger should be done globablly (somewhere else)
   R3BEventHeader* header; /**< Event header.      */
   Int_t fNEvents;         /**< Event counter.     */
+  bool fOnline = false;
 
-  TCanvas* c_CHIMERA_numtel;
-  TH1I* fh1_CHIMERA_numtel;
-  TH1I* fh1_CHIMERA_numtel_wtime;
+  UInt_t iMulti;
+  UInt_t* iDet;        //[iMulti]
+  UInt_t* iSide;       //[iMulti]
+  UInt_t* iStrip;      //[iMulti]
+  UInt_t* iRawEnergy;  //[iMulti]
+  UInt_t* iRawTime;    //[iMulti]
 
-  TCanvas* c_CHIMERA_multi;
-  TH1I* fh1_CHIMERA_rawmulti;
-  TH1I* fh1_CHIMERA_timemulti;
-  TH1I* fh1_CHIMERA_multi_fast;
-  TH1I* fh1_CHIMERA_multi_slow;
-  TH1I* fh1_CHIMERA_multi_sil;
+  UInt_t nn;
 
-  TCanvas* c_CHIMERA_fast;
-  TH2I* fh2_CHIMERA_numtel_fastLG;
-  TH2I* fh2_CHIMERA_numtel_fastHG;
+  int E1F[dmaxs];
+  int T1F[dmaxs];
 
-  TCanvas* c_CHIMERA_slow;
-  TH2I* fh2_CHIMERA_numtel_slowLG;
-  TH2I* fh2_CHIMERA_numtel_slowHG;
+  int E1B[dmaxs];
+  int T1B[dmaxs];
 
-  TCanvas* c_CHIMERA_patt;
-  TH1I* fh1_CHIMERA_patt[32];
+  int E2F[dmaxs];
+  int T2F[dmaxs];
+
+  int E3F[dmaxs];
+  int T3F[dmaxs];
+
+  bool uE1F[dmaxs];
+  bool uT1F[dmaxs];
+
+  bool uE1B[dmaxs];
+  bool uT1B[dmaxs];
+
+  bool uE2F[dmaxs];
+  bool uT2F[dmaxs];
+
+  R3BAsyChimeraArrayData* AddHitData(UInt_t multi, UInt_t* Det, UInt_t* Side,
+                                     UInt_t* Strip, UInt_t* RawEnergy,
+                                     UInt_t* RawTime, UInt_t multiE12,
+                                     UInt_t multEFB1);
 
  public:
-  ClassDef(R3BAsyChimeraOnlineSpectra, 1)
+  ClassDef(R3BAsyChimeraDoArray, 1)
 };
 
 #endif

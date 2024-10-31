@@ -14,6 +14,7 @@ ${R3BASY_SOURCE_DIR}/asydata/chimeraData
 ${R3BASY_SOURCE_DIR}/chimera
 ${R3BASY_SOURCE_DIR}/chimera/sim
 ${R3BASY_SOURCE_DIR}/chimera/pars
+${R3BASY_SOURCE_DIR}/chimera/ana
 )
 
 include_directories( ${INCLUDE_DIRECTORIES})
@@ -23,24 +24,24 @@ set(LINK_DIRECTORIES ${ROOT_LIBRARY_DIR} ${FAIRROOT_LIBRARY_DIR} )
 
 link_directories( ${LINK_DIRECTORIES})
 
-file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx )
+file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx ./ana/*.cxx)
 
-#set(SRCS
+set(SRCS
 ##Put here your sourcefiles
-#R3BAsyChimera.cxx
-#R3BAsyChimeraContFact.cxx
-##R3BAsyChimeraTreat.cxx
-#R3BAsyChimeraDigi.cxx
-#R3BAsyChimeraCalPar.cxx
-#R3BAsyChimeraHitPar.cxx
-#)
+sim/R3BAsyChimera.cxx
+pars/R3BAsyChimeraCalPar.cxx
+pars/R3BAsyChimeraContFact.cxx
+pars/R3BAsyChimeraHitPar.cxx
+ana/R3BAsyChimeraDoArray.cxx
+ana/R3BAsyChimeraPhys.cxx
+)
 
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-set(LINKDEF AsyChimLinkDef.h)
+set(LINKDEF R3BAsyChimLinkDef.h)
 set(LIBRARY_NAME R3BAsyChim)
 set(DEPENDENCIES
     Base R3BBase R3BData R3BAsyData)

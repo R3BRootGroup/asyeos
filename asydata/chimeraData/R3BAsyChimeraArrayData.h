@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------
-// -----               R3BAsyChimeraMappedData header file             -----
+// -----              R3BAsyChimeraArrayData header file               -----
 // -----    Created 11/10/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
@@ -16,42 +16,49 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BASYCHIMERAMAPPEDITEM_H
-#define R3BASYCHIMERAMAPPEDITEM_H
+#ifndef R3BASYCHIMERAARRAYITEM_H
+#define R3BASYCHIMERAARRAYITEM_H
 
 #include "TObject.h"
+const int dmaxx = 512;
 
-class R3BAsyChimeraMappedData : public TObject {
+class R3BAsyChimeraArrayData : public TObject {
  public:
-  R3BAsyChimeraMappedData();
-  R3BAsyChimeraMappedData(UInt_t, UInt_t, UInt_t, UInt_t, UInt_t, UInt_t,
-                          UInt_t, UInt_t, UInt_t, UInt_t);
+  R3BAsyChimeraArrayData();
+  R3BAsyChimeraArrayData(UInt_t, UInt_t *, UInt_t *, UInt_t *, UInt_t *,
+                         UInt_t *, UInt_t *, UInt_t *, UInt_t *, UInt_t *,
+                         UInt_t, UInt_t);
+  virtual ~R3BAsyChimeraArrayData() {}
 
-  UInt_t GetNumTel() const;
-  UInt_t GetFastHG() const;
-  UInt_t GetFastLG() const;
-  UInt_t GetSlowHG() const;
-  UInt_t GetSlowLG() const;
-  UInt_t GetTimeCsI() const;
-  UInt_t GetSilHG() const;
-  UInt_t GetSilLG() const;
-  UInt_t GetTimeSil() const;
-  UInt_t GetPatt() const;
+  UInt_t GetMulti() const;
+  UInt_t GetNumTel(int) const;
+  UInt_t GetFastHG(int) const;
+  UInt_t GetFastLG(int) const;
+  UInt_t GetSlowHG(int) const;
+  UInt_t GetSlowLG(int) const;
+  UInt_t GetTimeCsI(int) const;
+  UInt_t GetSilHG(int) const;
+  UInt_t GetSilLG(int) const;
+  UInt_t GetTimeSil(int) const;
+  UInt_t GetMultiCsI() const;
+  UInt_t GetMultiSil() const;
 
  private:
-  UInt_t fNumTel;
-  UInt_t fFastHG;
-  UInt_t fFastLG;
-  UInt_t fSlowHG;
-  UInt_t fSlowLG;
-  UInt_t fTimeCsI;
-  UInt_t fSilHG;
-  UInt_t fSilLG;
-  UInt_t fTimeSil;
-  UInt_t fPatt;
+  UInt_t fMulti;
+  UInt_t *fNumTel;   //[fMulti]
+  UInt_t *fFastHG;   //[fMulti]
+  UInt_t *fFastLG;   //[fMulti]
+  UInt_t *fSlowHG;   //[fMulti]
+  UInt_t *fSlowLG;   //[fMulti]
+  UInt_t *fTimeCsI;  //[fMulti]
+  UInt_t *fSilHG;    //[fMulti]
+  UInt_t *fSilLG;    //[fMulti]
+  UInt_t *fTimeSil;  //[fMulti]
+  UInt_t fMultiCsI;
+  UInt_t fMultiSil;
 
  public:
-  ClassDef(R3BAsyChimeraMappedData, 1)
+  ClassDef(R3BAsyChimeraArrayData, 1)
 };
 
 #endif

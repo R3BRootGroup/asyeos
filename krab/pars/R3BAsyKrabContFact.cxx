@@ -42,6 +42,11 @@ void R3BAsyKrabContFact::setAllContainers() {
       "KrabGeoPar", "Krab geometry parameters", "GeometryParameterContext");
   p3->addContext("GeometryParameterContext");
   containers->Add(p3);
+
+  FairContainer *p4 = new FairContainer(
+      "KrabMappingPar", "Krab mapping parameters", "KrabMappingContext");
+  p4->addContext("KrabMappingContext");
+  containers->Add(p4);
 }
 
 FairParSet *R3BAsyKrabContFact::createContainer(FairContainer *c) {
@@ -63,6 +68,11 @@ FairParSet *R3BAsyKrabContFact::createContainer(FairContainer *c) {
   }
 
   if (strcmp(name, "KrabGeoPar") == 0) {
+    p = new R3BTGeoPar(c->getConcatName().Data(), c->GetTitle(),
+                       c->getContext());
+  }
+
+  if (strcmp(name, "KrabMappingPar") == 0) {
     p = new R3BTGeoPar(c->getConcatName().Data(), c->GetTitle(),
                        c->getContext());
   }
