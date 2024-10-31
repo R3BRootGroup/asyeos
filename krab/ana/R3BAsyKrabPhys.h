@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------
-// -----            R3BAsyChimeraOnlineSpectra header file             -----
+// -----            R3BAsyKrabPhys header file             -----
 // -----    Created 15/10/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
@@ -16,8 +16,8 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BAsyChimeraOnlineSpectra_H
-#define R3BAsyChimeraOnlineSpectra_H
+#ifndef R3BAsyKrabPhys_H
+#define R3BAsyKrabPhys_H
 
 #include <R3BShared.h>
 
@@ -28,6 +28,7 @@
 #include <sstream>
 
 #include "FairTask.h"
+#include "R3BAsyKrabPhysData.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
@@ -39,13 +40,13 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyChimeraOnlineSpectra : public FairTask {
+class R3BAsyKrabPhys : public FairTask {
  public:
   /**
    * Default constructor.
    * Creates an instance of the task with default parameters.
    */
-  R3BAsyChimeraOnlineSpectra();
+  R3BAsyKrabPhys();
 
   /**
    * Standard constructor.
@@ -53,13 +54,13 @@ class R3BAsyChimeraOnlineSpectra : public FairTask {
    * @param name a name of the task.
    * @param iVerbose a verbosity level.
    */
-  R3BAsyChimeraOnlineSpectra(const char* name, Int_t iVerbose = 1);
+  R3BAsyKrabPhys(const char* name, Int_t iVerbose = 1);
 
   /**
    * Destructor.
    * Frees the memory used by the object.
    */
-  virtual ~R3BAsyChimeraOnlineSpectra();
+  virtual ~R3BAsyKrabPhys();
 
   /**
    * Method for task initialization.
@@ -95,36 +96,23 @@ class R3BAsyChimeraOnlineSpectra : public FairTask {
   virtual void Reset_Histo();
 
  private:
-  TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
+  TClonesArray* fMappedItemsKrab; /**< Array with chimera mapped items. */
+  TClonesArray* fKrabPhysData;
+  bool fOnline = false;
 
   // check for trigger should be done globablly (somewhere else)
   R3BEventHeader* header; /**< Event header.      */
   Int_t fNEvents;         /**< Event counter.     */
 
-  TCanvas* c_CHIMERA_numtel;
-  TH1I* fh1_CHIMERA_numtel;
-  TH1I* fh1_CHIMERA_numtel_wtime;
+  // Canvas
+  TCanvas* c_KRAB_phys;
+  TH1I* fh1_KRAB_multi;
+  TH1F* fh1_KRAB_RP;
 
-  TCanvas* c_CHIMERA_multi;
-  TH1I* fh1_CHIMERA_rawmulti;
-  TH1I* fh1_CHIMERA_timemulti;
-  TH1I* fh1_CHIMERA_multi_fast;
-  TH1I* fh1_CHIMERA_multi_slow;
-  TH1I* fh1_CHIMERA_multi_sil;
-
-  TCanvas* c_CHIMERA_fast;
-  TH2I* fh2_CHIMERA_numtel_fastLG;
-  TH2I* fh2_CHIMERA_numtel_fastHG;
-
-  TCanvas* c_CHIMERA_slow;
-  TH2I* fh2_CHIMERA_numtel_slowLG;
-  TH2I* fh2_CHIMERA_numtel_slowHG;
-
-  TCanvas* c_CHIMERA_patt;
-  TH1I* fh1_CHIMERA_patt[32];
+  R3BAsyKrabPhysData* AddPhysData(Float_t multi, Float_t KRABRP);
 
  public:
-  ClassDef(R3BAsyChimeraOnlineSpectra, 1)
+  ClassDef(R3BAsyKrabPhys, 1)
 };
 
 #endif

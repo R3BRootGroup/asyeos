@@ -23,6 +23,7 @@ link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
 R3BAsyChimeraOnlineSpectra.cxx
+R3BAsyKrabOnlineSpectra.cxx
 )
 
 # fill list of header files from list of source files

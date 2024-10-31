@@ -134,9 +134,7 @@ Bool_t R3BAsyKrabReader::Init(ext_data_struct_info* a_struct_info) {
 Bool_t R3BAsyKrabReader::R3BRead() {
   Reset();
   R3BLOG(debug1, "Event data.");
-  // Convert plain raw data to multi-dimensional array
   EXT_STR_h101_ASYKRAB_onion* data = (EXT_STR_h101_ASYKRAB_onion*)fData;
-  // S1 detector
 
   uint32_t fTIMESTAMP_KRAB_ID = 555;
   auto const& fTIMESTAMP_KRAB_WR_T1 = data->TIMESTAMP_KRAB_WR_T[0];
@@ -145,7 +143,7 @@ Bool_t R3BAsyKrabReader::R3BRead() {
   auto const& fTIMESTAMP_KRAB_WR_T4 = data->TIMESTAMP_KRAB_WR_T[3];
 
   if (verbose > 1) {
-    //   std::cout <<" *** " << fTIMESTAMP_KRAB_ID <<std::endl;
+    std::cout << " *** " << fTIMESTAMP_KRAB_ID << std::endl;
     std::cout << "evt=" << mynev << "   ###  TS= " << std::hex
               << fTIMESTAMP_KRAB_WR_T1 << " " << fTIMESTAMP_KRAB_WR_T2 << " "
               << fTIMESTAMP_KRAB_WR_T3 << " " << fTIMESTAMP_KRAB_WR_T4 << " "
@@ -156,9 +154,6 @@ Bool_t R3BAsyKrabReader::R3BRead() {
               ((uint64_t)fTIMESTAMP_KRAB_WR_T3 << 32) |
               ((uint64_t)fTIMESTAMP_KRAB_WR_T2 << 16) |
               (uint64_t)fTIMESTAMP_KRAB_WR_T1;
-
-  //  if(verbose)std::cout <<" ********* " << std::hex << timestamp << std::dec
-  //  << std::endl;
 
   new ((*fArrayWR)[fArrayWR->GetEntriesFast()])
       R3BWRData(timestamp, fTIMESTAMP_KRAB_ID);

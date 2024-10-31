@@ -26,15 +26,15 @@ link_directories( ${LINK_DIRECTORIES})
 
 file(GLOB SRCS ./sim/*.cxx  ./pars/*.cxx ./ana/*.cxx)
 
-#set(SRCS
+set(SRCS
 ##Put here your sourcefiles
-#R3BAsyChimera.cxx
-#R3BAsyChimeraContFact.cxx
-##R3BAsyChimeraTreat.cxx
-#R3BAsyChimeraDigi.cxx
-#R3BAsyChimeraCalPar.cxx
-#R3BAsyChimeraHitPar.cxx
-#)
+sim/R3BAsyChimera.cxx
+pars/R3BAsyChimeraCalPar.cxx
+pars/R3BAsyChimeraContFact.cxx
+pars/R3BAsyChimeraHitPar.cxx
+ana/R3BAsyChimeraDoArray.cxx
+ana/R3BAsyChimeraPhys.cxx
+)
 
 
 # fill list of header files from list of source files
