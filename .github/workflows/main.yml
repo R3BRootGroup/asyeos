@@ -61,7 +61,7 @@ jobs:
     # tool-kits for the building, such as clang-tidy and cvmfs. For more
     # information, please visit the Docker repository at Dockerhub.
     container: 
-      image: yanzhaowang/cvmfs_clang:v15
+      image: yanzhaowang/cvmfs_clang:latest
       volumes:
         - /tmp:/cvmfs
       env:
@@ -119,8 +119,9 @@ jobs:
           git clone https://github.com/R3BRootGroup/macros.git
           git clone https://github.com/R3BRootGroup/R3BFileSource.git
           mv asyeos/ucesb .
-          cmake . -B build -C cmake/CI_CD/configure_options.cmake
-          cmake --build ./build -- -j ${NUM_THREADS}
+          cmake . -B build -C cmake/CI_CD/configure_options.cmake -DBUILD_GEOMETRY=OFF
+          cd build
+          make -j ${NUM_THREADS}
 
       # A self-defined composite action to perform the ctest and push the
       # results to the cdash (cmake-dashborad). To fully show the errors and
