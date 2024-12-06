@@ -1,0 +1,22 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+contact:
+  - family-names: Rodriguez-Sanchez
+    given-names: Jose Luis
+    email: j.l.rodriguez.sanchez@udc.es
+authors:
+  - family-names: Alvarez Pol
+    given-names: Hector
+    orcid: https://orcid.org/0000-0001-9643-6252
+  - family-names: De Filippo
+    given-names: Enrico
+    orcid: https://orcid.org/0000-0001-9069-0305
+  - family-names: Rodriguez-Sanchez
+    given-names: Jose Luis
+    orcid: https://orcid.org/0000-0002-4702-5294
+  - family-names: Russotto
+    given-names: Paolo
+    orcid: https://orcid.org/0000-0001-5210-052X
+title: AsyEOS
+version: dec24
+date-released: 2024-12-06
