@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: asyeos
+Upstream-Contact: Jose Luis Rodriguez Sanchez <j.l.rodriguez.sanchez@udc.es>
+Source: https://github.com/R3BRootGroup/asyeos
+
+Files: *
+Copyright: 2022-2024, [see AUTHORS file]
+Copyright: 2022-2024, [see CONTRIBUTORS file]

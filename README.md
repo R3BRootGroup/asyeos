@@ -1,17 +1,18 @@
-# AsyEOS Software
+# AsyEOS Software [![license](https://alfa-ci.gsi.de/shields/badge/license-LGPL--3.0-orange.svg)](COPYRIGHT) 
 
 [![static analysis](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml) [![CI-CD](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml)
 
 ## The AsyEOS Framework
-AsyEOS folder inside R3BRoot describes the AsyEOS detectors which are going to be employed in the AsyEOS/R3B experiments.
+The AsyEOS directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the AsyEOS experiment detectors, designed for use in the AsyEOS/R3B experimental campaign. R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data. It is specifically tailored to support the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments conducted at the GSI-FAIR research facility (Facility for Antiproton and Ion Research).
 
-The R3BRoot software is based on the FairRoot framework and can be used to perform Monte Carlo simulations and experimental data analysis of the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments at the GSI-FAIR research center (Facility for Antiproton and Ion Research).
+## License
+AsyEOS is distributed under the terms of the GNU Lesser General Public Licence version 3 (LGPLv3).
+
+## Release Information
+Please see [releases](https://github.com/R3BRootGroup/asyeos/releases)
 
 ## Discussion Forum
 For the software-related user support you can post a new topic on our [forum](https://forum.gsi.de/index.php?t=index&cat=40&) or you could use the GitHub issues.
-
-## Release Information
-Please visit [releases](https://github.com/R3BRootGroup/asyeos/releases)
 
 ## Contributing
 Please ask your questions, request features, and report issues by [creating a github issue](https://github.com/R3BRootGroup/asyeos/issues/new/choose).
@@ -26,13 +27,15 @@ source apply-format.sh
 
 ### Required Software
 
-First, you will need to install FairSoft and FairRoot. For more details:
+First, you will need to install FairSoft, FairRoot and R3BRoot. For more details:
 
 1. Install [FairSoft](https://github.com/FairRootGroup/FairSoft)
 
 2. Install [FairRoot](http://fairroot.gsi.de)
 
-### Installation of R3BRoot and AsyEOS (as part of R3BRoot)
+3. Install [R3BRoot](https://github.com/R3BRootGroup/R3BRoot)
+
+### Installation of AsyEOS as part of R3BRoot
 
 ~~~bash
 export SIMPATH=%PATH_TO_FAIRSOFT%
