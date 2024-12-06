@@ -16,7 +16,14 @@
   "applicationCategory": "Nuclear physics",
   "developmentStatus": "active",
   "keywords": [
-    "MC simulation",
+    "Geant4",
+    "c-plus-plus",
+    "cmake",
+    "vmc",
+    "modular",
+    "Event reconstruction",
+    "Simulation",
+    "Data analysis",
     "Structure and dynamics of nuclei",
     "Nuclear reactions",
     "Equation of state"
@@ -44,15 +51,15 @@
   "author": [
     {
       "@type": "Person",
-      "@id": "https://orcid.org/0000-0001-9643-6252",
-      "givenName": "Hector",
-      "familyName": "Alvarez Pol"
-    },
-    {
-      "@type": "Person",
       "@id": "https://orcid.org/0000-0001-9069-0305",
       "givenName": "Enrico",
       "familyName": "De Filippo"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://orcid.org/0000-0001-9643-6252",
+      "givenName": "Hector",
+      "familyName": "Alvarez Pol"
     },
     {
       "@type": "Person",
@@ -70,21 +77,9 @@
   "contributor": [
     {
       "@type": "Person",
-      "@id": "https://orcid.org/0000-0001-9069-0305",
-      "givenName": "Enrico",
-      "familyName": "De Filippo"
-    },
-    {
-      "@type": "Person",
-      "@id": "https://orcid.org/0000-0002-4702-5294",
-      "givenName": "Jose Luis",
-      "familyName": "Rodriguez Sanchez"
-    },
-    {
-      "@type": "Person",
-      "@id": "https://orcid.org/0000-0001-5210-052X",
-      "givenName": "Paolo",
-      "familyName": "Russotto"
+      "@id": "https://orcid.org/0000-0002-7006-7986",
+      "givenName": "Yanzhao",
+      "familyName": "Wang"
     }
   ]
 }

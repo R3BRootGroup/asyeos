@@ -1,12 +1,12 @@
 {
     "creators": [
         {
-            "name": "Alvarez Pol, Hector",
-            "orcid": "0000-0001-9643-6252"
-        },
-        {
             "name": "De Filippo, Enrico",
             "orcid": "0000-0001-9069-0305"
+        },
+        {
+            "name": "Alvarez Pol, Hector",
+            "orcid": "0000-0001-9643-6252"
         },
         {
             "name": "Rodriguez Sanchez, Jose Luis",
@@ -20,18 +20,8 @@
     "contributors": [
         {
             "type": "Other",
-            "name": "De Filippo, Enrico",
-            "orcid": "0000-0001-9069-0305"
-        },
-        {
-            "type": "Other",
-            "name": "Rodriguez Sanchez, Jose Luis",
-            "orcid": "0000-0002-4702-5294"
-        },
-        {
-            "type": "Other",
-            "name": "Russotto, Paolo",
-            "orcid": "0000-0001-5210-052X"
+            "name": "Wang, Yanzhao",
+            "orcid": "0000-0002-7006-7986"
         }
     ],
     "description": "The AsyEOS directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the AsyEOS experiment detectors, designed for use in the AsyEOS/R3B experimental campaign. R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data. It is specifically tailored to support the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments conducted at the GSI-FAIR research facility (Facility for Antiproton and Ion Research).",
@@ -43,5 +33,19 @@
             "scheme": "url"
         }
     ],
-    "title": "asyeos"
+    "title": "AsyEOS software",
+    "upload_type": "software",
+    "keywords": [
+        "Geant4",
+        "c-plus-plus",
+        "cmake",
+        "vmc",
+        "modular",
+        "Event reconstruction",
+        "Simulation",
+        "Data analysis",
+        "Structure and dynamics of nuclei",
+        "Nuclear reactions",
+        "Equation of state"
+    ]
 }

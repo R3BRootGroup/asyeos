@@ -193,3 +193,9 @@ or
 3) If one wants to select a RunId and max number of events, for instance 'RunId = 273' and 'nev = 200'
    root -l 'cal_offline.C(273,200)'
 ~~~
+
+## More Information
+
+* [Static analyzer using Clang-tidy](config/clang_tidy/README.md)
+* [CMake build system for R3BRoot/asyeos](doc/cmake_usage.md)
+* [How to use an unmerged pull request](doc/git_usage.md#fetch-the-update-from-an-unmerged-pull-request-pr)
