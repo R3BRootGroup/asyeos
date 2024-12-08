@@ -1,40 +1,88 @@
 {
+    "access_right": "open",
     "creators": [
         {
             "name": "De Filippo, Enrico",
-            "orcid": "0000-0001-9069-0305"
+            "orcid": "0000-0001-9069-0305",
+            "email": "defilippo@ct.infn.it",
+            "affiliation": "INFN Laboratori Nazionali del Sud, 95123 Catania, Italy"
         },
         {
             "name": "Alvarez Pol, Hector",
-            "orcid": "0000-0001-9643-6252"
+            "orcid": "0000-0001-9643-6252",
+            "email": "hector.alvarez@usc.es",
+            "affiliation": "IGFAE, University of Santiago de Compostela, 15782 Santiago de Compostela, Spain"
         },
         {
-            "name": "Rodriguez Sanchez, Jose Luis",
-            "orcid": "0000-0002-4702-5294"
+            "name": "Rodríguez-Sánchez, Jose Luis",
+            "orcid": "0000-0002-4702-5294",
+            "email": "j.l.rodriguez.sanchez@udc.es",
+            "affiliation": "CITENI, Industrial Campus of Ferrol, University of Coruña, 15403 Ferrol, Spain"
         },
         {
             "name": "Russotto, Paolo",
-            "orcid": "0000-0001-5210-052X"
+            "orcid": "0000-0001-5210-052X",
+            "email": "russotto@lns.infn.it",
+            "affiliation": "INFN Laboratori Nazionali del Sud, 95123 Catania, Italy"
         }
     ],
     "contributors": [
         {
             "type": "Other",
             "name": "Wang, Yanzhao",
-            "orcid": "0000-0002-7006-7986"
+            "orcid": "0000-0002-7006-7986",
+            "affiliation": "Universität zu Köln, 50923 Köln, Germany"
         }
     ],
     "description": "The AsyEOS directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the AsyEOS experiment detectors, designed for use in the AsyEOS/R3B experimental campaign. R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data. It is specifically tailored to support the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments conducted at the GSI-FAIR research facility (Facility for Antiproton and Ion Research).",
     "related_identifiers": [
         {
-            "identifier": "https://github.com/R3BRootGroup/asyeos/",
-            "relation": "isSupplementTo",
+            "identifier": "https://github.com/FairRootGroup/FairSoft/",
+            "relation": "isDerivedFrom",
             "resource_type": "software",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://github.com/FairRootGroup/FairRoot/",
+            "relation": "isDerivedFrom",
+            "resource_type": "software",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://github.com/R3BRootGroup/R3BRoot/",
+            "relation": "isDerivedFrom",
+            "resource_type": "software",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://gitlab.com/chalmers-subexp/ucesb/",
+            "relation": "isRelatedTo",
+            "resource_type": "software",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://github.com/R3BRootGroup/asyeos/blob/dev/README.md",
+            "relation": "isDocumentedBy",
+            "resource_type": "publication-softwaredocumentation",
             "scheme": "url"
         }
     ],
-    "title": "AsyEOS software",
+    "title": "AsyEOS Software",
     "upload_type": "software",
+    "softwareRequirements": [
+        "FairSoft, FairRoot, R3BRoot"
+    ],
+    "programmingLanguage": [
+        "C",
+        "C++"
+    ],
+    "runtimePlatform": [
+        "ROOT"
+    ],
+    "operatingSystem": [
+        "Linux",
+        "macOS"
+    ],
     "license": "LGPL-3.0-only",
     "keywords": [
         "Geant4",
@@ -42,11 +90,13 @@
         "cmake",
         "vmc",
         "modular",
-        "Event reconstruction",
+        "Track reconstruction",
         "Simulation",
         "Data analysis",
         "Structure and dynamics of nuclei",
         "Nuclear reactions",
-        "Equation of state"
+        "Equation of state",
+        "AsyEOS/R3B experiments",
+        "GSI/FAIR facility"
     ]
 }
