@@ -34,7 +34,7 @@
             "affiliation": "Universität zu Köln, 50923 Köln, Germany"
         }
     ],
-    "description": "The AsyEOS directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the AsyEOS experiment detectors, designed for use in the AsyEOS/R3B experimental campaign. R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data. It is specifically tailored to support the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments conducted at the GSI-FAIR research facility (Facility for Antiproton and Ion Research).",
+    "description": "The AsyEOS (Asymmetric-matter Equation-Of-State) directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the detectors used in the AsyEOS/R3B (Reactions with Relativistic Radioactive Beams) experimental campaign at the GSI/FAIR (Facility for Antiproton and Ion Research) facility. AsyEOS-R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data to measure the flows of neutrons and light charged particles produced in Nucleus-Nucleus collisions in order to investigate symmetry energy of the nuclear equation of state at densities above the saturation one. The AsyEOS software package is a source distribution with recurring releases for macOS and Linux.",
     "related_identifiers": [
         {
             "identifier": "https://github.com/FairRootGroup/FairSoft/",

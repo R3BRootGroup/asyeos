@@ -3,10 +3,10 @@
 [![static analysis](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml) [![CI-CD](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml)
 
 ## The AsyEOS Framework
-The AsyEOS directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the AsyEOS experiment detectors, designed for use in the AsyEOS/R3B experimental campaign. R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data. It is specifically tailored to support the R3B (Reactions with Relativistic Radioactive Beams) nuclear physics experiments conducted at the GSI-FAIR research facility (Facility for Antiproton and Ion Research).
+The AsyEOS (Asymmetric-matter Equation-Of-State) directory within the [R3BRoot](https://github.com/R3BRootGroup/R3BRoot) framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the detectors used in the AsyEOS/R3B (Reactions with Relativistic Radioactive Beams) experimental campaign at the GSI/FAIR (Facility for Antiproton and Ion Research) facility. AsyEOS-R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data to measure the flows of neutrons and light charged particles produced in Nucleus-Nucleus collisions in order to investigate symmetry energy of the nuclear equation of state at densities above the saturation one. The AsyEOS software package is a source distribution with recurring releases for macOS and Linux.
 
 ## License
-AsyEOS is distributed under the terms of the GNU Lesser General Public Licence version 3 (LGPLv3).
+AsyEOS is distributed under the terms of the GNU Lesser General Public Licence version 3 ([LGPLv3](https://github.com/R3BRootGroup/asyeos/blob/dev/LICENSE)).
 
 ## Release Information
 Please see [releases](https://github.com/R3BRootGroup/asyeos/releases)

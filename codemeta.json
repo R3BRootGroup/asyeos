@@ -10,7 +10,7 @@
   "issueTracker": "https://github.com/R3BRootGroup/asyeos/issues",
   "name": "asyeos",
   "softwareVersion": "dec24",
-  "description": "Software for the AsyEOS/R3B experiment at FAIR",
+  "description": "Software for the AsyEOS/R3B experiments at GSI/FAIR",
   "readme": "https://github.com/R3BRootGroup/asyeos/blob/dev/README.md",
   "releaseNotes": "",
   "applicationCategory": "Nuclear physics",
