@@ -27,49 +27,51 @@
 #include "TString.h"
 
 // ---- Standard Constructor ---------------------------------------------------
-R3BAsyKrabCalPar::R3BAsyKrabCalPar(const char *name, const char *title,
-                                   const char *context)
+R3BAsyKrabCalPar::R3BAsyKrabCalPar(const char* name, const char* title, const char* context)
     : FairParGenericSet(name, title, context)
 
 {
-  // just template, start version
+    // just template, start version
 }
 
 // ----  Destructor ------------------------------------------------------------
 R3BAsyKrabCalPar::~R3BAsyKrabCalPar() { clear(); }
 
 // ----  Method clear ----------------------------------------------------------
-void R3BAsyKrabCalPar::clear() {
-  status = kFALSE;
-  resetInputVersions();
+void R3BAsyKrabCalPar::clear()
+{
+    status = kFALSE;
+    resetInputVersions();
 }
 
 // ----  Method putParams ------------------------------------------------------
-void R3BAsyKrabCalPar::putParams(FairParamList *list) {
-  R3BLOG(info, "called");
-  if (!list) {
-    R3BLOG(fatal, "Could not find FairParamList");
-    return;
-  }
+void R3BAsyKrabCalPar::putParams(FairParamList* list)
+{
+    R3BLOG(info, "called");
+    if (!list)
+    {
+        R3BLOG(fatal, "Could not find FairParamList");
+        return;
+    }
 }
 
 // ----  Method getParams ------------------------------------------------------
-Bool_t R3BAsyKrabCalPar::getParams(FairParamList *list) {
-  R3BLOG(info, "called");
-  if (!list) {
-    R3BLOG(fatal, "Could not find FairParamList");
-    return kFALSE;
-  }
+Bool_t R3BAsyKrabCalPar::getParams(FairParamList* list)
+{
+    R3BLOG(info, "called");
+    if (!list)
+    {
+        R3BLOG(fatal, "Could not find FairParamList");
+        return kFALSE;
+    }
 
-  return kTRUE;
+    return kTRUE;
 }
 
 // ----  Method print ----------------------------------------------------------
 void R3BAsyKrabCalPar::print() { printParams(); }
 
 // ----  Method printParams ----------------------------------------------------
-void R3BAsyKrabCalPar::printParams() {
-  R3BLOG(info, "Krab parameters not yet defined");
-}
+void R3BAsyKrabCalPar::printParams() { R3BLOG(info, "Krab parameters not yet defined"); }
 
 ClassImp(R3BAsyKrabCalPar);

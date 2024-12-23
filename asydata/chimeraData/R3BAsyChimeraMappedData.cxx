@@ -14,32 +14,41 @@
 #include "R3BAsyChimeraMappedData.h"
 
 R3BAsyChimeraMappedData::R3BAsyChimeraMappedData()
-    : fNumTel(-1),
-      fFastHG(-1),
-      fFastLG(-1),
-      fSlowHG(-1),
-      fSlowLG(-1),
-      fTimeCsI(-1),
-      fSilHG(-1),
-      fSilLG(-1),
-      fTimeSil(-1),
-      fPatt(-1) {}
+    : fNumTel(-1)
+    , fFastHG(-1)
+    , fFastLG(-1)
+    , fSlowHG(-1)
+    , fSlowLG(-1)
+    , fTimeCsI(-1)
+    , fSilHG(-1)
+    , fSilLG(-1)
+    , fTimeSil(-1)
+    , fPatt(-1)
+{
+}
 
-R3BAsyChimeraMappedData::R3BAsyChimeraMappedData(UInt_t numtel, UInt_t fastHG,
-                                                 UInt_t fastLG, UInt_t slowHG,
-                                                 UInt_t slowLG, UInt_t timeCsI,
-                                                 UInt_t silHG, UInt_t silLG,
-                                                 UInt_t timeSil, UInt_t patt)
-    : fNumTel(numtel),
-      fFastHG(fastHG),
-      fFastLG(slowLG),
-      fSlowHG(slowHG),
-      fSlowLG(slowLG),
-      fTimeCsI(timeCsI),
-      fSilHG(silHG),
-      fSilLG(silLG),
-      fTimeSil(timeSil),
-      fPatt(patt) {}
+R3BAsyChimeraMappedData::R3BAsyChimeraMappedData(UInt_t numtel,
+                                                 UInt_t fastHG,
+                                                 UInt_t fastLG,
+                                                 UInt_t slowHG,
+                                                 UInt_t slowLG,
+                                                 UInt_t timeCsI,
+                                                 UInt_t silHG,
+                                                 UInt_t silLG,
+                                                 UInt_t timeSil,
+                                                 UInt_t patt)
+    : fNumTel(numtel)
+    , fFastHG(fastHG)
+    , fFastLG(slowLG)
+    , fSlowHG(slowHG)
+    , fSlowLG(slowLG)
+    , fTimeCsI(timeCsI)
+    , fSilHG(silHG)
+    , fSilLG(silLG)
+    , fTimeSil(timeSil)
+    , fPatt(patt)
+{
+}
 
 UInt_t R3BAsyChimeraMappedData::GetNumTel() const { return fNumTel; }
 

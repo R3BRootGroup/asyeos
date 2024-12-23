@@ -46,91 +46,96 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyChimeraDoArray : public FairTask {
- public:
-  /**
-   * Default constructor.
-   * Creates an instance of the task with default parameters.
-   */
-  R3BAsyChimeraDoArray();
+class R3BAsyChimeraDoArray : public FairTask
+{
+  public:
+    /**
+     * Default constructor.
+     * Creates an instance of the task with default parameters.
+     */
+    R3BAsyChimeraDoArray();
 
-  /**
-   * Standard constructor.
-   * Creates an instance of the task.
-   * @param name a name of the task.
-   * @param iVerbose a verbosity level.
-   */
-  R3BAsyChimeraDoArray(const char* name, Int_t iVerbose = 1);
+    /**
+     * Standard constructor.
+     * Creates an instance of the task.
+     * @param name a name of the task.
+     * @param iVerbose a verbosity level.
+     */
+    R3BAsyChimeraDoArray(const char* name, Int_t iVerbose = 1);
 
-  /**
-   * Destructor.
-   * Frees the memory used by the object.
-   */
-  virtual ~R3BAsyChimeraDoArray();
+    /**
+     * Destructor.
+     * Frees the memory used by the object.
+     */
+    virtual ~R3BAsyChimeraDoArray();
 
-  /**
-   * Method for task initialization.
-   * This function is called by the framework before
-   * the event loop.
-   * @return Initialization status. kSUCCESS, kERROR or kFATAL.
-   */
-  virtual InitStatus Init();
+    /**
+     * Method for task initialization.
+     * This function is called by the framework before
+     * the event loop.
+     * @return Initialization status. kSUCCESS, kERROR or kFATAL.
+     */
+    virtual InitStatus Init();
 
-  /**
-   * Method for event loop implementation.
-   * Is called by the framework every time a new event is read.
-   * @param option an execution option.
-   */
-  virtual void Exec(Option_t* option);
+    /**
+     * Method for event loop implementation.
+     * Is called by the framework every time a new event is read.
+     * @param option an execution option.
+     */
+    virtual void Exec(Option_t* option);
 
-  // Reset
-  virtual void Reset();
+    // Reset
+    virtual void Reset();
 
- private:
-  TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
-  TClonesArray* fChimeraArrayData;
-  // check for trigger should be done globablly (somewhere else)
-  R3BEventHeader* header; /**< Event header.      */
-  Int_t fNEvents;         /**< Event counter.     */
-  bool fOnline = false;
+  private:
+    TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
+    TClonesArray* fChimeraArrayData;
+    // check for trigger should be done globablly (somewhere else)
+    R3BEventHeader* header; /**< Event header.      */
+    Int_t fNEvents;         /**< Event counter.     */
+    bool fOnline = false;
 
-  UInt_t iMulti;
-  UInt_t* iDet;        //[iMulti]
-  UInt_t* iSide;       //[iMulti]
-  UInt_t* iStrip;      //[iMulti]
-  UInt_t* iRawEnergy;  //[iMulti]
-  UInt_t* iRawTime;    //[iMulti]
+    UInt_t iMulti;
+    UInt_t* iDet;       //[iMulti]
+    UInt_t* iSide;      //[iMulti]
+    UInt_t* iStrip;     //[iMulti]
+    UInt_t* iRawEnergy; //[iMulti]
+    UInt_t* iRawTime;   //[iMulti]
 
-  UInt_t nn;
+    UInt_t nn;
 
-  int E1F[dmaxs];
-  int T1F[dmaxs];
+    int E1F[dmaxs];
+    int T1F[dmaxs];
 
-  int E1B[dmaxs];
-  int T1B[dmaxs];
+    int E1B[dmaxs];
+    int T1B[dmaxs];
 
-  int E2F[dmaxs];
-  int T2F[dmaxs];
+    int E2F[dmaxs];
+    int T2F[dmaxs];
 
-  int E3F[dmaxs];
-  int T3F[dmaxs];
+    int E3F[dmaxs];
+    int T3F[dmaxs];
 
-  bool uE1F[dmaxs];
-  bool uT1F[dmaxs];
+    bool uE1F[dmaxs];
+    bool uT1F[dmaxs];
 
-  bool uE1B[dmaxs];
-  bool uT1B[dmaxs];
+    bool uE1B[dmaxs];
+    bool uT1B[dmaxs];
 
-  bool uE2F[dmaxs];
-  bool uT2F[dmaxs];
+    bool uE2F[dmaxs];
+    bool uT2F[dmaxs];
 
-  R3BAsyChimeraArrayData* AddHitData(UInt_t multi, UInt_t* Det, UInt_t* Side,
-                                     UInt_t* Strip, UInt_t* RawEnergy,
-                                     UInt_t* RawTime, UInt_t multiE12,
-                                     UInt_t multEFB1);
+    R3BAsyChimeraArrayData* AddHitData(UInt_t multi,
+                                       UInt_t* Det,
+                                       UInt_t* Side,
+                                       UInt_t* Strip,
+                                       UInt_t* RawEnergy,
+                                       UInt_t* RawTime,
+                                       UInt_t multiE12,
+                                       UInt_t multEFB1);
 
- public:
-  ClassDef(R3BAsyChimeraDoArray, 1)
+  public:
+    ClassDef(R3BAsyChimeraDoArray, 1)
 };
 
 #endif

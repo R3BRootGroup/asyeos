@@ -34,37 +34,37 @@
 
 class FairParamList;
 
-class R3BAsyKrabHitPar : public FairParGenericSet {
- public:
-  /** Standard constructor **/
-  R3BAsyKrabHitPar(const char* name = "AsyKrabHitPar",
-                   const char* title = "AsyKrab Hit Parameters",
-                   const char* context = "AsyKrabHitParContext");
+class R3BAsyKrabHitPar : public FairParGenericSet
+{
+  public:
+    /** Standard constructor **/
+    R3BAsyKrabHitPar(const char* name = "AsyKrabHitPar",
+                     const char* title = "AsyKrab Hit Parameters",
+                     const char* context = "AsyKrabHitParContext");
 
-  /** Destructor **/
-  virtual ~R3BAsyKrabHitPar();
+    /** Destructor **/
+    virtual ~R3BAsyKrabHitPar();
 
-  /** Method to reset all parameters **/
-  virtual void clear();
+    /** Method to reset all parameters **/
+    virtual void clear();
 
-  /** Method to store all parameters using FairRuntimeDB **/
-  virtual void putParams(FairParamList* list);
+    /** Method to store all parameters using FairRuntimeDB **/
+    virtual void putParams(FairParamList* list);
 
-  /** Method to retrieve all parameters using FairRuntimeDB**/
-  Bool_t getParams(FairParamList* list);
+    /** Method to retrieve all parameters using FairRuntimeDB**/
+    Bool_t getParams(FairParamList* list);
 
-  /** Method to print values of parameters to the standard output **/
-  virtual void print();
-  void printParams();
+    /** Method to print values of parameters to the standard output **/
+    virtual void print();
+    void printParams();
 
-  // Create more Methods if you need them!
+    // Create more Methods if you need them!
 
- private:
-  const R3BAsyKrabHitPar& operator=(
-      const R3BAsyKrabHitPar&);              /*< an assignment operator>*/
-  R3BAsyKrabHitPar(const R3BAsyKrabHitPar&); /*< a copy constructor >*/
+  private:
+    const R3BAsyKrabHitPar& operator=(const R3BAsyKrabHitPar&); /*< an assignment operator>*/
+    R3BAsyKrabHitPar(const R3BAsyKrabHitPar&);                  /*< a copy constructor >*/
 
-  ClassDef(R3BAsyKrabHitPar, 1);
+    ClassDef(R3BAsyKrabHitPar, 1);
 };
 
 #endif

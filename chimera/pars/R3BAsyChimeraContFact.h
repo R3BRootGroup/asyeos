@@ -24,16 +24,17 @@
 
 class FairContainer;
 
-class R3BAsyChimeraContFact : public FairContFact {
- private:
-  void setAllContainers();
+class R3BAsyChimeraContFact : public FairContFact
+{
+  private:
+    void setAllContainers();
 
- public:
-  R3BAsyChimeraContFact();
-  ~R3BAsyChimeraContFact() {}
-  FairParSet* createContainer(FairContainer*);
-  ClassDef(R3BAsyChimeraContFact,
-           0)  // Factory for all Chimera parameter containers
+  public:
+    R3BAsyChimeraContFact();
+    ~R3BAsyChimeraContFact() {}
+    FairParSet* createContainer(FairContainer*);
+    ClassDef(R3BAsyChimeraContFact,
+             0) // Factory for all Chimera parameter containers
 };
 
 #endif /* R3BAsyChimeraContFact_H */

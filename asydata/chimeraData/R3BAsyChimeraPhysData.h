@@ -21,20 +21,21 @@
 
 #include "TObject.h"
 
-class R3BAsyChimeraPhysData : public TObject {
- public:
-  R3BAsyChimeraPhysData();
-  R3BAsyChimeraPhysData(UInt_t, Float_t);
+class R3BAsyChimeraPhysData : public TObject
+{
+  public:
+    R3BAsyChimeraPhysData();
+    R3BAsyChimeraPhysData(UInt_t, Float_t);
 
-  UInt_t GetMulti() const;
-  Float_t GetRP() const;
+    UInt_t GetMulti() const;
+    Float_t GetRP() const;
 
- private:
-  UInt_t fMulti;
-  Float_t fCHIRP;
+  private:
+    UInt_t fMulti;
+    Float_t fCHIRP;
 
- public:
-  ClassDef(R3BAsyChimeraPhysData, 1)
+  public:
+    ClassDef(R3BAsyChimeraPhysData, 1)
 };
 
 #endif

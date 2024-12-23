@@ -21,27 +21,28 @@
 
 #include "TObject.h"
 
-class R3BAsyKrabArrayData : public TObject {
- public:
-  R3BAsyKrabArrayData();
-  R3BAsyKrabArrayData(UInt_t, Double_t, UInt_t *, UInt_t *, Float_t *);
-  virtual ~R3BAsyKrabArrayData() {}
+class R3BAsyKrabArrayData : public TObject
+{
+  public:
+    R3BAsyKrabArrayData();
+    R3BAsyKrabArrayData(UInt_t, Double_t, UInt_t*, UInt_t*, Float_t*);
+    virtual ~R3BAsyKrabArrayData() {}
 
-  UInt_t GetMulti() const;
-  Double_t GetRP() const;
-  UInt_t GetRing(int) const;
-  UInt_t GetSector(int) const;
-  Float_t GetPhi(int) const;
+    UInt_t GetMulti() const;
+    Double_t GetRP() const;
+    UInt_t GetRing(int) const;
+    UInt_t GetSector(int) const;
+    Float_t GetPhi(int) const;
 
- private:
-  UInt_t fMulti;
-  Double_t fRP;
-  UInt_t *fRing;    //[fMulti]
-  UInt_t *fSector;  //[fMulti]
-  Float_t *fPhi;    //[fMulti]
+  private:
+    UInt_t fMulti;
+    Double_t fRP;
+    UInt_t* fRing;   //[fMulti]
+    UInt_t* fSector; //[fMulti]
+    Float_t* fPhi;   //[fMulti]
 
- public:
-  ClassDef(R3BAsyKrabArrayData, 1)
+  public:
+    ClassDef(R3BAsyKrabArrayData, 1)
 };
 
 #endif

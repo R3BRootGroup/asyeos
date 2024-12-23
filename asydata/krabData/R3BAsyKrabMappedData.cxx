@@ -14,11 +14,22 @@
 #include "R3BAsyKrabMappedData.h"
 
 R3BAsyKrabMappedData::R3BAsyKrabMappedData()
-    : fRing(-1), fSector(-1), fPhi(-1000), fqx(-1000), fqy(-1000) {}
+    : fRing(-1)
+    , fSector(-1)
+    , fPhi(-1000)
+    , fqx(-1000)
+    , fqy(-1000)
+{
+}
 
-R3BAsyKrabMappedData::R3BAsyKrabMappedData(UInt_t ring, UInt_t sector,
-                                           Float_t phi, Float_t qx, Float_t qy)
-    : fRing(ring), fSector(sector), fPhi(phi), fqx(qx), fqy(qy) {}
+R3BAsyKrabMappedData::R3BAsyKrabMappedData(UInt_t ring, UInt_t sector, Float_t phi, Float_t qx, Float_t qy)
+    : fRing(ring)
+    , fSector(sector)
+    , fPhi(phi)
+    , fqx(qx)
+    , fqy(qy)
+{
+}
 
 UInt_t R3BAsyKrabMappedData::GetRing() const { return fRing; }
 

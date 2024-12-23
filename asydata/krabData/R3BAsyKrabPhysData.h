@@ -21,20 +21,21 @@
 
 #include "TObject.h"
 
-class R3BAsyKrabPhysData : public TObject {
- public:
-  R3BAsyKrabPhysData();
-  R3BAsyKrabPhysData(UInt_t, Float_t);
+class R3BAsyKrabPhysData : public TObject
+{
+  public:
+    R3BAsyKrabPhysData();
+    R3BAsyKrabPhysData(UInt_t, Float_t);
 
-  UInt_t GetMulti() const;
-  Float_t GetRP() const;
+    UInt_t GetMulti() const;
+    Float_t GetRP() const;
 
- private:
-  UInt_t fMulti;
-  Float_t fKRABRP;
+  private:
+    UInt_t fMulti;
+    Float_t fKRABRP;
 
- public:
-  ClassDef(R3BAsyKrabPhysData, 1)
+  public:
+    ClassDef(R3BAsyKrabPhysData, 1)
 };
 
 #endif

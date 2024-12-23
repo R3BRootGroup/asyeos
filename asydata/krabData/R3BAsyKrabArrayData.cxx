@@ -20,12 +20,22 @@
 #include "FairLogger.h"
 
 R3BAsyKrabArrayData::R3BAsyKrabArrayData()
-    : fMulti(0), fRP(-1000), fRing(0), fSector(0), fPhi(0) {}
+    : fMulti(0)
+    , fRP(-1000)
+    , fRing(0)
+    , fSector(0)
+    , fPhi(0)
+{
+}
 
-R3BAsyKrabArrayData::R3BAsyKrabArrayData(UInt_t multi, Double_t rp,
-                                         UInt_t* ring, UInt_t* sector,
-                                         Float_t* phi)
-    : fMulti(multi), fRP(rp), fRing(ring), fSector(sector), fPhi(phi) {}
+R3BAsyKrabArrayData::R3BAsyKrabArrayData(UInt_t multi, Double_t rp, UInt_t* ring, UInt_t* sector, Float_t* phi)
+    : fMulti(multi)
+    , fRP(rp)
+    , fRing(ring)
+    , fSector(sector)
+    , fPhi(phi)
+{
+}
 
 UInt_t R3BAsyKrabArrayData::GetMulti() const { return fMulti; }
 

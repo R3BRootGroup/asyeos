@@ -27,49 +27,51 @@
 #include "TString.h"
 
 // ---- Standard Constructor ---------------------------------------------------
-R3BAsyChimeraCalPar::R3BAsyChimeraCalPar(const char *name, const char *title,
-                                         const char *context)
+R3BAsyChimeraCalPar::R3BAsyChimeraCalPar(const char* name, const char* title, const char* context)
     : FairParGenericSet(name, title, context)
 
 {
-  // just template, start version
+    // just template, start version
 }
 
 // ----  Destructor ------------------------------------------------------------
 R3BAsyChimeraCalPar::~R3BAsyChimeraCalPar() { clear(); }
 
 // ----  Method clear ----------------------------------------------------------
-void R3BAsyChimeraCalPar::clear() {
-  status = kFALSE;
-  resetInputVersions();
+void R3BAsyChimeraCalPar::clear()
+{
+    status = kFALSE;
+    resetInputVersions();
 }
 
 // ----  Method putParams ------------------------------------------------------
-void R3BAsyChimeraCalPar::putParams(FairParamList *list) {
-  R3BLOG(info, "called");
-  if (!list) {
-    R3BLOG(fatal, "Could not find FairParamList");
-    return;
-  }
+void R3BAsyChimeraCalPar::putParams(FairParamList* list)
+{
+    R3BLOG(info, "called");
+    if (!list)
+    {
+        R3BLOG(fatal, "Could not find FairParamList");
+        return;
+    }
 }
 
 // ----  Method getParams ------------------------------------------------------
-Bool_t R3BAsyChimeraCalPar::getParams(FairParamList *list) {
-  R3BLOG(info, "called");
-  if (!list) {
-    R3BLOG(fatal, "Could not find FairParamList");
-    return kFALSE;
-  }
+Bool_t R3BAsyChimeraCalPar::getParams(FairParamList* list)
+{
+    R3BLOG(info, "called");
+    if (!list)
+    {
+        R3BLOG(fatal, "Could not find FairParamList");
+        return kFALSE;
+    }
 
-  return kTRUE;
+    return kTRUE;
 }
 
 // ----  Method print ----------------------------------------------------------
 void R3BAsyChimeraCalPar::print() { printParams(); }
 
 // ----  Method printParams ----------------------------------------------------
-void R3BAsyChimeraCalPar::printParams() {
-  R3BLOG(info, "Chimera parameters not yet defined");
-}
+void R3BAsyChimeraCalPar::printParams() { R3BLOG(info, "Chimera parameters not yet defined"); }
 
 ClassImp(R3BAsyChimeraCalPar);

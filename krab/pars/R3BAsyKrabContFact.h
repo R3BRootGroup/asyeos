@@ -24,15 +24,16 @@
 
 class FairContainer;
 
-class R3BAsyKrabContFact : public FairContFact {
- private:
-  void setAllContainers();
+class R3BAsyKrabContFact : public FairContFact
+{
+  private:
+    void setAllContainers();
 
- public:
-  R3BAsyKrabContFact();
-  ~R3BAsyKrabContFact() {}
-  FairParSet* createContainer(FairContainer*);
-  ClassDef(R3BAsyKrabContFact, 0)  // Factory for all Krab parameter containers
+  public:
+    R3BAsyKrabContFact();
+    ~R3BAsyKrabContFact() {}
+    FairParSet* createContainer(FairContainer*);
+    ClassDef(R3BAsyKrabContFact, 0) // Factory for all Krab parameter containers
 };
 
 #endif /* R3BAsyKrabContFact_H */

@@ -39,37 +39,37 @@
 
 class FairParamList;
 
-class R3BAsyChimeraHitPar : public FairParGenericSet {
- public:
-  /** Standard constructor **/
-  R3BAsyChimeraHitPar(const char* name = "AsyChimeraHitPar",
-                      const char* title = "AsyChimera Hit Parameters",
-                      const char* context = "AsyChimeraHitParContext");
+class R3BAsyChimeraHitPar : public FairParGenericSet
+{
+  public:
+    /** Standard constructor **/
+    R3BAsyChimeraHitPar(const char* name = "AsyChimeraHitPar",
+                        const char* title = "AsyChimera Hit Parameters",
+                        const char* context = "AsyChimeraHitParContext");
 
-  /** Destructor **/
-  virtual ~R3BAsyChimeraHitPar();
+    /** Destructor **/
+    virtual ~R3BAsyChimeraHitPar();
 
-  /** Method to reset all parameters **/
-  virtual void clear();
+    /** Method to reset all parameters **/
+    virtual void clear();
 
-  /** Method to store all parameters using FairRuntimeDB **/
-  virtual void putParams(FairParamList* list);
+    /** Method to store all parameters using FairRuntimeDB **/
+    virtual void putParams(FairParamList* list);
 
-  /** Method to retrieve all parameters using FairRuntimeDB**/
-  Bool_t getParams(FairParamList* list);
+    /** Method to retrieve all parameters using FairRuntimeDB**/
+    Bool_t getParams(FairParamList* list);
 
-  /** Method to print values of parameters to the standard output **/
-  virtual void print();
-  void printParams();
+    /** Method to print values of parameters to the standard output **/
+    virtual void print();
+    void printParams();
 
-  // Create more Methods if you need them!
+    // Create more Methods if you need them!
 
- private:
-  const R3BAsyChimeraHitPar& operator=(
-      const R3BAsyChimeraHitPar&);                 /*< an assignment operator>*/
-  R3BAsyChimeraHitPar(const R3BAsyChimeraHitPar&); /*< a copy constructor >*/
+  private:
+    const R3BAsyChimeraHitPar& operator=(const R3BAsyChimeraHitPar&); /*< an assignment operator>*/
+    R3BAsyChimeraHitPar(const R3BAsyChimeraHitPar&);                  /*< a copy constructor >*/
 
-  ClassDef(R3BAsyChimeraHitPar, 1);
+    ClassDef(R3BAsyChimeraHitPar, 1);
 };
 
 #endif

@@ -24,44 +24,48 @@
 #include "TString.h"
 
 // ---- Standard Constructor ---------------------------------------------------
-R3BAsyKrabHitPar::R3BAsyKrabHitPar(const char *name, const char *title,
-                                   const char *context)
-    : FairParGenericSet(name, title, context) {}
+R3BAsyKrabHitPar::R3BAsyKrabHitPar(const char* name, const char* title, const char* context)
+    : FairParGenericSet(name, title, context)
+{
+}
 
 // ----  Destructor ------------------------------------------------------------
 R3BAsyKrabHitPar::~R3BAsyKrabHitPar() { clear(); }
 
 // ----  Method clear ----------------------------------------------------------
-void R3BAsyKrabHitPar::clear() {
-  status = kFALSE;
-  resetInputVersions();
+void R3BAsyKrabHitPar::clear()
+{
+    status = kFALSE;
+    resetInputVersions();
 }
 
 // ----  Method putParams ------------------------------------------------------
-void R3BAsyKrabHitPar::putParams(FairParamList *list) {
-  R3BLOG(info, "R3BAsyKrabHitPar::putParams() called");
-  if (!list) {
-    return;
-  }
+void R3BAsyKrabHitPar::putParams(FairParamList* list)
+{
+    R3BLOG(info, "R3BAsyKrabHitPar::putParams() called");
+    if (!list)
+    {
+        return;
+    }
 }
 
 // ----  Method getParams ------------------------------------------------------
-Bool_t R3BAsyKrabHitPar::getParams(FairParamList *list) {
-  R3BLOG(info, "R3BAsyKrabHitPar::getParams() called");
-  if (!list) {
-    R3BLOG(fatal, "Could not find FairParamList");
-    return kFALSE;
-  }
+Bool_t R3BAsyKrabHitPar::getParams(FairParamList* list)
+{
+    R3BLOG(info, "R3BAsyKrabHitPar::getParams() called");
+    if (!list)
+    {
+        R3BLOG(fatal, "Could not find FairParamList");
+        return kFALSE;
+    }
 
-  return kTRUE;
+    return kTRUE;
 }
 
 // ----  Method print ----------------------------------------------------------
 void R3BAsyKrabHitPar::print() { printParams(); }
 
 // ----  Method printParams ----------------------------------------------------
-void R3BAsyKrabHitPar::printParams() {
-  R3BLOG(info, "R3BAsyKrabHitPar::printParams() AsyKrab detector Parameters");
-}
+void R3BAsyKrabHitPar::printParams() { R3BLOG(info, "R3BAsyKrabHitPar::printParams() AsyKrab detector Parameters"); }
 
 ClassImp(R3BAsyKrabHitPar);

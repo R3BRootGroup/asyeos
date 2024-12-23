@@ -21,26 +21,27 @@
 
 #include "TObject.h"
 
-class R3BAsyKrabMappedData : public TObject {
- public:
-  R3BAsyKrabMappedData();
-  R3BAsyKrabMappedData(UInt_t, UInt_t, Float_t, Float_t, Float_t);
+class R3BAsyKrabMappedData : public TObject
+{
+  public:
+    R3BAsyKrabMappedData();
+    R3BAsyKrabMappedData(UInt_t, UInt_t, Float_t, Float_t, Float_t);
 
-  UInt_t GetRing() const;
-  UInt_t GetSector() const;
-  Float_t GetPhi() const;
-  Float_t Getqx() const;
-  Float_t Getqy() const;
+    UInt_t GetRing() const;
+    UInt_t GetSector() const;
+    Float_t GetPhi() const;
+    Float_t Getqx() const;
+    Float_t Getqy() const;
 
- private:
-  UInt_t fRing;
-  UInt_t fSector;
-  Float_t fPhi;
-  Float_t fqx;
-  Float_t fqy;
+  private:
+    UInt_t fRing;
+    UInt_t fSector;
+    Float_t fPhi;
+    Float_t fqx;
+    Float_t fqy;
 
- public:
-  ClassDef(R3BAsyKrabMappedData, 1)
+  public:
+    ClassDef(R3BAsyKrabMappedData, 1)
 };
 
 #endif

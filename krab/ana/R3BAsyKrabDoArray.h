@@ -45,74 +45,74 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyKrabDoArray : public FairTask {
- public:
-  /**
-   * Default constructor.
-   * Creates an instance of the task with default parameters.
-   */
-  R3BAsyKrabDoArray();
+class R3BAsyKrabDoArray : public FairTask
+{
+  public:
+    /**
+     * Default constructor.
+     * Creates an instance of the task with default parameters.
+     */
+    R3BAsyKrabDoArray();
 
-  /**
-   * Standard constructor.
-   * Creates an instance of the task.
-   * @param name a name of the task.
-   * @param iVerbose a verbosity level.
-   */
-  R3BAsyKrabDoArray(const char* name, Int_t iVerbose = 1);
+    /**
+     * Standard constructor.
+     * Creates an instance of the task.
+     * @param name a name of the task.
+     * @param iVerbose a verbosity level.
+     */
+    R3BAsyKrabDoArray(const char* name, Int_t iVerbose = 1);
 
-  /**
-   * Destructor.
-   * Frees the memory used by the object.
-   */
-  virtual ~R3BAsyKrabDoArray();
+    /**
+     * Destructor.
+     * Frees the memory used by the object.
+     */
+    virtual ~R3BAsyKrabDoArray();
 
-  /**
-   * Method for task initialization.
-   * This function is called by the framework before
-   * the event loop.
-   * @return Initialization status. kSUCCESS, kERROR or kFATAL.
-   */
-  virtual InitStatus Init();
+    /**
+     * Method for task initialization.
+     * This function is called by the framework before
+     * the event loop.
+     * @return Initialization status. kSUCCESS, kERROR or kFATAL.
+     */
+    virtual InitStatus Init();
 
-  /**
-   * Method for event loop implementation.
-   * Is called by the framework every time a new event is read.
-   * @param option an execution option.
-   */
-  virtual void Exec(Option_t* option);
+    /**
+     * Method for event loop implementation.
+     * Is called by the framework every time a new event is read.
+     * @param option an execution option.
+     */
+    virtual void Exec(Option_t* option);
 
-  virtual void FinishTask();
+    virtual void FinishTask();
 
-  // Reset
-  virtual void Reset();
+    // Reset
+    virtual void Reset();
 
- private:
-  TClonesArray* fMappedItemsKrab; /**< Array with Krab mapped items. */
-  TClonesArray* fKrabArrayData;
-  // check for trigger should be done globablly (somewhere else)
-  R3BEventHeader* header; /**< Event header.      */
-  Int_t fNEvents;         /**< Event counter.     */
-  bool fOnline = false;
+  private:
+    TClonesArray* fMappedItemsKrab; /**< Array with Krab mapped items. */
+    TClonesArray* fKrabArrayData;
+    // check for trigger should be done globablly (somewhere else)
+    R3BEventHeader* header; /**< Event header.      */
+    Int_t fNEvents;         /**< Event counter.     */
+    bool fOnline = false;
 
-  UInt_t iMulti;
-  Double_t iRP;
-  UInt_t* iRing;    //[iMulti]
-  UInt_t* iSector;  //[iMulti]
-  Float_t* iPhi;    //[iMulti]
+    UInt_t iMulti;
+    Double_t iRP;
+    UInt_t* iRing;   //[iMulti]
+    UInt_t* iSector; //[iMulti]
+    Float_t* iPhi;   //[iMulti]
 
-  UInt_t nn;
-  TRandom* rr;
-  TCanvas* c_DRP12_mgt10;
-  TH1F* fh1_DRP12_mgt10;
-  TH1F* fh1_DRP12_mgt20;
-  TH1F* fh1_DRP12_mgt40;
+    UInt_t nn;
+    TRandom* rr;
+    TCanvas* c_DRP12_mgt10;
+    TH1F* fh1_DRP12_mgt10;
+    TH1F* fh1_DRP12_mgt20;
+    TH1F* fh1_DRP12_mgt40;
 
-  R3BAsyKrabArrayData* AddHitData(UInt_t Multi, Double_t RP, UInt_t* Ring,
-                                  UInt_t* Sector, Float_t* Phi);
+    R3BAsyKrabArrayData* AddHitData(UInt_t Multi, Double_t RP, UInt_t* Ring, UInt_t* Sector, Float_t* Phi);
 
- public:
-  ClassDef(R3BAsyKrabDoArray, 1)
+  public:
+    ClassDef(R3BAsyKrabDoArray, 1)
 };
 
 #endif

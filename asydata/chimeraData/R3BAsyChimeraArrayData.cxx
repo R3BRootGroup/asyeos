@@ -16,51 +16,60 @@
 #include "FairLogger.h"
 
 R3BAsyChimeraArrayData::R3BAsyChimeraArrayData()
-    : fMulti(0),
-      fNumTel(0),
-      fFastHG(0),
-      fFastLG(0),
-      fSlowHG(0),
-      fSlowLG(0),
-      fTimeCsI(0),
-      fSilHG(0),
-      fSilLG(0),
-      fTimeSil(0),
-      fMultiCsI(0),
-      fMultiSil(0) {}
+    : fMulti(0)
+    , fNumTel(0)
+    , fFastHG(0)
+    , fFastLG(0)
+    , fSlowHG(0)
+    , fSlowLG(0)
+    , fTimeCsI(0)
+    , fSilHG(0)
+    , fSilLG(0)
+    , fTimeSil(0)
+    , fMultiCsI(0)
+    , fMultiSil(0)
+{
+}
 
-R3BAsyChimeraArrayData::R3BAsyChimeraArrayData(UInt_t multi, UInt_t* numtel,
-                                               UInt_t* fastHG, UInt_t* fastLG,
-                                               UInt_t* slowHG, UInt_t* slowLG,
-                                               UInt_t* timeCsI, UInt_t* silHG,
-                                               UInt_t* silLG, UInt_t* timeSil,
-                                               UInt_t multiCsI, UInt_t multiSil)
-    : fMulti(multi),
-      fNumTel(numtel),
-      fFastHG(fastHG),
-      fFastLG(fastLG),
-      fSlowHG(slowHG),
-      fSlowLG(slowLG),
-      fTimeCsI(timeCsI),
-      fSilHG(silHG),
-      fSilLG(silLG),
-      fTimeSil(timeSil),
-      fMultiCsI(multiCsI),
-      fMultiSil(multiSil) {
-  //       fMulti=multi;
-  //       LOG(info) << "R3BAsyChimeraArrayData::new entry";
+R3BAsyChimeraArrayData::R3BAsyChimeraArrayData(UInt_t multi,
+                                               UInt_t* numtel,
+                                               UInt_t* fastHG,
+                                               UInt_t* fastLG,
+                                               UInt_t* slowHG,
+                                               UInt_t* slowLG,
+                                               UInt_t* timeCsI,
+                                               UInt_t* silHG,
+                                               UInt_t* silLG,
+                                               UInt_t* timeSil,
+                                               UInt_t multiCsI,
+                                               UInt_t multiSil)
+    : fMulti(multi)
+    , fNumTel(numtel)
+    , fFastHG(fastHG)
+    , fFastLG(fastLG)
+    , fSlowHG(slowHG)
+    , fSlowLG(slowLG)
+    , fTimeCsI(timeCsI)
+    , fSilHG(silHG)
+    , fSilLG(silLG)
+    , fTimeSil(timeSil)
+    , fMultiCsI(multiCsI)
+    , fMultiSil(multiSil)
+{
+    //       fMulti=multi;
+    //       LOG(info) << "R3BAsyChimeraArrayData::new entry";
 
-  /*
-         fDet=new UInt_t[multi];
-         fSide=new UInt_t[multi];
-         fStrip=new UInt_t[multi];
-         fRawEnergy=new UInt_t[multi];
-         fRawTime=new UInt_t[multi];
-         fDet=detector;
-         fSide=side;
-         fStrip=strip;
-         fRawEnergy=energy;
-         fRawTime=time;*/
+    /*
+           fDet=new UInt_t[multi];
+           fSide=new UInt_t[multi];
+           fStrip=new UInt_t[multi];
+           fRawEnergy=new UInt_t[multi];
+           fRawTime=new UInt_t[multi];
+           fDet=detector;
+           fSide=side;
+           fStrip=strip;
+           fRawEnergy=energy;
+           fRawTime=time;*/
 }
 UInt_t R3BAsyChimeraArrayData::GetMulti() const { return fMulti; }
 

@@ -30,39 +30,40 @@
 
 class FairParamList;
 
-class R3BAsyKrabCalPar : public FairParGenericSet {
- public:
-  /** Standard constructor **/
-  R3BAsyKrabCalPar(const char* name = "KrabCalPar",
-                   const char* title = "Krab Cal Parameters",
-                   const char* context = "KrabCalParContext");
+class R3BAsyKrabCalPar : public FairParGenericSet
+{
+  public:
+    /** Standard constructor **/
+    R3BAsyKrabCalPar(const char* name = "KrabCalPar",
+                     const char* title = "Krab Cal Parameters",
+                     const char* context = "KrabCalParContext");
 
-  /** Destructor **/
-  virtual ~R3BAsyKrabCalPar();
+    /** Destructor **/
+    virtual ~R3BAsyKrabCalPar();
 
-  /** Method to reset all parameters **/
-  virtual void clear();
+    /** Method to reset all parameters **/
+    virtual void clear();
 
-  /** Method to store all parameters using FairRuntimeDB **/
-  virtual void putParams(FairParamList* list);
+    /** Method to store all parameters using FairRuntimeDB **/
+    virtual void putParams(FairParamList* list);
 
-  /** Method to retrieve all parameters using FairRuntimeDB**/
-  Bool_t getParams(FairParamList* list);
+    /** Method to retrieve all parameters using FairRuntimeDB**/
+    Bool_t getParams(FairParamList* list);
 
-  /** Method to print values of parameters to the standard output **/
-  virtual void print();
-  void printParams();
+    /** Method to print values of parameters to the standard output **/
+    virtual void print();
+    void printParams();
 
-  /** Accessor functions **/
-  // not yet defined
+    /** Accessor functions **/
+    // not yet defined
 
- private:
-  // private params not yet defined
-  const R3BAsyKrabCalPar& operator=(const R3BAsyKrabCalPar&);
-  R3BAsyKrabCalPar(const R3BAsyKrabCalPar&);
+  private:
+    // private params not yet defined
+    const R3BAsyKrabCalPar& operator=(const R3BAsyKrabCalPar&);
+    R3BAsyKrabCalPar(const R3BAsyKrabCalPar&);
 
- public:
-  ClassDef(R3BAsyKrabCalPar, 1);
+  public:
+    ClassDef(R3BAsyKrabCalPar, 1);
 };
 
 #endif /* R3BAsyKrabCalPar_H */

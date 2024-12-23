@@ -30,39 +30,40 @@
 
 class FairParamList;
 
-class R3BAsyChimeraCalPar : public FairParGenericSet {
- public:
-  /** Standard constructor **/
-  R3BAsyChimeraCalPar(const char* name = "ChimeraCalPar",
-                      const char* title = "Chimera Cal Parameters",
-                      const char* context = "ChimeraCalParContext");
+class R3BAsyChimeraCalPar : public FairParGenericSet
+{
+  public:
+    /** Standard constructor **/
+    R3BAsyChimeraCalPar(const char* name = "ChimeraCalPar",
+                        const char* title = "Chimera Cal Parameters",
+                        const char* context = "ChimeraCalParContext");
 
-  /** Destructor **/
-  virtual ~R3BAsyChimeraCalPar();
+    /** Destructor **/
+    virtual ~R3BAsyChimeraCalPar();
 
-  /** Method to reset all parameters **/
-  virtual void clear();
+    /** Method to reset all parameters **/
+    virtual void clear();
 
-  /** Method to store all parameters using FairRuntimeDB **/
-  virtual void putParams(FairParamList* list);
+    /** Method to store all parameters using FairRuntimeDB **/
+    virtual void putParams(FairParamList* list);
 
-  /** Method to retrieve all parameters using FairRuntimeDB**/
-  Bool_t getParams(FairParamList* list);
+    /** Method to retrieve all parameters using FairRuntimeDB**/
+    Bool_t getParams(FairParamList* list);
 
-  /** Method to print values of parameters to the standard output **/
-  virtual void print();
-  void printParams();
+    /** Method to print values of parameters to the standard output **/
+    virtual void print();
+    void printParams();
 
-  /** Accessor functions **/
-  // not yet defined
+    /** Accessor functions **/
+    // not yet defined
 
- private:
-  // private params not yet defined
-  const R3BAsyChimeraCalPar& operator=(const R3BAsyChimeraCalPar&);
-  R3BAsyChimeraCalPar(const R3BAsyChimeraCalPar&);
+  private:
+    // private params not yet defined
+    const R3BAsyChimeraCalPar& operator=(const R3BAsyChimeraCalPar&);
+    R3BAsyChimeraCalPar(const R3BAsyChimeraCalPar&);
 
- public:
-  ClassDef(R3BAsyChimeraCalPar, 1);
+  public:
+    ClassDef(R3BAsyChimeraCalPar, 1);
 };
 
 #endif /* R3BAsyChimeraCalPar_H */
