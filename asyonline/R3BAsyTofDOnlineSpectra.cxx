@@ -174,7 +174,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName3, "tofd_ToT_plane_%d", j + 1);
             char strName4[255];
             sprintf(strName4, "Tofd ToT plane %d", j + 1);
-            fh_tofd_TotPm[j] = R3B::root_owned<TH2F>(strName3, strName4, 90, -45, 45, 1500, 0., 500.);
+            auto hrange = j < 2 ? fTotHistoRange : fTotHistoRangeVeto;
+            fh_tofd_TotPm[j] = R3B::root_owned<TH2F>(strName3, strName4, 90, -45, 45, 3 * hrange, 0., hrange);
             fh_tofd_TotPm[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_TotPm[j]->GetYaxis()->SetTitle("ToT / ns");
             fh_tofd_TotPm[j]->GetYaxis()->SetTitleOffset(1.1);
@@ -189,7 +190,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName5, "tofd_ToT_coinc_plane_%d", j + 1);
             char strName6[255];
             sprintf(strName6, "Tofd ToT coinc plane %d", j + 1);
-            fh_tofd_TotPm_coinc[j] = R3B::root_owned<TH2F>(strName5, strName6, 90, -45, 45, 1500, 0., 500.);
+            fh_tofd_TotPm_coinc[j] = R3B::root_owned<TH2F>(strName5, strName6, 90, -45, 45, 3 * hrange, 0., hrange);
             fh_tofd_TotPm_coinc[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_TotPm_coinc[j]->GetYaxis()->SetTitle("ToT / ns");
             fh_tofd_TotPm_coinc[j]->GetYaxis()->SetTitleOffset(1.1);
@@ -350,7 +351,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         fh_tofd_multihit_coinc[2]->Draw("colz");
         cTofd_planes->cd(18);
         gPad->SetLogz();
-        fh_tofd_dt[1]->Draw("colz");
+        // fh_tofd_dt[1]->Draw("colz");
 
         cTofd_planes->cd(19);
         fh_tofd_channels[3]->Draw();

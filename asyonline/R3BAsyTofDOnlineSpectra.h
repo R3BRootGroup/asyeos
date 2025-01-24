@@ -120,6 +120,10 @@ class R3BAsyTofDOnlineSpectra : public FairTask
 
     void SetMaxChargeVeto(double maxcharge) { fMax_chargeVeto = maxcharge; }
 
+    void SetTotHistoRange(double tot) { fTotHistoRange = tot; }
+
+    void SetTotHistoRangeVeto(double tot) { fTotHistoRangeVeto = tot; }
+
   private:
     void SetParameter();
     std::unique_ptr<R3BCoarseTimeStitch> fTimeStitch;
@@ -137,6 +141,8 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     Int_t fMaxmul = 100;
     double fMax_charge = 120.;
     double fMax_chargeVeto = 12.;
+    double fTotHistoRange = 500.;
+    double fTotHistoRangeVeto = 100.;
     UInt_t fPaddlesPerPlane = 44;                                 /**< Number of paddles per plane. */
     Double_t fC_range_ns = 2048 * 5.;                             // ns
     Double_t fC_bar_coincidence_ns = 20.;                         // ns
