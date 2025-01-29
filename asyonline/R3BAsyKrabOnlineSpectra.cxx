@@ -78,6 +78,7 @@ InitStatus R3BAsyKrabOnlineSpectra::Init()
         LOG(info) << "R3BAsyKrabOnlineSpectra::Init line 72";
 
     FairRunOnline* run = FairRunOnline::Instance();
+
     // for online server
     run->GetHttpServer()->Register("", this);
 

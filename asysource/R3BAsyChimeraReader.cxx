@@ -101,23 +101,23 @@ Bool_t R3BAsyChimeraReader::R3BRead()
 
     uint64_t timestamp = 1;
 
-    /*11102024
-      auto const& fTIMESTAMP_CHIMERA_ID = data->TIMESTAMP_CHIMERA_ID;
-      auto const& fTIMESTAMP_CHIMERA_WR_T1 = data->TIMESTAMP_CHIMERA_WR_T[0];
-      auto const& fTIMESTAMP_CHIMERA_WR_T2 = data->TIMESTAMP_CHIMERA_WR_T[1];
-      auto const& fTIMESTAMP_CHIMERA_WR_T3 = data->TIMESTAMP_CHIMERA_WR_T[2];
-      auto const& fTIMESTAMP_CHIMERA_WR_T4 = data->TIMESTAMP_CHIMERA_WR_T[3];
+    
+    auto const& fTIMESTAMP_CHIMERA_ID = data->TIMESTAMP_CHIMERA_ID;
+    auto const& fTIMESTAMP_CHIMERA_WR_T1 = data->TIMESTAMP_CHIMERA_WR_T[0];
+    auto const& fTIMESTAMP_CHIMERA_WR_T2 = data->TIMESTAMP_CHIMERA_WR_T[1];
+    auto const& fTIMESTAMP_CHIMERA_WR_T3 = data->TIMESTAMP_CHIMERA_WR_T[2];
+    auto const& fTIMESTAMP_CHIMERA_WR_T4 = data->TIMESTAMP_CHIMERA_WR_T[3];
 
-      if (verbose) {
+    if (verbose) {
         std::cout << " *** " << fTIMESTAMP_CHIMERA_ID << std::endl;
         std::cout << " ****** " << fTIMESTAMP_CHIMERA_WR_T1 << " "
                   << fTIMESTAMP_CHIMERA_WR_T2 << " " << fTIMESTAMP_CHIMERA_WR_T3
                   << " " << fTIMESTAMP_CHIMERA_WR_T4 << " " << std::endl;
-      }
-      timestamp = ((uint64_t)fTIMESTAMP_CHIMERA_WR_T4 << 48) |
-                  ((uint64_t)fTIMESTAMP_CHIMERA_WR_T3 << 32) |
-                  ((uint64_t)fTIMESTAMP_CHIMERA_WR_T2 << 16) |
-                  (uint64_t)fTIMESTAMP_CHIMERA_WR_T1;
+     }
+     timestamp = ((uint64_t)fTIMESTAMP_CHIMERA_WR_T4 << 48) |
+                 ((uint64_t)fTIMESTAMP_CHIMERA_WR_T3 << 32) |
+                 ((uint64_t)fTIMESTAMP_CHIMERA_WR_T2 << 16) |
+                 (uint64_t)fTIMESTAMP_CHIMERA_WR_T1;
 
       if (verbose)
         std::cout << " ********* " << std::hex << timestamp << std::dec
@@ -125,7 +125,7 @@ Bool_t R3BAsyChimeraReader::R3BRead()
 
       new ((*fArrayWR)[fArrayWR->GetEntriesFast()])
           R3BWRData(timestamp, fTIMESTAMP_CHIMERA_ID);
-    11102024*/
+    
 
     if (timestamp == 0)
     {
