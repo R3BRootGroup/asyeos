@@ -78,11 +78,12 @@ InitStatus R3BAsyKrabOnlineSpectra::Init()
         LOG(info) << "R3BAsyKrabOnlineSpectra::Init line 72";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    // for online server  run->GetHttpServer()->Register("", this);
+    // for online server  
+    run->GetHttpServer()->Register("", this);
 
     // Register command to reset histograms
-    // for online server  run->GetHttpServer()->RegisterCommand("Reset_Krab",
-    // Form("/Objects/%s/->Reset_Histo()", GetName()));
+    // for online server  
+    run->GetHttpServer()->RegisterCommand("Reset_Krab", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
     // --- get access to mapped data of KRAB --- //
