@@ -191,9 +191,9 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
                 Float_t qx = sin(theta * TMath::DegToRad()) * cos(phi * TMath::DegToRad());
                 Float_t qy = sin(theta * TMath::DegToRad()) * sin(phi * TMath::DegToRad());
 
-//                std::cout << "#####  " << iNumTel << " " << theta << " "
-//                          << " " << phi << std::endl;
-//                getchar();
+                //                std::cout << "#####  " << iNumTel << " " << theta << " "
+                //                          << " " << phi << std::endl;
+                //                getchar();
                 QX = QX + qx;
                 QY = QY + qy;
                 Float_t rrr = rr->Uniform();
@@ -256,7 +256,7 @@ Float_t R3BAsyChimeraPhys::GetTheta(int numtel)
     {
         if (numtel >= telmin[i] && numtel <= telmax[i])
         {
-//            std::cout << "------ " << thetamin[i] << " " << thetamax[i] << std::endl;
+            //            std::cout << "------ " << thetamin[i] << " " << thetamax[i] << std::endl;
             theta = (thetamin[i] + thetamax[i]) / 2;
         }
     }
