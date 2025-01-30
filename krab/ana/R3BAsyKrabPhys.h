@@ -107,7 +107,7 @@ class R3BAsyKrabPhys : public FairTask
 
     // Canvas
     TCanvas* c_KRAB_phys;
-    TH1I* fh1_KRAB_multi;
+    TH1I* fh1_KRAB_multi_p;
     TH1F* fh1_KRAB_RP;
 
     R3BAsyKrabPhysData* AddPhysData(Float_t multi, Float_t KRABRP);

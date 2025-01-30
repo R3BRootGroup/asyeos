@@ -156,7 +156,8 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
     }
     // Chimera main folder
     TFolder* mainfol = new TFolder("Chimera", "raw data");
-    mainfol->Add(mainfol);
+
+    //    mainfol->Add(mainfol);
     c_CHIMERA_numtel->cd();
     fh1_CHIMERA_numtel->Draw();
     fh1_CHIMERA_numtel->SetLineColor(1);
@@ -188,7 +189,7 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
     c_CHIMERA_slow->cd(2);
     fh2_CHIMERA_numtel_slowLG->Draw("zcol");
 
-    run->AddObject(mainfol);
+//    run->AddObject(mainfol);
     LOG(info) << "R3BAsyChimeraOnlineSpectra::Init DONE";
     return kSUCCESS;
 }

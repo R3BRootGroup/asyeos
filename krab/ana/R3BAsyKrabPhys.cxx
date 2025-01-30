@@ -106,11 +106,11 @@ InitStatus R3BAsyKrabPhys::Init()
         LOG(info) << "R3BAsyKrabPhys::Init line 87";
 
     c_KRAB_phys = new TCanvas("c_KRAB_phys", "KRAB_phys", 0, 0, 1200, 1200);
-    fh1_KRAB_multi = new TH1I("fh1_KRAB_multi", "KRAB_multi", 200, -0.5, 99.5);
+    fh1_KRAB_multi_p = new TH1I("fh1_KRAB_multi_p", "KRAB_multi_p", 200, -0.5, 99.5);
     fh1_KRAB_RP = new TH1F("fh1_KRAB_RP", "KRAB_RP", 200, -200, 200);
     c_KRAB_phys->Divide(2, 2);
     c_KRAB_phys->cd(1);
-    fh1_KRAB_multi->Draw();
+    fh1_KRAB_multi_p->Draw();
     c_KRAB_phys->cd(2);
     fh1_KRAB_RP->Draw();
 
@@ -121,7 +121,7 @@ InitStatus R3BAsyKrabPhys::Init()
 void R3BAsyKrabPhys::Reset_Histo()
 {
     LOG(info) << "R3BAsyKrabPhys::Reset_Histo";
-    fh1_KRAB_multi->Reset();
+    fh1_KRAB_multi_p->Reset();
     fh1_KRAB_RP->Reset();
 }
 
@@ -162,7 +162,7 @@ void R3BAsyKrabPhys::Exec(Option_t* option)
         }
     }
 
-    fh1_KRAB_multi->Fill(multi);
+    fh1_KRAB_multi_p->Fill(multi);
     if (multi >= 10)
     {
         KRABRP = atan2(QY, QX) * TMath::RadToDeg();

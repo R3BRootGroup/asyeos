@@ -156,6 +156,7 @@ Bool_t R3BAsyKrabReader::R3BRead()
     EXT_STR_h101_ASYKRAB_onion* data = (EXT_STR_h101_ASYKRAB_onion*)fData;
 
     uint32_t fTIMESTAMP_KRAB_ID = 555;
+/*
     auto const& fTIMESTAMP_KRAB_WR_T1 = data->TIMESTAMP_KRAB_WR_T[0];
     auto const& fTIMESTAMP_KRAB_WR_T2 = data->TIMESTAMP_KRAB_WR_T[1];
     auto const& fTIMESTAMP_KRAB_WR_T3 = data->TIMESTAMP_KRAB_WR_T[2];
@@ -168,10 +169,12 @@ Bool_t R3BAsyKrabReader::R3BRead()
                   << fTIMESTAMP_KRAB_WR_T2 << " " << fTIMESTAMP_KRAB_WR_T3 << " " << fTIMESTAMP_KRAB_WR_T4 << " "
                   << std::dec << std::endl;
     }
+*/    
     uint64_t timestamp = 0;
+/*
     timestamp = ((uint64_t)fTIMESTAMP_KRAB_WR_T4 << 48) | ((uint64_t)fTIMESTAMP_KRAB_WR_T3 << 32) |
                 ((uint64_t)fTIMESTAMP_KRAB_WR_T2 << 16) | (uint64_t)fTIMESTAMP_KRAB_WR_T1;
-
+*/
     new ((*fArrayWR)[fArrayWR->GetEntriesFast()]) R3BWRData(timestamp, fTIMESTAMP_KRAB_ID);
 
     if (timestamp == 0)
