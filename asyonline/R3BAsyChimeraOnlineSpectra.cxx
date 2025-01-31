@@ -82,7 +82,7 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
     // for online server
     run->GetHttpServer()->Register("", this);
     // Register command to reset histograms
-    // for online server  
+    // for online server
 
     run->GetHttpServer()->RegisterCommand("Reset_Chimera", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
@@ -189,7 +189,7 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
     c_CHIMERA_slow->cd(2);
     fh2_CHIMERA_numtel_slowLG->Draw("zcol");
 
-//    run->AddObject(mainfol);
+    //    run->AddObject(mainfol);
     LOG(info) << "R3BAsyChimeraOnlineSpectra::Init DONE";
     return kSUCCESS;
 }

@@ -191,7 +191,6 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
                 Float_t qx = sin(theta * TMath::DegToRad()) * cos(phi * TMath::DegToRad());
                 Float_t qy = sin(theta * TMath::DegToRad()) * sin(phi * TMath::DegToRad());
 
-
                 //                std::cout << "#####  " << iNumTel << " " << theta << " "
                 //                          << " " << phi << std::endl;
                 //                getchar();
