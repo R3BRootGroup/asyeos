@@ -170,7 +170,7 @@ Bool_t R3BAsyKrabReader::R3BRead()
                       << std::dec << std::endl;
         }
     */
-    uint64_t timestamp = 0;
+    uint64_t timestamp = 1;
     /*
         timestamp = ((uint64_t)fTIMESTAMP_KRAB_WR_T4 << 48) | ((uint64_t)fTIMESTAMP_KRAB_WR_T3 << 32) |
                     ((uint64_t)fTIMESTAMP_KRAB_WR_T2 << 16) | (uint64_t)fTIMESTAMP_KRAB_WR_T1;
