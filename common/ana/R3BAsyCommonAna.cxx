@@ -83,11 +83,12 @@ InitStatus R3BAsyCommonAna::Init()
         LOG(info) << "R3BAsyCommonAna::Init line 72";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    // for online server  run->GetHttpServer()->Register("", this);
+    //for online server  
+    run->GetHttpServer()->Register("", this);
 
     // Register command to reset histograms
-    // for online server  run->GetHttpServer()->RegisterCommand("Reset_Chimera",
-    // Form("/Objects/%s/->Reset_Histo()", GetName()));
+    // for online server  
+    run->GetHttpServer()->RegisterCommand("Reset_Chimera", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
     // --- get access to phys data of CHIMERA and KRAB --- //
