@@ -96,6 +96,9 @@ class R3BAsyChimeraPhys : public FairTask
      */
     virtual void Reset_Histo();
 
+    // Accessor to select online mode
+    inline void SetOnline(bool option) { fOnline = option; }
+
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
     TClonesArray* fChimeraPhysData;

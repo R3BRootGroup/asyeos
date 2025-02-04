@@ -39,7 +39,7 @@ R3BAsyChimeraMappedData::R3BAsyChimeraMappedData(UInt_t numtel,
                                                  UInt_t patt)
     : fNumTel(numtel)
     , fFastHG(fastHG)
-    , fFastLG(slowLG)
+    , fFastLG(fastLG)
     , fSlowHG(slowHG)
     , fSlowLG(slowLG)
     , fTimeCsI(timeCsI)

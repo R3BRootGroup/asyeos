@@ -223,7 +223,7 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
     Float_t DCHIRP12 = CHIRP1 - CHIRP2;
 
     fh1_CHIMERA_multi->Fill(multi);
-    if (multi >= 8)
+    if (multi >= 4)
     {
         fh1_CHIMERA_RP->Fill(CHIRP);
         if (dmm < 0.33333)
@@ -273,7 +273,9 @@ Float_t R3BAsyChimeraPhys::GetPhi(int numtel)
     {
         if (numtel >= telmin[i] && numtel <= telmax[i])
         {
-            phi = (numtel - telmin[i]) * 360 / (telmax[i] - telmin[i] + 1);
+            phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1))+90;
+            if(phi>360)phi=phi-360;
+//            std::cout << numtel << " " << phi << std::endl;
         }
     }
     return phi;

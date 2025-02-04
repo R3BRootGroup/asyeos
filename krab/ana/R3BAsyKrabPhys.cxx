@@ -106,7 +106,7 @@ InitStatus R3BAsyKrabPhys::Init()
         LOG(info) << "R3BAsyKrabPhys::Init line 87";
 
     c_KRAB_phys = new TCanvas("c_KRAB_phys", "KRAB_phys", 0, 0, 1200, 1200);
-    fh1_KRAB_multi_p = new TH1I("fh1_KRAB_multi_p", "KRAB_multi_p", 200, -0.5, 99.5);
+    fh1_KRAB_multi_p = new TH1I("fh1_KRAB_multi_p", "KRAB_multi_p", 100, -0.5, 99.5);
     fh1_KRAB_RP = new TH1F("fh1_KRAB_RP", "KRAB_RP", 200, -200, 200);
     c_KRAB_phys->Divide(2, 2);
     c_KRAB_phys->cd(1);
@@ -157,19 +157,22 @@ void R3BAsyKrabPhys::Exec(Option_t* option)
             iqy = hitmapped->Getqy();
 
             multi++;
-            QX = QX + iqx;
-            QY = QY + iqy;
+            if(iRing<4){
+             QX = QX + iqx;
+             QY = QY + iqy;
+            }
         }
     }
 
-    fh1_KRAB_multi_p->Fill(multi);
-    if (multi >= 10)
-    {
+    if(multi != 15){
+		fh1_KRAB_multi_p->Fill(multi);
+     if (multi >= 10)
+     {
         KRABRP = atan2(QY, QX) * TMath::RadToDeg();
         fh1_KRAB_RP->Fill(KRABRP);
+     }
+     AddPhysData(multi, KRABRP);
     }
-    AddPhysData(multi, KRABRP);
-
     fNEvents += 1;
 }
 

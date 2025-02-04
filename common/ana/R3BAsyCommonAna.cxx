@@ -115,11 +115,14 @@ InitStatus R3BAsyCommonAna::Init()
     c_CHIMERA_KRAB = new TCanvas("c_CHIMERA_KRAB", "CHIMERA_KRAB", 0, 0, 1200, 1200);
     fh2_CHIMERA_KRAB_multi = new TH2I("fh2_CHIMERA_KRAB_multi", "CHIMERA_KRAB_multi", 100, -0.5, 99.5, 100, -0.5, 99.5);
     fh2_CHIMERA_KRAB_RP = new TH2F("fh2_CHIMERA_KRAB_RP", "CHIMERA_KRAB_RP", 90, -180., 180., 90, -180., 180.);
+    fh1_CHIMERAmKRAB_RP = new TH1F("fh1_CHIMERAmKRAB_RP", "CHIMERAmKRAB_RP", 92, -184., 184.);
     c_CHIMERA_KRAB->Divide(2, 2);
     c_CHIMERA_KRAB->cd(1);
     fh2_CHIMERA_KRAB_multi->Draw();
     c_CHIMERA_KRAB->cd(2);
     fh2_CHIMERA_KRAB_RP->Draw();
+    c_CHIMERA_KRAB->cd(3);
+    fh1_CHIMERAmKRAB_RP->Draw();
 
     LOG(info) << "R3BAsyCommonAna::Init DONE";
     return kSUCCESS;
@@ -141,6 +144,7 @@ void R3BAsyCommonAna::Exec(Option_t* option)
     Int_t nHits_CHI, nHits_KRAB;
     UInt_t multi_CHI = -10, multi_KRAB = -10;
     Float_t RP_CHI = -1000, RP_KRAB = -1000;
+    Float_t RP_CHImKRAB= -1000;
 
     if (fPhysItemsChimera && fPhysItemsChimera->GetEntriesFast() && fPhysItemsKrab && fPhysItemsKrab->GetEntriesFast())
     {
@@ -168,9 +172,13 @@ void R3BAsyCommonAna::Exec(Option_t* option)
             RP_KRAB = physdata->GetRP();
         }
     }
-
+    
     fh2_CHIMERA_KRAB_multi->Fill(multi_CHI, multi_KRAB);
-    fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+    if(multi_KRAB>=10 && multi_CHI>=4){
+     fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+     if(RP_CHI>-1000 && RP_KRAB>-1000) RP_CHImKRAB = RP_CHI - RP_KRAB;
+     fh1_CHIMERAmKRAB_RP->Fill(RP_CHImKRAB);
+    }
     fNEvents += 1;
     //  std::cout << "#### Common Ana :: 142 " << std::endl;
     //  getchar();

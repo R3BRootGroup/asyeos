@@ -95,6 +95,8 @@ class R3BAsyKrabPhys : public FairTask
      * Methods to clean histograms.
      */
     virtual void Reset_Histo();
+    // Accessor to select online mode
+    inline void SetOnline(bool option) { fOnline = option; }
 
   private:
     TClonesArray* fMappedItemsKrab; /**< Array with chimera mapped items. */

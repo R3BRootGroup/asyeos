@@ -94,6 +94,11 @@ class R3BAsyChimeraOnlineSpectra : public FairTask
      * Methods to clean histograms.
      */
     virtual void Reset_Histo();
+    
+    inline void SetNtel1(int ntel) { ntel1 = ntel; };
+    inline void SetNtel2(int ntel) { ntel2 = ntel; };
+    inline void SetNtel3(int ntel) { ntel3 = ntel; };
+    inline void SetNtel4(int ntel) { ntel4 = ntel; };
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
@@ -101,7 +106,9 @@ class R3BAsyChimeraOnlineSpectra : public FairTask
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
-
+    
+    UInt_t ntel1=150,ntel2=160,ntel3=170,ntel4=180;
+    
     TCanvas* c_CHIMERA_numtel;
     TH1I* fh1_CHIMERA_numtel;
     TH1I* fh1_CHIMERA_numtel_wtime;
@@ -123,6 +130,12 @@ class R3BAsyChimeraOnlineSpectra : public FairTask
 
     TCanvas* c_CHIMERA_patt;
     TH1I* fh1_CHIMERA_patt[32];
+    
+    TCanvas* c_some_FS;
+    TH2I* fh2_CHIMERA_fast_slow_1;
+    TH2I* fh2_CHIMERA_fast_slow_2;
+    TH2I* fh2_CHIMERA_fast_slow_3;
+    TH2I* fh2_CHIMERA_fast_slow_4;
 
   public:
     ClassDef(R3BAsyChimeraOnlineSpectra, 1)

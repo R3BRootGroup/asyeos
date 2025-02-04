@@ -110,6 +110,7 @@ class R3BAsyCommonAna : public FairTask
     TCanvas* c_CHIMERA_KRAB;
     TH2I* fh2_CHIMERA_KRAB_multi;
     TH2F* fh2_CHIMERA_KRAB_RP;
+    TH1F* fh1_CHIMERAmKRAB_RP;
 
   public:
     ClassDef(R3BAsyCommonAna, 1)
