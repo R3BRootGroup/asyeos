@@ -376,6 +376,34 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         // Adding this canvas to the main folder
         maintofd->Add(cTofd_planes);
         maintofd->Add(cTofd_Y_per_planes);
+
+        auto* cTofd_diagnosis = new TCanvas("TofD_diagnosis", "TOFD diagnosis", 10, 10, 1100, 1000);
+        cTofd_diagnosis->Divide(6, 2);
+
+        fh_tofd_TotPm_coinc_vs_event.resize(12);
+
+        for (Int_t j = 0; j < 2; j++)
+            for (Int_t p = 0; p < 6; p++)
+            {
+                char strName15[255];
+                sprintf(strName15, "tofd_ToT_diagnosis_plane_%d_paddle_%d", j + 1, 20 + p);
+                char strName16[255];
+                sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d", j + 1, 20 + p);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
+                    strName15, strName16, 10000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetXaxis()->CenterTitle(true);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetYaxis()->CenterTitle(true);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetXaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetXaxis()->SetTitleSize(0.045);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetYaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->GetYaxis()->SetTitleSize(0.045);
+                cTofd_diagnosis->cd(j * 6 + p);
+                fh_tofd_TotPm_coinc_vs_event[j * 6 + p]->Draw("colz");
+            }
+        maintofd->Add(cTofd_diagnosis);
     }
 
     if (fHitItems)
@@ -765,6 +793,11 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
     fh_tofd_dt[0]->Reset();
     fh_tofd_dt[1]->Reset();
     fh_tofd_dt[2]->Reset();
+
+    for (const auto& hist : fh_tofd_TotPm_coinc_vs_event)
+    {
+        hist->Reset();
+    }
 
     if (fHitItems)
     {
@@ -1175,6 +1208,12 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
 
                     fh_tofd_TotPm_coinc[iPlane - 1]->Fill(-iBar - 1, botc_tot);
                     fh_tofd_TotPm_coinc[iPlane - 1]->Fill(iBar, topc_tot);
+
+                    if (iPlane < 3 && iBar > 19 && iBar < 26)
+                    {
+                        auto tofd_index = (iPlane - 1) * 6 + iBar - 20;
+                        fh_tofd_TotPm_coinc_vs_event[tofd_index]->Fill(fNEvents, (topc_tot + botc_tot) / 2.);
+                    }
 
                     // std::cout<<"ToT: "<<top_tot << " "<<bot_tot<<"\n";
 
