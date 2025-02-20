@@ -131,6 +131,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     TClonesArray* fCalItems = nullptr;
     TClonesArray* fHitItems = nullptr;
     TClonesArray* fCalTriggerItems = nullptr; /**< Array with trigger Cal items - input data. */
+    TClonesArray* fWRItemsLos = nullptr;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header = nullptr; /**< Event header. */

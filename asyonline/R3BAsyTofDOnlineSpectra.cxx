@@ -45,6 +45,7 @@
 #include "R3BTofdCalData.h"
 #include "R3BTofdHitData.h"
 #include "R3BTofdMappedData.h"
+#include "R3BWRData.h"
 
 #define IS_NAN(x) TMath::IsNaN(x)
 using namespace std;
@@ -120,6 +121,9 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
 
     fHitItems = dynamic_cast<TClonesArray*>(mgr->GetObject("TofdHit"));
     R3BLOG_IF(warn, fHitItems == nullptr, "TofdHit not found");
+
+    fWRItemsLos = dynamic_cast<TClonesArray*>(mgr->GetObject("WRLosData"));
+    R3BLOG_IF(warn, !fWRItemsLos, "WRLosData not found");
 
     SetParameter();
 
@@ -933,8 +937,11 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
 void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
 {
 
-    if ((header) && header->GetTrigger() == 12)
-        fTimeStampCounter = header->GetTimeStamp();
+    if ((header) && header->GetTrigger() == 12 && fWRItemsLos->GetEntriesFast() > 0)
+    {
+        auto* hit = dynamic_cast<R3BWRData*>(fWRItemsLos->At(0));
+        fTimeStampCounter = hit->GetTimeStamp();
+    }
 
     if ((fTrigger >= 0) && (header) && (header->GetTrigger() != fTrigger))
         return;
@@ -1141,7 +1148,8 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 {
                     auto tofd_index = (iPlane - 1) * 6 + iBar - 20;
                     fh_tofd_TotPm_top_vs_event[tofd_index]->Fill(fNEvents, top_tot);
-                    auto timestampRef = (header->GetTimeStamp() - fTimeStampCounter) * 1e-9;
+                    auto* hit = dynamic_cast<R3BWRData*>(fWRItemsLos->At(0));
+                    auto timestampRef = (hit->GetTimeStamp() - fTimeStampCounter) * 1e-9;
                     fh_tofd_TotPm_top_vs_ts[tofd_index]->Fill(timestampRef, top_tot);
                 }
 
@@ -1199,7 +1207,8 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 {
                     auto tofd_index = (iPlane - 1) * 6 + iBar - 20;
                     fh_tofd_TotPm_bot_vs_event[tofd_index]->Fill(fNEvents, bot_tot);
-                    auto timestampRef = (header->GetTimeStamp() - fTimeStampCounter) * 1e-9;
+                    auto* hit = dynamic_cast<R3BWRData*>(fWRItemsLos->At(0));
+                    auto timestampRef = (hit->GetTimeStamp() - fTimeStampCounter) * 1e-9;
                     fh_tofd_TotPm_bot_vs_ts[tofd_index]->Fill(timestampRef, bot_tot);
                 }
 
@@ -1485,6 +1494,10 @@ void R3BAsyTofDOnlineSpectra::FinishEvent()
     if (fHitItems)
     {
         fHitItems->Clear();
+    }
+    if (fWRItemsLos)
+    {
+        fWRItemsLos->Clear();
     }
 }
 
