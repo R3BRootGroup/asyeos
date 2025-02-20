@@ -148,6 +148,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     Double_t fC_bar_coincidence_ns = 20.;                         // ns
     unsigned long fNEvents = 0;                                   /**< Event counter. */
     std::vector<double> fTofcor = std::vector<double>(1000, NAN); // Avoid out of bounds if uninitialized
+    int64_t fTimeStampCounter = 0;
 
     std::vector<TH1F*> fh_tofd_channels;
     std::vector<TH2F*> fh_tofd_multihit;
@@ -170,6 +171,9 @@ class R3BAsyTofDOnlineSpectra : public FairTask
 
     std::vector<TH2F*> fh_tofd_TotPm_top_vs_event;
     std::vector<TH2F*> fh_tofd_TotPm_bot_vs_event;
+
+    std::vector<TH2F*> fh_tofd_TotPm_top_vs_ts;
+    std::vector<TH2F*> fh_tofd_TotPm_bot_vs_ts;
 
     TH2F* fh2_tofd_time_vs_charge;
     TH2F* fh2_tofd_time_wouttrig_vs_charge;

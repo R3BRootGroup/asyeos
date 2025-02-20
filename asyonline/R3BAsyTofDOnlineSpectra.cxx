@@ -390,7 +390,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (TOP)", j + 1, 20 + p);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 100000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -418,7 +418,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (BOTTOM)", j + 1, 20 + p);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 100000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -432,6 +432,64 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->Draw("colz");
             }
         maintofd->Add(cTofd_bot_diagnosis);
+
+        auto* cTofd_top_diagnosis_ts =
+            new TCanvas("TofD_top_diagnosis_ts", "TOFD top diagnosis with TimeStamp", 10, 10, 1100, 1000);
+        cTofd_top_diagnosis_ts->Divide(6, 2);
+
+        fh_tofd_TotPm_top_vs_ts.resize(12);
+
+        for (Int_t j = 0; j < 2; j++)
+            for (Int_t p = 0; p < 6; p++)
+            {
+                char strName15[255];
+                sprintf(strName15, "tofd_ToT_diagnosis_ts_plane_%d_paddle_%d_top", j + 1, 20 + p);
+                char strName16[255];
+                sprintf(strName16, "Tofd ToT diagnosis TS plane %d, paddle %d (TOP)", j + 1, 20 + p);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p] =
+                    R3B::root_owned<TH2F>(strName15, strName16, 300, -1., 13., 3 * fTotHistoRange, 0., fTotHistoRange);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetXaxis()->SetTitle("TimeStamp / s");
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetXaxis()->CenterTitle(true);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetYaxis()->CenterTitle(true);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetXaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetXaxis()->SetTitleSize(0.045);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetYaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->GetYaxis()->SetTitleSize(0.045);
+                cTofd_top_diagnosis_ts->cd(j * 6 + p + 1);
+                fh_tofd_TotPm_top_vs_ts[j * 6 + p]->Draw("colz");
+            }
+        maintofd->Add(cTofd_top_diagnosis_ts);
+
+        auto* cTofd_bot_diagnosis_ts =
+            new TCanvas("TofD_bottom_diagnosis_ts", "TOFD bottom diagnosis with TimeStamp", 10, 10, 1100, 1000);
+        cTofd_bot_diagnosis_ts->Divide(6, 2);
+
+        fh_tofd_TotPm_bot_vs_ts.resize(12);
+
+        for (Int_t j = 0; j < 2; j++)
+            for (Int_t p = 0; p < 6; p++)
+            {
+                char strName15[255];
+                sprintf(strName15, "tofd_ToT_diagnosis_ts_plane_%d_paddle_%d_bottom", j + 1, 20 + p);
+                char strName16[255];
+                sprintf(strName16, "Tofd ToT diagnosis TS plane %d, paddle %d (BOTTOM)", j + 1, 20 + p);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p] =
+                    R3B::root_owned<TH2F>(strName15, strName16, 300, -1., 13., 3 * fTotHistoRange, 0., fTotHistoRange);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetXaxis()->SetTitle("TimeStamp / s");
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetXaxis()->CenterTitle(true);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetYaxis()->CenterTitle(true);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetXaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetXaxis()->SetTitleSize(0.045);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetYaxis()->SetLabelSize(0.045);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->GetYaxis()->SetTitleSize(0.045);
+                cTofd_bot_diagnosis_ts->cd(j * 6 + p + 1);
+                fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->Draw("colz");
+            }
+        maintofd->Add(cTofd_bot_diagnosis_ts);
     }
 
     if (fHitItems)
@@ -832,6 +890,16 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
         hist->Reset();
     }
 
+    for (const auto& hist : fh_tofd_TotPm_top_vs_ts)
+    {
+        hist->Reset();
+    }
+
+    for (const auto& hist : fh_tofd_TotPm_bot_vs_ts)
+    {
+        hist->Reset();
+    }
+
     if (fHitItems)
     {
         for (int i = 0; i < fNofPlanes; i++)
@@ -864,6 +932,9 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
 
 void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
 {
+
+    if ((header) && header->GetTrigger() == 12)
+        fTimeStampCounter = header->GetTimeStamp();
 
     if ((fTrigger >= 0) && (header) && (header->GetTrigger() != fTrigger))
         return;
@@ -1070,6 +1141,8 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 {
                     auto tofd_index = (iPlane - 1) * 6 + iBar - 20;
                     fh_tofd_TotPm_top_vs_event[tofd_index]->Fill(fNEvents, top_tot);
+                    auto timestampRef = (header->GetTimeStamp() - fTimeStampCounter) * 1e-9;
+                    fh_tofd_TotPm_top_vs_ts[tofd_index]->Fill(timestampRef, top_tot);
                 }
 
                 vmultihits_top[iPlane - 1][iBar - 1] += 1;
@@ -1126,6 +1199,8 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 {
                     auto tofd_index = (iPlane - 1) * 6 + iBar - 20;
                     fh_tofd_TotPm_bot_vs_event[tofd_index]->Fill(fNEvents, bot_tot);
+                    auto timestampRef = (header->GetTimeStamp() - fTimeStampCounter) * 1e-9;
+                    fh_tofd_TotPm_bot_vs_ts[tofd_index]->Fill(timestampRef, bot_tot);
                 }
 
                 // register multi hits
