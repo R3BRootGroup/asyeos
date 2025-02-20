@@ -408,7 +408,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         auto* cTofd_bot_diagnosis = new TCanvas("TofD_bottom_diagnosis", "TOFD bottom diagnosis", 10, 10, 1100, 1000);
         cTofd_bot_diagnosis->Divide(6, 2);
 
-        fh_tofd_TotPm_top_vs_event.resize(12);
+        fh_tofd_TotPm_bot_vs_event.resize(12);
 
         for (Int_t j = 0; j < 2; j++)
             for (Int_t p = 0; p < 6; p++)
