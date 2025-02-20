@@ -390,7 +390,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (TOP)", j + 1, 20 + p);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 10000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 2000, 0, 100000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -418,7 +418,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (BOTTOM)", j + 1, 20 + p);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 10000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 2000, 0, 100000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
