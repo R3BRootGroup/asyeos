@@ -113,14 +113,18 @@ class R3BAsyChimeraPhys : public FairTask
     TH1I* fh1_CHIMERA_multi;
     TH1F* fh1_CHIMERA_RP;
     TH1F* fh1_CHIMERA_RP12;
+    TH2F* fh2_CHIMERA_crings;
 
     Float_t GetTheta(int);
     Float_t GetPhi(int);
-
+    Float_t GetThetaRnd(int);
+    Float_t GetPhiRnd(int);
+    
     TRandom* rr;
+    TRandom* rrn;
 
     R3BAsyChimeraPhysData* AddPhysData(Float_t multi, Float_t CHIRP);
-
+    
   public:
     ClassDef(R3BAsyChimeraPhys, 1)
 };
