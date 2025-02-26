@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fï¿½r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -97,11 +97,18 @@ class R3BAsyKrabPhys : public FairTask
     virtual void Reset_Histo();
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
+    inline void SetRP_thr(Int_t thr)   { RP_thr  = thr; }
+    Int_t GetRP_thr()   { return RP_thr; }
+    void SetRmin(Int_t ring) { Rmin = ring; }
+    void SetRmax(Int_t ring) { Rmax = ring; }
 
   private:
     TClonesArray* fMappedItemsKrab; /**< Array with chimera mapped items. */
     TClonesArray* fKrabPhysData;
     bool fOnline = false;
+    Int_t Rmin=0;
+    Int_t Rmax=4;
+    Int_t RP_thr = 5;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */

@@ -114,15 +114,18 @@ InitStatus R3BAsyCommonAna::Init()
 
     c_CHIMERA_KRAB = new TCanvas("c_CHIMERA_KRAB", "CHIMERA_KRAB", 0, 0, 1200, 1200);
     fh2_CHIMERA_KRAB_multi = new TH2I("fh2_CHIMERA_KRAB_multi", "CHIMERA_KRAB_multi", 100, -0.5, 99.5, 100, -0.5, 99.5);
+    fp_CHIMERA_KRAB_multi = new TProfile("fp_CHIMERA_KRAB_multi", "CHIMERA_KRAB_multi", 100, -0.5, 99.5, -0.5, 99.5);
     fh2_CHIMERA_KRAB_RP = new TH2F("fh2_CHIMERA_KRAB_RP", "CHIMERA_KRAB_RP", 90, -180., 180., 90, -180., 180.);
     fh1_CHIMERAmKRAB_RP = new TH1F("fh1_CHIMERAmKRAB_RP", "CHIMERAmKRAB_RP", 92, -184., 184.);
     c_CHIMERA_KRAB->Divide(2, 2);
     c_CHIMERA_KRAB->cd(1);
     fh2_CHIMERA_KRAB_multi->Draw();
+    fp_CHIMERA_KRAB_multi->Draw("same");
     c_CHIMERA_KRAB->cd(2);
     fh2_CHIMERA_KRAB_RP->Draw();
     c_CHIMERA_KRAB->cd(3);
     fh1_CHIMERAmKRAB_RP->Draw();
+    fp_CHIMERA_KRAB_multi->SetMarkerStyle(20); 
 
     LOG(info) << "R3BAsyCommonAna::Init DONE";
     return kSUCCESS;
@@ -132,7 +135,9 @@ void R3BAsyCommonAna::Reset_Histo()
 {
     LOG(info) << "R3BAsyCommonAna::Reset_Histo";
     fh2_CHIMERA_KRAB_multi->Reset();
+    fp_CHIMERA_KRAB_multi->Reset();
     fh2_CHIMERA_KRAB_RP->Reset();
+    fh1_CHIMERAmKRAB_RP->Reset();
 }
 
 void R3BAsyCommonAna::Exec(Option_t* option)
@@ -174,10 +179,16 @@ void R3BAsyCommonAna::Exec(Option_t* option)
     }
     
     fh2_CHIMERA_KRAB_multi->Fill(multi_CHI, multi_KRAB);
-    if(multi_KRAB>=10 && multi_CHI>=4){
-     fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
-     if(RP_CHI>-1000 && RP_KRAB>-1000) RP_CHImKRAB = RP_CHI - RP_KRAB;
-     fh1_CHIMERAmKRAB_RP->Fill(RP_CHImKRAB);
+    fp_CHIMERA_KRAB_multi->Fill(multi_CHI, multi_KRAB);
+    if(multi_KRAB>=KRAB_RP_thr && multi_CHI>=CHI_RP_thr){
+//     fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+     if(RP_CHI>-1000 && RP_KRAB>-1000) {
+      fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+      RP_CHImKRAB = RP_CHI - RP_KRAB;
+      if(RP_CHImKRAB<-180)RP_CHImKRAB=-360-RP_CHImKRAB;
+      if(RP_CHImKRAB> 180)RP_CHImKRAB= 360-RP_CHImKRAB;
+      fh1_CHIMERAmKRAB_RP->Fill(RP_CHImKRAB);
+     }
     }
     fNEvents += 1;
     //  std::cout << "#### Common Ana :: 142 " << std::endl;
@@ -203,11 +214,15 @@ void R3BAsyCommonAna::FinishTask()
 
     if (fPhysItemsChimera && fPhysItemsKrab)
     {
-        //   std::cout << "#### Common Ana :: 161 " << std::endl;
+        std::cout << "#### CommonAna :: Finish Task " << std::endl;
         //   getchar();
 
         c_CHIMERA_KRAB->Update();
         c_CHIMERA_KRAB->Write();
+	fh2_CHIMERA_KRAB_multi->Write();
+	fp_CHIMERA_KRAB_multi->Write();
+	fh2_CHIMERA_KRAB_RP->Write();
+	fh1_CHIMERAmKRAB_RP->Write();
     }
 }
 

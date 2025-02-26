@@ -126,7 +126,7 @@ InitStatus R3BAsyChimeraPhys::Init()
     c_CHIMERA_phys = new TCanvas("c_CHIMERA_phys", "CHIMERA_phys", 0, 0, 1200, 1200);
     fh1_CHIMERA_multi = new TH1I("fh1_CHIMERA_multi", "CHIMERA_multi", 100, -0.5, 99.5);
     fh1_CHIMERA_RP = new TH1F("fh1_CHIMERA_RP", "CHIMERA_RP", 200, -200, 200);
-    fh1_CHIMERA_RP12 = new TH1F("fh1_CHIMERA_RP12", "CHIMERA_RP12", 400, -400, 400);
+    fh1_CHIMERA_RP12 = new TH1F("fh1_CHIMERA_RP12", "CHIMERA_RP12", 92, -184, 184);
     fh2_CHIMERA_crings = new TH2F("fh2_CHIMERA_crings", "CHIMERA_crings", 300, 180, 220, 300, 180, 220);
     c_CHIMERA_phys->Divide(2, 2);
     c_CHIMERA_phys->cd(1);
@@ -162,7 +162,7 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
 
     Int_t nHits;
     UShort_t multi = 0, multi1 = 0, multi2 = 0;
-    Float_t CHIRP = -1000, CHIRP1 = -2000, CHIRP2 = -3000;
+    Float_t CHIRP = -5000, CHIRP1 = -2000, CHIRP2 = -3000, DCHIRP12=-4000;
     Float_t QX = 0, QY = 0;
     Float_t Q1X = 0, Q1Y = 0;
     Float_t Q2X = 0, Q2Y = 0;
@@ -239,17 +239,20 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
     UShort_t dmulti12 = TMath::Abs(multi1 - multi2);
     Float_t dmm = 1.0 * dmulti12 / multi;
 
-    CHIRP = atan2(QY, QX) * TMath::RadToDeg();
-    CHIRP1 = atan2(Q1Y, Q1X) * TMath::RadToDeg();
-    CHIRP2 = atan2(Q2Y, Q2X) * TMath::RadToDeg();
-    Float_t DCHIRP12 = CHIRP1 - CHIRP2;
+    if(multi>=RP_thr){
+     CHIRP = atan2(QY, QX) * TMath::RadToDeg();
+     CHIRP1 = atan2(Q1Y, Q1X) * TMath::RadToDeg();
+     CHIRP2 = atan2(Q2Y, Q2X) * TMath::RadToDeg();
+     DCHIRP12 = CHIRP1 - CHIRP2;
+     if(DCHIRP12<-180)DCHIRP12=-360-DCHIRP12;
+     if(DCHIRP12> 180)DCHIRP12= 360-DCHIRP12;
+    }
 
     fh1_CHIMERA_multi->Fill(multi);
-    if (multi >= 4)
+    if (multi >= 2)
     {
-        fh1_CHIMERA_RP->Fill(CHIRP);
-        if (dmm < 0.33333)
-            fh1_CHIMERA_RP12->Fill(DCHIRP12);
+        if(CHIRP>-1000)fh1_CHIMERA_RP->Fill(CHIRP);
+        if (dmm < 0.33333 && DCHIRP12>-1000)fh1_CHIMERA_RP12->Fill(DCHIRP12);
         AddPhysData(multi, CHIRP);
     }
     fNEvents += 1;

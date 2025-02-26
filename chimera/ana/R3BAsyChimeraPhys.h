@@ -98,11 +98,14 @@ class R3BAsyChimeraPhys : public FairTask
 
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
+    inline void SetRP_thr(Int_t thr)   { RP_thr  = thr; }
+    Int_t GetRP_thr()   {return RP_thr;}
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
     TClonesArray* fChimeraPhysData;
     bool fOnline = false;
+    Int_t RP_thr = 3;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
