@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fï¿½r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -33,6 +33,7 @@
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
+#include "TProfile.h"
 #include "TMath.h"
 
 class TClonesArray;
@@ -96,11 +97,16 @@ class R3BAsyCommonAna : public FairTask
      * Methods to clean histograms.
      */
     virtual void Reset_Histo();
+    inline void SetOnline(bool option) { fOnline = option; }
+    inline void SetCHI_RP_thr(Int_t thr)   {CHI_RP_thr  = thr; }
+    inline void SetKRAB_RP_thr(Int_t thr)   {KRAB_RP_thr  = thr; }
 
   private:
     TClonesArray* fPhysItemsChimera;
     TClonesArray* fPhysItemsKrab;
     bool fOnline = false;
+    Int_t CHI_RP_thr=3;
+    Int_t KRAB_RP_thr=6;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
@@ -109,6 +115,7 @@ class R3BAsyCommonAna : public FairTask
     // Canvas
     TCanvas* c_CHIMERA_KRAB;
     TH2I* fh2_CHIMERA_KRAB_multi;
+    TProfile* fp_CHIMERA_KRAB_multi;
     TH2F* fh2_CHIMERA_KRAB_RP;
     TH1F* fh1_CHIMERAmKRAB_RP;
 

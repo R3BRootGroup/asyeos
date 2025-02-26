@@ -74,7 +74,8 @@ InitStatus R3BAsyKrabPhys::Init()
     FairRootManager* mgr = FairRootManager::Instance();
     if (NULL == mgr)
         LOG(fatal) << "R3BAsyKrabPhys::Init FairRootManager not found";
-    // header = (R3BEventHeader*)mgr->GetObject("R3BEventHeader");
+        header = dynamic_cast<R3BEventHeader*>(mgr->GetObject("EventHeader."));        
+    //header = (R3BEventHeader*)mgr->GetObject("R3BEventHeader");
 
     if (verbose)
         LOG(info) << "R3BAsyKrabPhys::Init line 72";
@@ -133,13 +134,22 @@ void R3BAsyKrabPhys::Exec(Option_t* option)
 
     Int_t nHits;
     UShort_t multi = 0;
+    UShort_t multiRP = 0;
     Float_t KRABRP = -1000;
     Float_t QX = 0, QY = 0;
+    Int_t trig=-1000, tpatt=-1000;
 
     UInt_t iRing, iSector;
     Float_t iPhi, iqx, iqy;
+    if(header){
+     trig=header->GetTrigger();
+     tpatt=header->GetTpat();
+    {
+//	std:: cout << "R3BAsyKrabPhys:: " << trig << " " << tpatt << std::endl;
+    }
+   }
 
-    if (fMappedItemsKrab && fMappedItemsKrab->GetEntriesFast())
+    if (fMappedItemsKrab && fMappedItemsKrab->GetEntriesFast() && trig==1 )
     {
         // --- --------------------- --- //
         // --- loop over mapped data --- //
@@ -157,21 +167,27 @@ void R3BAsyKrabPhys::Exec(Option_t* option)
             iqy = hitmapped->Getqy();
 
             multi++;
-            if(iRing<4){
+            if(iRing<=Rmax && iRing>=Rmin){
              QX = QX + iqx;
              QY = QY + iqy;
+	     multiRP++;
             }
         }
     }
 
-    if(multi != 15){
-		fh1_KRAB_multi_p->Fill(multi);
-     if (multi >= 10)
-     {
-        KRABRP = atan2(QY, QX) * TMath::RadToDeg();
-        fh1_KRAB_RP->Fill(KRABRP);
-     }
-     AddPhysData(multi, KRABRP);
+    if(multi>=2){
+	fh1_KRAB_multi_p->Fill(multi);
+        if(multiRP>=RP_thr){
+	 KRABRP = atan2(QY, QX) * TMath::RadToDeg();
+         fh1_KRAB_RP->Fill(KRABRP);
+/*
+	 if(KRABRP==0){
+	  std::cout << multi << " " << multiRP << "  " << QX << " " << QY << std::endl;
+	  getchar();
+         }
+*/	 
+	}
+	AddPhysData(multi, KRABRP);
     }
     fNEvents += 1;
 }
