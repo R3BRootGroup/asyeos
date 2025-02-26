@@ -302,7 +302,7 @@ void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option)
             if (iNumTel >= 1 && iNumTel <= 32)
             {
                 if (iPatt > 0)
-                    fh1_CHIMERA_patt[iNumTel-1]->Fill(iPatt);
+                    fh1_CHIMERA_patt[iNumTel - 1]->Fill(iPatt);
             }
         }
     }

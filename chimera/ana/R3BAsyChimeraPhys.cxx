@@ -53,6 +53,11 @@ const Int_t telmin[35] = { 0,   16,  32,  56,  80,   112,  144,  184,  224,  264
 const Int_t telmax[35] = { 15,  31,  55,  79,   111,  143,  183,  223,  263,  303,  351, 399,
                            447, 495, 543, 591,  639,  687,  719,  751,  783,  815,  847, 879,
                            911, 943, 975, 1007, 1039, 1071, 1103, 1135, 1167, 1183, 1191 };
+const Float_t delta_phi[35] =  {22.5, 22.5, 15., 15., 11.25, 11.25, 9., 9.,       
+                                 9., 9., 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5,        
+                                11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25,       
+                                11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25,   
+                                11.25, 22.5, 45.0 };
 
 R3BAsyChimeraPhys::R3BAsyChimeraPhys()
     : FairTask("AsyChimeraPhys", 1)
@@ -122,6 +127,7 @@ InitStatus R3BAsyChimeraPhys::Init()
     fh1_CHIMERA_multi = new TH1I("fh1_CHIMERA_multi", "CHIMERA_multi", 100, -0.5, 99.5);
     fh1_CHIMERA_RP = new TH1F("fh1_CHIMERA_RP", "CHIMERA_RP", 200, -200, 200);
     fh1_CHIMERA_RP12 = new TH1F("fh1_CHIMERA_RP12", "CHIMERA_RP12", 400, -400, 400);
+    fh2_CHIMERA_crings = new TH2F("fh2_CHIMERA_crings", "CHIMERA_crings", 300, 180, 220, 300, 180, 220);
     c_CHIMERA_phys->Divide(2, 2);
     c_CHIMERA_phys->cd(1);
     fh1_CHIMERA_multi->Draw();
@@ -129,8 +135,11 @@ InitStatus R3BAsyChimeraPhys::Init()
     fh1_CHIMERA_RP->Draw();
     c_CHIMERA_phys->cd(3);
     fh1_CHIMERA_RP12->Draw();
+    c_CHIMERA_phys->cd(4);
+    fh2_CHIMERA_crings->Draw("col");
 
     rr = new TRandom();
+    rrn = new TRandom();
 
     LOG(info) << "R3BAsyChimeraPhys::Init DONE";
     return kSUCCESS;
@@ -142,6 +151,7 @@ void R3BAsyChimeraPhys::Reset_Histo()
     fh1_CHIMERA_multi->Reset();
     fh1_CHIMERA_RP->Reset();
     fh1_CHIMERA_RP12->Reset();
+    fh2_CHIMERA_crings->Reset();
 }
 
 void R3BAsyChimeraPhys::Exec(Option_t* option)
@@ -156,7 +166,7 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
     Float_t QX = 0, QY = 0;
     Float_t Q1X = 0, Q1Y = 0;
     Float_t Q2X = 0, Q2Y = 0;
-
+    const float PI = 3.14159;
     UShort_t iNumTel, iFastHG, iFastLG, iSlowHG, iSlowLG, iTimeCsI, iSilHG, iSilLG, iTimeSil, iPatt;
 
     if (fMappedItemsChimera && fMappedItemsChimera->GetEntriesFast())
@@ -211,6 +221,18 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
                     multi2++;
                 }
             }
+	    // crings calculation (timing CsI only, silicons to be done)
+	    if( iTimeCsI >0) 
+	    {
+	     Float_t x=0,y=0;
+             Float_t s_phi = GetPhiRnd(iNumTel);
+	     if(s_phi > 180) s_phi=-360 + s_phi;
+             if(s_phi <-180) s_phi= 360 + s_phi;
+	     Float_t s_theta = GetThetaRnd(iNumTel);
+             x =  s_theta*cos(s_phi*PI/180.);
+             y =  s_theta*sin(s_phi*PI/180.); 
+	     if(x!=0 && y!=0)fh2_CHIMERA_crings->Fill(200+x,200+y); 	     
+	    }
         }
     }
 
@@ -280,6 +302,45 @@ Float_t R3BAsyChimeraPhys::GetPhi(int numtel)
     }
     return phi;
 }
+
+
+
+
+Float_t R3BAsyChimeraPhys::GetThetaRnd(int numtel)
+{
+ float xrn = (float)rrn->Rndm(); 
+ float thr = -1000.0;
+ for (int i = 0; i < 35; i++)
+ {
+  if (numtel >= telmin[i] && numtel <= telmax[i])
+  {
+   float theta = (thetamin[i] + thetamax[i]) / 2;
+   thr = xrn * (thetamax[i] - thetamin[i]) + thetamin[i];
+  }
+ }
+ return thr; 
+}
+
+
+Float_t R3BAsyChimeraPhys::GetPhiRnd(int numtel)
+{
+ float xrn = (float)rrn->Rndm(); 
+ float phir = -1000;
+    for (int i = 0; i < 35; i++)
+    {
+        if (numtel >= telmin[i] && numtel <= telmax[i])
+        {
+         float phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1)) + 90.0;
+	 float dphi = delta_phi[i];
+	 phir = (0.5 - xrn)*dphi + phi;   
+         if(phir<0)phir += 360.0;
+         //if(numtel>=80 && numtel<=90)std::cout << numtel << " " << phi << " " <<phir<< std::endl;
+        }
+    }
+    return phir;
+}
+
+
 
 // -----   Private method AddHitData -------------------------------------------
 R3BAsyChimeraPhysData* R3BAsyChimeraPhys::AddPhysData(Float_t multi, Float_t CHIRP)
