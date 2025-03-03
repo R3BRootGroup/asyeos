@@ -53,11 +53,9 @@ const Int_t telmin[35] = { 0,   16,  32,  56,  80,   112,  144,  184,  224,  264
 const Int_t telmax[35] = { 15,  31,  55,  79,   111,  143,  183,  223,  263,  303,  351, 399,
                            447, 495, 543, 591,  639,  687,  719,  751,  783,  815,  847, 879,
                            911, 943, 975, 1007, 1039, 1071, 1103, 1135, 1167, 1183, 1191 };
-const Float_t delta_phi[35] =  {22.5, 22.5, 15., 15., 11.25, 11.25, 9., 9.,       
-                                 9., 9., 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5,        
-                                11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25,       
-                                11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25,   
-                                11.25, 22.5, 45.0 };
+const Float_t delta_phi[35] = { 22.5,  22.5,  15.,   15.,   11.25, 11.25, 9.,    9.,    9.,    9.,    7.5,   7.5,
+                                7.5,   7.5,   7.5,   7.5,   7.5,   7.5,   11.25, 11.25, 11.25, 11.25, 11.25, 11.25,
+                                11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 22.5,  45.0 };
 
 R3BAsyChimeraPhys::R3BAsyChimeraPhys()
     : FairTask("AsyChimeraPhys", 1)
@@ -93,6 +91,7 @@ InitStatus R3BAsyChimeraPhys::Init()
     if (NULL == mgr)
         LOG(fatal) << "R3BAsyChimeraPhys::Init FairRootManager not found";
     // header = (R3BEventHeader*)mgr->GetObject("R3BEventHeader");
+    header = dynamic_cast<R3BEventHeader*>(mgr->GetObject("EventHeader."));
 
     if (verbose)
         LOG(info) << "R3BAsyChimeraPhys::Init line 72";
@@ -138,6 +137,15 @@ InitStatus R3BAsyChimeraPhys::Init()
     c_CHIMERA_phys->cd(4);
     fh2_CHIMERA_crings->Draw("col");
 
+    c_CHIMERA_ped = new TCanvas("c_CHIMERA_ped", "CHIMERA_ped", 0, 0, 1200, 1200);
+    c_CHIMERA_ped->Divide(1, 2);
+    fh1_CHIMERA_pedfast = new TH1F("fh1_CHIMERA_pedFast", "CHIMERA_pedfast", 320, 80, 400);
+    fh1_CHIMERA_pedslow = new TH1F("fh1_CHIMERA_pedSlow", "CHIMERA_pedslow", 320, 80, 400);
+    c_CHIMERA_ped->cd(1);
+    fh1_CHIMERA_pedfast->Draw();
+    c_CHIMERA_ped->cd(2);
+    fh1_CHIMERA_pedslow->Draw();
+
     rr = new TRandom();
     rrn = new TRandom();
 
@@ -152,6 +160,8 @@ void R3BAsyChimeraPhys::Reset_Histo()
     fh1_CHIMERA_RP->Reset();
     fh1_CHIMERA_RP12->Reset();
     fh2_CHIMERA_crings->Reset();
+    fh1_CHIMERA_pedfast->Reset();
+    fh1_CHIMERA_pedslow->Reset();
 }
 
 void R3BAsyChimeraPhys::Exec(Option_t* option)
@@ -162,14 +172,21 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
 
     Int_t nHits;
     UShort_t multi = 0, multi1 = 0, multi2 = 0;
-    Float_t CHIRP = -5000, CHIRP1 = -2000, CHIRP2 = -3000, DCHIRP12=-4000;
+    Float_t CHIRP = -5000, CHIRP1 = -2000, CHIRP2 = -3000, DCHIRP12 = -4000;
     Float_t QX = 0, QY = 0;
     Float_t Q1X = 0, Q1Y = 0;
     Float_t Q2X = 0, Q2Y = 0;
     const float PI = 3.14159;
     UShort_t iNumTel, iFastHG, iFastLG, iSlowHG, iSlowLG, iTimeCsI, iSilHG, iSilLG, iTimeSil, iPatt;
 
-    if (fMappedItemsChimera && fMappedItemsChimera->GetEntriesFast())
+    Int_t trig = -1000;
+    if (header)
+    {
+        trig = header->GetTrigger();
+        // std:: cout << "R3BAsyChimPhys:: " << trig << " " << std::endl;
+    }
+
+    if (fMappedItemsChimera && fMappedItemsChimera->GetEntriesFast() && (trig == 3 || trig == 1))
     {
         // --- --------------------- --- //
         // --- loop over mapped data --- //
@@ -221,38 +238,60 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
                     multi2++;
                 }
             }
-	    // crings calculation (timing CsI only, silicons to be done)
-	    if( iTimeCsI >0) 
-	    {
-	     Float_t x=0,y=0;
-             Float_t s_phi = GetPhiRnd(iNumTel);
-	     if(s_phi > 180) s_phi=-360 + s_phi;
-             if(s_phi <-180) s_phi= 360 + s_phi;
-	     Float_t s_theta = GetThetaRnd(iNumTel);
-             x =  s_theta*cos(s_phi*PI/180.);
-             y =  s_theta*sin(s_phi*PI/180.); 
-	     if(x!=0 && y!=0)fh2_CHIMERA_crings->Fill(200+x,200+y); 	     
-	    }
+            // crings calculation (timing CsI only, silicons to be done)
+            if (iTimeCsI > 0)
+            {
+                Float_t x = 0, y = 0;
+                Float_t s_phi = GetPhiRnd(iNumTel);
+                if (s_phi > 180)
+                    s_phi = -360 + s_phi;
+                if (s_phi < -180)
+                    s_phi = 360 + s_phi;
+                Float_t s_theta = GetThetaRnd(iNumTel);
+                x = s_theta * cos(s_phi * PI / 180.);
+                y = s_theta * sin(s_phi * PI / 180.);
+                if (x != 0 && y != 0)
+                    fh2_CHIMERA_crings->Fill(200 + x, 200 + y);
+            }
+
+            // pedestal on-line monitoring
+            // if(trig!=1)std:: cout << "R3BAsyChimPhys:: " << trig << " " << iNumTel<<std::endl;
+            if (trig == 3)
+            {
+                if (iFastHG > 0)
+                {
+                    fh1_CHIMERA_pedfast->Fill(iNumTel);
+                }
+                if (iSlowHG > 0)
+                {
+                    fh1_CHIMERA_pedslow->Fill(iNumTel);
+                }
+            }
         }
     }
 
     UShort_t dmulti12 = TMath::Abs(multi1 - multi2);
     Float_t dmm = 1.0 * dmulti12 / multi;
 
-    if(multi>=RP_thr){
-     CHIRP = atan2(QY, QX) * TMath::RadToDeg();
-     CHIRP1 = atan2(Q1Y, Q1X) * TMath::RadToDeg();
-     CHIRP2 = atan2(Q2Y, Q2X) * TMath::RadToDeg();
-     DCHIRP12 = CHIRP1 - CHIRP2;
-     if(DCHIRP12<-180)DCHIRP12=-360-DCHIRP12;
-     if(DCHIRP12> 180)DCHIRP12= 360-DCHIRP12;
+    if (multi >= RP_thr)
+    {
+        CHIRP = atan2(QY, QX) * TMath::RadToDeg();
+        CHIRP1 = atan2(Q1Y, Q1X) * TMath::RadToDeg();
+        CHIRP2 = atan2(Q2Y, Q2X) * TMath::RadToDeg();
+        DCHIRP12 = CHIRP1 - CHIRP2;
+        if (DCHIRP12 < -180)
+            DCHIRP12 = -360 - DCHIRP12;
+        if (DCHIRP12 > 180)
+            DCHIRP12 = 360 - DCHIRP12;
     }
 
     fh1_CHIMERA_multi->Fill(multi);
     if (multi >= 2)
     {
-        if(CHIRP>-1000)fh1_CHIMERA_RP->Fill(CHIRP);
-        if (dmm < 0.33333 && DCHIRP12>-1000)fh1_CHIMERA_RP12->Fill(DCHIRP12);
+        if (CHIRP > -1000)
+            fh1_CHIMERA_RP->Fill(CHIRP);
+        if (dmm < 0.33333 && DCHIRP12 > -1000)
+            fh1_CHIMERA_RP12->Fill(DCHIRP12);
         AddPhysData(multi, CHIRP);
     }
     fNEvents += 1;
@@ -272,6 +311,8 @@ void R3BAsyChimeraPhys::FinishTask()
     {
         c_CHIMERA_phys->Update();
         c_CHIMERA_phys->Write();
+        c_CHIMERA_ped->Update();
+        c_CHIMERA_ped->Write();
     }
 }
 
@@ -298,52 +339,48 @@ Float_t R3BAsyChimeraPhys::GetPhi(int numtel)
     {
         if (numtel >= telmin[i] && numtel <= telmax[i])
         {
-            phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1))+90;
-            if(phi>360)phi=phi-360;
-//            std::cout << numtel << " " << phi << std::endl;
+            phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1)) + 90;
+            if (phi > 360)
+                phi = phi - 360;
+            //            std::cout << numtel << " " << phi << std::endl;
         }
     }
     return phi;
 }
 
-
-
-
 Float_t R3BAsyChimeraPhys::GetThetaRnd(int numtel)
 {
- float xrn = (float)rrn->Rndm(); 
- float thr = -1000.0;
- for (int i = 0; i < 35; i++)
- {
-  if (numtel >= telmin[i] && numtel <= telmax[i])
-  {
-   float theta = (thetamin[i] + thetamax[i]) / 2;
-   thr = xrn * (thetamax[i] - thetamin[i]) + thetamin[i];
-  }
- }
- return thr; 
-}
-
-
-Float_t R3BAsyChimeraPhys::GetPhiRnd(int numtel)
-{
- float xrn = (float)rrn->Rndm(); 
- float phir = -1000;
+    float xrn = (float)rrn->Rndm();
+    float thr = -1000.0;
     for (int i = 0; i < 35; i++)
     {
         if (numtel >= telmin[i] && numtel <= telmax[i])
         {
-         float phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1)) + 90.0;
-	 float dphi = delta_phi[i];
-	 phir = (0.5 - xrn)*dphi + phi;   
-         if(phir<0)phir += 360.0;
-         //if(numtel>=80 && numtel<=90)std::cout << numtel << " " << phi << " " <<phir<< std::endl;
+            float theta = (thetamin[i] + thetamax[i]) / 2;
+            thr = xrn * (thetamax[i] - thetamin[i]) + thetamin[i];
+        }
+    }
+    return thr;
+}
+
+Float_t R3BAsyChimeraPhys::GetPhiRnd(int numtel)
+{
+    float xrn = (float)rrn->Rndm();
+    float phir = -1000;
+    for (int i = 0; i < 35; i++)
+    {
+        if (numtel >= telmin[i] && numtel <= telmax[i])
+        {
+            float phi = ((numtel - telmin[i]) * 360. / (telmax[i] - telmin[i] + 1)) + 90.0;
+            float dphi = delta_phi[i];
+            phir = (0.5 - xrn) * dphi + phi;
+            if (phir < 0)
+                phir += 360.0;
+            // if(numtel>=80 && numtel<=90)std::cout << numtel << " " << phi << " " <<phir<< std::endl;
         }
     }
     return phir;
 }
-
-
 
 // -----   Private method AddHitData -------------------------------------------
 R3BAsyChimeraPhysData* R3BAsyChimeraPhys::AddPhysData(Float_t multi, Float_t CHIRP)
