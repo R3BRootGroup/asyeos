@@ -98,8 +98,8 @@ class R3BAsyChimeraPhys : public FairTask
 
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
-    inline void SetRP_thr(Int_t thr)   { RP_thr  = thr; }
-    Int_t GetRP_thr()   {return RP_thr;}
+    inline void SetRP_thr(Int_t thr) { RP_thr = thr; }
+    Int_t GetRP_thr() { return RP_thr; }
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
@@ -118,16 +118,20 @@ class R3BAsyChimeraPhys : public FairTask
     TH1F* fh1_CHIMERA_RP12;
     TH2F* fh2_CHIMERA_crings;
 
+    TCanvas* c_CHIMERA_ped;
+    TH1F* fh1_CHIMERA_pedfast;
+    TH1F* fh1_CHIMERA_pedslow;
+
     Float_t GetTheta(int);
     Float_t GetPhi(int);
     Float_t GetThetaRnd(int);
     Float_t GetPhiRnd(int);
-    
+
     TRandom* rr;
     TRandom* rrn;
 
     R3BAsyChimeraPhysData* AddPhysData(Float_t multi, Float_t CHIRP);
-    
+
   public:
     ClassDef(R3BAsyChimeraPhys, 1)
 };
