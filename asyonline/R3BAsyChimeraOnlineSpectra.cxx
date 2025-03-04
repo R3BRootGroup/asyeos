@@ -140,18 +140,26 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
 
     c_CHIMERA_patt = new TCanvas("c_CHIMERA_patt", "CHIMERA_patt", 0, 0, 2400, 1200);
     c_CHIMERA_patt->Divide(8, 4);
-    
+
     c_some_FS = new TCanvas("c_some_FS", "c_some_FS", 0, 0, 1200, 1200);
-    c_some_FS->Divide(2,2);
-    fh2_CHIMERA_fast_slow_1=new TH2I("fh2_CHIMERA_fast_slow_1", "CHIMERA_fast_slow_1", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
-    fh2_CHIMERA_fast_slow_2=new TH2I("fh2_CHIMERA_fast_slow_2", "CHIMERA_fast_slow_2", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
-    fh2_CHIMERA_fast_slow_3=new TH2I("fh2_CHIMERA_fast_slow_3", "CHIMERA_fast_slow_3", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
-    fh2_CHIMERA_fast_slow_4=new TH2I("fh2_CHIMERA_fast_slow_4", "CHIMERA_fast_slow_4", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
-    c_some_FS->cd(1);fh2_CHIMERA_fast_slow_1->Draw("Zcol");
-    c_some_FS->cd(2);fh2_CHIMERA_fast_slow_2->Draw("Zcol");
-    c_some_FS->cd(3);fh2_CHIMERA_fast_slow_3->Draw("Zcol");
-    c_some_FS->cd(4);fh2_CHIMERA_fast_slow_4->Draw("Zcol");
-    
+    c_some_FS->Divide(2, 2);
+    fh2_CHIMERA_fast_slow_1 =
+        new TH2I("fh2_CHIMERA_fast_slow_1", "CHIMERA_fast_slow_1", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
+    fh2_CHIMERA_fast_slow_2 =
+        new TH2I("fh2_CHIMERA_fast_slow_2", "CHIMERA_fast_slow_2", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
+    fh2_CHIMERA_fast_slow_3 =
+        new TH2I("fh2_CHIMERA_fast_slow_3", "CHIMERA_fast_slow_3", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
+    fh2_CHIMERA_fast_slow_4 =
+        new TH2I("fh2_CHIMERA_fast_slow_4", "CHIMERA_fast_slow_4", 1000, -0.5, 4000.5, 1000, -0.5, 2000.5);
+    c_some_FS->cd(1);
+    fh2_CHIMERA_fast_slow_1->Draw("Zcol");
+    c_some_FS->cd(2);
+    fh2_CHIMERA_fast_slow_2->Draw("Zcol");
+    c_some_FS->cd(3);
+    fh2_CHIMERA_fast_slow_3->Draw("Zcol");
+    c_some_FS->cd(4);
+    fh2_CHIMERA_fast_slow_4->Draw("Zcol");
+
     int nch = 500;
     int xymin = -0.5;
     int xymax = 4095.5;
@@ -286,18 +294,22 @@ void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option)
             if (iSlowHG)
                 fh2_CHIMERA_numtel_slowHG->Fill(iNumTel, iSlowHG);
 
-            if(iNumTel==ntel1 && iFastLG>0 && iSlowLG>0){
-			 fh2_CHIMERA_fast_slow_1->Fill(iSlowLG, iFastLG);
-			} 
-            if(iNumTel==ntel2 && iFastLG>0 && iSlowLG>0){
-			 fh2_CHIMERA_fast_slow_2->Fill(iSlowLG, iFastLG);
-			} 
-            if(iNumTel==ntel3 && iFastLG>0 && iSlowLG>0){
-			 fh2_CHIMERA_fast_slow_3->Fill(iSlowLG, iFastLG);
-			} 
-            if(iNumTel==ntel4 && iFastLG>0 && iSlowLG>0){
-			 fh2_CHIMERA_fast_slow_4->Fill(iSlowLG, iFastLG);
-			} 
+            if (iNumTel == ntel1 && iFastLG > 0 && iSlowLG > 0)
+            {
+                fh2_CHIMERA_fast_slow_1->Fill(iSlowLG, iFastLG);
+            }
+            if (iNumTel == ntel2 && iFastLG > 0 && iSlowLG > 0)
+            {
+                fh2_CHIMERA_fast_slow_2->Fill(iSlowLG, iFastLG);
+            }
+            if (iNumTel == ntel3 && iFastLG > 0 && iSlowLG > 0)
+            {
+                fh2_CHIMERA_fast_slow_3->Fill(iSlowLG, iFastLG);
+            }
+            if (iNumTel == ntel4 && iFastLG > 0 && iSlowLG > 0)
+            {
+                fh2_CHIMERA_fast_slow_4->Fill(iSlowLG, iFastLG);
+            }
 
             if (iNumTel >= 1 && iNumTel <= 32)
             {

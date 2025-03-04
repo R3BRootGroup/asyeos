@@ -135,6 +135,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
     //------------------------------------------------------------------------
     // TofD detector
 
+    Int_t numPaddles = 50;
+
     if (fMappedItems && fCalItems)
     {
         auto* cTofd_planes = new TCanvas("TofD_planes_Cal", "TOFD planes CAL data", 10, 10, 1100, 1000);
@@ -162,7 +164,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName1, "tofd_channels_plane_%d", j + 1);
             char strName2[255];
             sprintf(strName2, "Tofd channels plane %d", j + 1);
-            fh_tofd_channels[j] = R3B::root_owned<TH1F>(strName1, strName2, 90, -45., 45.);
+            fh_tofd_channels[j] = R3B::root_owned<TH1F>(strName1, strName2, 2 * numPaddles, -numPaddles, numPaddles);
             fh_tofd_channels[j]->GetXaxis()->SetTitle("Channel");
             fh_tofd_channels[j]->GetYaxis()->SetTitle("Counts");
             fh_tofd_channels[j]->GetYaxis()->SetTitleOffset(1.);
@@ -179,7 +181,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             char strName4[255];
             sprintf(strName4, "Tofd ToT plane %d", j + 1);
             auto hrange = j < 2 ? fTotHistoRange : fTotHistoRangeVeto;
-            fh_tofd_TotPm[j] = R3B::root_owned<TH2F>(strName3, strName4, 90, -45, 45, 3 * hrange, 0., hrange);
+            fh_tofd_TotPm[j] = R3B::root_owned<TH2F>(
+                strName3, strName4, 2 * numPaddles, -numPaddles, numPaddles, 3 * hrange, 0., hrange);
             fh_tofd_TotPm[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_TotPm[j]->GetYaxis()->SetTitle("ToT / ns");
             fh_tofd_TotPm[j]->GetYaxis()->SetTitleOffset(1.1);
@@ -194,7 +197,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName5, "tofd_ToT_coinc_plane_%d", j + 1);
             char strName6[255];
             sprintf(strName6, "Tofd ToT coinc plane %d", j + 1);
-            fh_tofd_TotPm_coinc[j] = R3B::root_owned<TH2F>(strName5, strName6, 90, -45, 45, 3 * hrange, 0., hrange);
+            fh_tofd_TotPm_coinc[j] = R3B::root_owned<TH2F>(
+                strName5, strName6, 2 * numPaddles, -numPaddles, numPaddles, 3 * hrange, 0., hrange);
             fh_tofd_TotPm_coinc[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_TotPm_coinc[j]->GetYaxis()->SetTitle("ToT / ns");
             fh_tofd_TotPm_coinc[j]->GetYaxis()->SetTitleOffset(1.1);
@@ -209,7 +213,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName7, "tofd_multihit_plane_%d", j + 1);
             char strName8[255];
             sprintf(strName8, "Tofd multihit plane %d", j + 1);
-            fh_tofd_multihit[j] = R3B::root_owned<TH2F>(strName7, strName8, 90, -45., 45., 30, 0, 30);
+            fh_tofd_multihit[j] =
+                R3B::root_owned<TH2F>(strName7, strName8, 2 * numPaddles, -numPaddles, numPaddles, 30, 0, 30);
             fh_tofd_multihit[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_multihit[j]->GetYaxis()->SetTitle("Multihit");
             fh_tofd_multihit[j]->GetYaxis()->SetTitleOffset(1.);
@@ -224,7 +229,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName9, "tofd_multihit_coinc_plane_%d", j + 1);
             char strName10[255];
             sprintf(strName10, "Tofd multihit coinc plane %d", j + 1);
-            fh_tofd_multihit_coinc[j] = R3B::root_owned<TH2F>(strName9, strName10, 45, 0., 45., 30, 0, 30);
+            fh_tofd_multihit_coinc[j] =
+                R3B::root_owned<TH2F>(strName9, strName10, numPaddles, 0., numPaddles, 30, 0, 30);
             fh_tofd_multihit_coinc[j]->GetXaxis()->SetTitle("Bar number");
             fh_tofd_multihit_coinc[j]->GetYaxis()->SetTitle("Multihit");
             fh_tofd_multihit_coinc[j]->GetYaxis()->SetTitleOffset(1.);
@@ -258,7 +264,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName13, "tofd_numHits_top_vs_bottom_%d", j + 1);
             char strName14[255];
             sprintf(strName14, "Tofd numHitsMapped top vs bottom %d", j + 1);
-            fh_num_side[j] = R3B::root_owned<TH2F>(strName13, strName14, 45, 0., 45., 45, 0, 45);
+            fh_num_side[j] =
+                R3B::root_owned<TH2F>(strName13, strName14, numPaddles, 0., numPaddles, numPaddles, 0, numPaddles);
             fh_num_side[j]->GetXaxis()->SetTitle("Num hits up");
             fh_num_side[j]->GetYaxis()->SetTitle("Num hits bottom");
             fh_num_side[j]->GetYaxis()->SetTitleOffset(1.);
@@ -271,7 +278,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
 
             sprintf(strName13, "tofd_Ypos_plane_%d", j + 1);
             sprintf(strName14, "Tofd Ypos for plane %d", j + 1);
-            fh2_tofd_ypos_cal[j] = R3B::root_owned<TH2F>(strName13, strName14, 45, 0, 45, 2000., -50., 50.);
+            fh2_tofd_ypos_cal[j] =
+                R3B::root_owned<TH2F>(strName13, strName14, numPaddles, 0, numPaddles, 2000., -50., 50.);
             fh2_tofd_ypos_cal[j]->GetXaxis()->SetTitle("Bar number");
             fh2_tofd_ypos_cal[j]->GetYaxis()->SetTitle("Y-position [ns]");
             fh2_tofd_ypos_cal[j]->GetYaxis()->SetTitleOffset(1.05);
@@ -286,7 +294,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
 
             sprintf(strName13, "tofd_timediff_plane_%d", j + 1);
             sprintf(strName14, "Tofd time diff. per PMT for plane %d", j + 1);
-            fh2_tofd_timedif_cal[j] = R3B::root_owned<TH2F>(strName13, strName14, 90, -45, 45, 2000., -5000., 1000.);
+            fh2_tofd_timedif_cal[j] = R3B::root_owned<TH2F>(
+                strName13, strName14, 2 * numPaddles, -numPaddles, numPaddles, 2000., -5000., 1000.);
             fh2_tofd_timedif_cal[j]->GetXaxis()->SetTitle("Bar number");
             fh2_tofd_timedif_cal[j]->GetYaxis()->SetTitle("PMT_time - Trig_time [ns]");
             fh2_tofd_timedif_cal[j]->GetYaxis()->SetTitleOffset(1.05);
@@ -515,9 +524,9 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName4, "Tofd hit Charge plane %d", j + 1);
             fh_tofd_Tot_hit[j] = R3B::root_owned<TH2F>(strName3,
                                                        strName4,
-                                                       45,
+                                                       numPaddles,
                                                        0,
-                                                       45,
+                                                       numPaddles,
                                                        (j < 2 ? fMax_charge : fMax_chargeVeto) * 10,
                                                        0.,
                                                        (j < 2 ? fMax_charge : fMax_chargeVeto));
@@ -551,7 +560,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             sprintf(strName21, "tofd_bars_plane_%d", j + 1);
             char strName22[255];
             sprintf(strName22, "Tofd bars plane %d", j + 1);
-            fh_tofd_bars[j] = R3B::root_owned<TH1F>(strName21, strName22, 45, 0., 45.);
+            fh_tofd_bars[j] = R3B::root_owned<TH1F>(strName21, strName22, numPaddles, 0., numPaddles);
             fh_tofd_bars[j]->GetXaxis()->SetTitle("Wix<--- BarId --->Mes");
             fh_tofd_bars[j]->GetYaxis()->SetTitle("Counts");
             fh_tofd_bars[j]->GetYaxis()->SetTitleOffset(1.);
