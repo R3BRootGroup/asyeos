@@ -128,17 +128,76 @@ InitStatus R3BAsyTofDvsNeuLandOnlineSpectra::Init()
 
     SetParameter();
 
-    // MAIN FOLDER-Twim-Foot
+    // MAIN FOLDER
     auto* maintofd = new TFolder("TofD", "TofD info");
 
     //------------------------------------------------------------------------
-    // create histograms of all detectors
+    // Create histograms
     //------------------------------------------------------------------------
-    // TofD detector
 
     if (fMappedItems && fCalItems)
     {
-        auto* cTofd_planes = new TCanvas("TofD_planes_Cal", "TOFD planes CAL data", 10, 10, 1100, 1000);
+        auto* cBarsCorrelations =
+            new TCanvas("TofD_NL_Bar_correlation", "TofD vs NL bar correlations", 10, 10, 1100, 1000);
+        cBarsCorrelations
+            ->Divide(1, 2)
+
+                fh2_tofdbar_vs_nlbar.resize(2);
+        for (int pln = 0; pln < 2; pln++)
+        {
+            std::string nameHist = "fh2_TofD_Plane_" + std::to_string(pln + 3);
+            std::string titleHist = "Bar correlation for TofD plane " + std::to_string(pln + 3) + " vs NL bars";
+
+            fh2_tofdbar_vs_nlbar[pln] =
+                R3B::root_owned<TH2F>(nameHist.c_str(), titleHist.c_str(), 1303, 0, 1302, 46, 0, 45);
+
+            fh2_tofdbar_vs_nlbar[pln]->GetXaxis()->SetTitle("NL bar");
+            fh2_tofdbar_vs_nlbar[pln]->GetYaxis()->SetTitle("TofD bar");
+            fh2_tofdbar_vs_nlbar[pln]->GetYaxis()->SetTitleOffset(1.1);
+            fh2_tofdbar_vs_nlbar[pln]->GetXaxis()->CenterTitle(true);
+            fh2_tofdbar_vs_nlbar[pln]->GetYaxis()->CenterTitle(true);
+
+            cBarsCorrelations->cd(pln + 1);
+            fh2_tofdbar_vs_nlbar[pln]->Draw("colz");
+        }
+        maintofd->Add(cBarsCorrelations);
+    }
+
+    if (fHitItems)
+    {
+        auto* cTofDiff = new TCanvas("TofDiff_vs_NlBar", "Tof Diff. (TofD-Nl) vs NL bar", 10, 10, 1100, 1000);
+        fh2_TofvsNlBar = R3B::root_owned<TH2F>("fh2_Tof_vs_NlBar", "", 1303, 0, 1302, 200, -5000, 5000);
+
+        fh2_TofvsNlBar->GetXaxis()->SetTitle("NL bar");
+        fh2_TofvsNlBar->GetYaxis()->SetTitle("Tof-Diff. (TofD-Nl) / ns");
+        fh2_TofvsNlBar->GetYaxis()->SetTitleOffset(1.1);
+        fh2_TofvsNlBar->GetXaxis()->CenterTitle(true);
+        fh2_TofvsNlBar->GetYaxis()->CenterTitle(true);
+        cTofDiff->cd();
+        fh2_TofvsNlBar->Draw("colz");
+        maintofd->Add(cTofDiff);
+
+        auto* cXcorr = new TCanvas("XTofD_vs_XNl", "X correlation: TofD vs NL", 10, 10, 1100, 1000);
+        fh2_XTofdvsXNl = R3B::root_owned<TH2F>("fh2_XTofD_vs_XNl", "", 300, -150, 150, 140, -70, 70);
+        fh2_XTofdvsXNl->GetXaxis()->SetTitle("X-Nl / cm");
+        fh2_XTofdvsXNl->GetYaxis()->SetTitle("X-TofD / cm");
+        fh2_XTofdvsXNl->GetYaxis()->SetTitleOffset(1.1);
+        fh2_XTofdvsXNl->GetXaxis()->CenterTitle(true);
+        fh2_XTofdvsXNl->GetYaxis()->CenterTitle(true);
+        cXcorr->cd();
+        fh2_XTofdvsXNl->Draw("colz");
+        maintofd->Add(cXcorr);
+
+        auto* cYcorr = new TCanvas("YTofD_vs_XNl", "Y correlation: TofD vs NL", 10, 10, 1100, 1000);
+        fh2_YTofdvsYNl = R3B::root_owned<TH2F>("fh2_YTofD_vs_YNl", "", 300, -150, 150, 100, -50, 50);
+        fh2_YTofdvsYNl->GetXaxis()->SetTitle("Y-Nl / cm");
+        fh2_YTofdvsYNl->GetYaxis()->SetTitle("Y-TofD / cm");
+        fh2_YTofdvsYNl->GetYaxis()->SetTitleOffset(1.1);
+        fh2_YTofdvsYNl->GetXaxis()->CenterTitle(true);
+        fh2_YTofdvsYNl->GetYaxis()->CenterTitle(true);
+        cYcorr->cd();
+        fh2_YTofdvsYNl->Draw("colz");
+        maintofd->Add(cYcorr);
     }
 
     run->AddObject(maintofd);
@@ -155,6 +214,22 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Reset_Histo()
 {
     R3BLOG(info, "");
 
+    if (fMappedItems && fCalItems)
+    {
+        for (const auto& hist : fh2_tofdbar_vs_nlbar)
+        {
+            hist->Reset();
+        }
+    }
+    if (fHitItems)
+    {
+        fh2_TofvsNlBar->Reset();
+        fh2_XTofdvsXNl->Reset();
+        fh2_YTofdvsYNl->Reset();
+        // fh2_tofd_TofvsE->Reset();
+        // fh2_nl_TofvsE_with_tofd->Reset();
+        // fh2_nl_TofvsE_without_tofd->Reset();
+    }
     return;
 }
 
@@ -182,6 +257,10 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
     Int_t NumPaddles[fNofPlanes];
     for (int i = 0; i < fNofPlanes; i++)
         NumPaddles[i] = 0;
+
+    const auto calDataNl = fNeulandCalData.Retrieve();
+    const auto hitsNl = fNeulandHits.Retrieve();
+    const double clight = 29.9792458;
 
     if (fMappedItems)
     {
@@ -478,7 +557,7 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
                         {
                             fTof_without_trig[iBar - 1] = mean_tof_trig + fTofcor[iBar - 1];
                             // fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
-                                                                                   fTof_without_trig[iBar - 1]);
+                            //                                                       fTof_without_trig[iBar - 1]);
                         }
                         // else
                         //   fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
@@ -513,6 +592,15 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
 
                     // std::cout<<"ToT: "<<top_tot << " "<<bot_tot<<"\n";
 
+                    if (iPlane == 3 || iPlane == 4)
+                    {
+                        for (const auto& data : calDataNl)
+                        {
+                            const auto Nlbar = data->GetBarId();
+                            fh2_tofdbar_vs_nlbar[iPlane - 3]->Fill(Nlbar, iBar);
+                        }
+                    }
+
                     // register multi hits
                     Int_t imlt = vmultihits[iPlane - 1][iBar - 1];
                     time_bar[iPlane - 1][iBar - 1][imlt] = (topc_ns + botc_ns) / 2.;
@@ -543,13 +631,10 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
                     {
                         for (Int_t imult2 = 0; imult2 < vmultihits[ipl - 1][ibr - 1]; imult2++)
                         {
-                                                                                   Double_t tof_plane = 0. / 0.;
-                                                                                   tof_plane = fTimeStitch->GetTime(
-                                                                                       time_bar[ipl][ibr - 1][imult1] -
-                                                                                       time_bar[ipl - 1][ibr - 1]
-                                                                                               [imult2]);
-                                                                                   fh_tofd_dt[ipl - 1]->Fill(ibr,
-                                                                                                             tof_plane);
+                            Double_t tof_plane = 0. / 0.;
+                            tof_plane = fTimeStitch->GetTime(time_bar[ipl][ibr - 1][imult1] -
+                                                             time_bar[ipl - 1][ibr - 1][imult2]);
+                            fh_tofd_dt[ipl - 1]->Fill(ibr, tof_plane);
                         }
                     }
                 }
@@ -608,36 +693,71 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
             if (hitTofd->GetEloss() > charges[iPlane - 1])
                 charges[iPlane - 1] = hitTofd->GetEloss();
 
-            iCounts[iPlane - 1] += 1;
-            nMulti[iPlane - 1] += 1;
+            if (iPlane == 3)
+            {
+                for (const auto& hit : hitsNl)
+                {
+                    const auto Nlbar = hit->GetPaddle();
+
+                    if (!std::isnan(header->GetTStart()))
+                    {
+                        if (std::isnan(hit->GetT()))
+                            continue;
+
+                        const Double_t tcorr = hit->GetT() - (hit->GetPosition().Mag() - fDistanceToTarget) / clight;
+                        fh2_TofvsNlBar->Fill(Nlbar, hitTofd->GetTof() - tcorr);
+
+                        const int plane = static_cast<const int>(std::floor((Nlbar - 1) / 50)); // ig -1
+                        auto xnl = hit->GetPosition().X() + (plane % 2) * 5. * randx;
+                        fh2_XTofdvsXNl->Fill(xnl, x[iPlane - 1][ictemp]);
+                        auto ynl = hit->GetPosition().Y() + ((plane + 1) % 2) * 5. * randx;
+                        fh2_YTofdvsYNl->Fill(ynl, y[iPlane - 1][ictemp]);
+                    }
+                }
+
+                iCounts[iPlane - 1] += 1;
+                nMulti[iPlane - 1] += 1;
+            }
+        }
+
+        fNEvents += 1;
+    }
+
+    void R3BAsyTofDvsNeuLandOnlineSpectra::FinishEvent()
+    {
+        R3BLOG(debug1, "Cleaning data structures");
+        if (fMappedItems)
+        {
+            fMappedItems->Clear();
+        }
+        if (fCalItems)
+        {
+            fCalItems->Clear();
+        }
+        if (fHitItems)
+        {
+            fHitItems->Clear();
         }
     }
 
-    fNEvents += 1;
-}
+    void R3BAsyTofDvsNeuLandOnlineSpectra::FinishTask()
+    {
+        if (fCalItems)
+        {
+            for (const auto& hist : fh2_tofdbar_vs_nlbar)
+            {
+                hist->Write();
+            }
+        }
+        if (fHitItems)
+        {
+            fh2_TofvsNlBar->Write();
+            fh2_XTofdvsXNl->Write();
+            fh2_YTofdvsYNl->Write();
+            // fh2_tofd_TofvsE->Write();
+            // fh2_nl_TofvsE_with_tofd->Write();
+            // fh2_nl_TofvsE_without_tofd->Write();
+        }
+    }
 
-void R3BAsyTofDvsNeuLandOnlineSpectra::FinishEvent()
-{
-    R3BLOG(debug1, "Cleaning data structures");
-    if (fMappedItems)
-    {
-        fMappedItems->Clear();
-    }
-    if (fCalItems)
-    {
-        fCalItems->Clear();
-    }
-    if (fHitItems)
-    {
-        fHitItems->Clear();
-    }
-}
-
-void R3BAsyTofDvsNeuLandOnlineSpectra::FinishTask()
-{
-    if (fCalItems)
-    {
-    }
-}
-
-ClassImp(R3BAsyTofDvsNeuLandOnlineSpectra)
+    ClassImp(R3BAsyTofDvsNeuLandOnlineSpectra)

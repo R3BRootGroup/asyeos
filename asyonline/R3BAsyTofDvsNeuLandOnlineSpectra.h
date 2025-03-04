@@ -24,6 +24,9 @@
 #include <memory>
 #include <vector>
 
+#include "R3BNeulandCalData.h"
+#include "R3BNeulandHit.h"
+
 class TClonesArray;
 class TH1F;
 class TH2F;
@@ -125,6 +128,8 @@ class R3BAsyTofDvsNeuLandOnlineSpectra : public FairTask
 
     void SetTotHistoRangeVeto(double tot) { fTotHistoRangeVeto = tot; }
 
+    inline void SetDistanceToTarget(double zpos) { fDistanceToTarget = zpos; }
+
   private:
     void SetParameter();
     std::unique_ptr<R3BCoarseTimeStitch> fTimeStitch;
@@ -153,40 +158,18 @@ class R3BAsyTofDvsNeuLandOnlineSpectra : public FairTask
     std::vector<double> fTofcor = std::vector<double>(1000, NAN); // Avoid out of bounds if uninitialized
     int64_t fTimeStampCounter = 0;
 
-    std::vector<TH1F*> fh_tofd_channels;
-    std::vector<TH2F*> fh_tofd_multihit;
-    std::vector<TH2F*> fh_tofd_TotPm;
-    std::vector<TH2F*> fh_tofd_dt;
-    std::vector<TH2F*> fh_tofd_multihit_coinc;
-    std::vector<TH2F*> fh_tofd_TotPm_coinc;
-    std::vector<TH2F*> fh_num_side;
-    std::vector<TH1F*> fh_tofd_bars;
-    std::vector<TH2F*> fh_tofd_Tot_hit;
-    std::vector<TH2F*> fh_tofd_time_hit;
-    std::vector<TH1F*> fh_tofd_multihit_hit;
-    std::vector<TH2F*> fh_tofd_dt_hit;
-    std::vector<TH2F*> fh2_tofd_ypos_cal;
-    std::vector<TH2F*> fh2_tofd_timedif_cal;
+    double fDistanceToTarget = 200.;
 
-    std::vector<TH2F*> fh_tofd_time_los_h2;
-    std::vector<TH2F*> fh2_tofd_time_los_cal;
-    std::vector<TH1F*> fh_tofd_time_los[44];
+    std::vector<TH2F*> fh2_tofdbar_vs_nlbar;
 
-    std::vector<TH2F*> fh_tofd_TotPm_top_vs_event;
-    std::vector<TH2F*> fh_tofd_TotPm_bot_vs_event;
+    TH2F* fh2_TofvsNlBar;
+    TH2F* fh2_XTofdvsXNl;
+    TH2F* fh2_YTofdvsYNl;
 
-    std::vector<TH2F*> fh_tofd_TotPm_top_vs_ts;
-    std::vector<TH2F*> fh_tofd_TotPm_bot_vs_ts;
+    TH2F* fh2_tofd_TofvsE;
 
-    TH2F* fh2_tofd_time_vs_charge;
-    TH2F* fh2_tofd_time_wouttrig_vs_charge;
-    TH2F* fh2_tofd_charges13;
-    TH2F* fh2_tofd_charges24;
-    TH2F* fh2_tofd_charges12;
-    TH2F* fh2_tofd_charges23;
-    TH2F* fh2_tofd_charges34;
-    TH1F* fh1_Zcharge;
-    TH2F* fh2_zcharge_tpat;
+    TH2F* fh2_nl_TofvsE_with_tofd;
+    TH2F* fh2_nl_TofvsE_without_tofd;
 
   public:
     ClassDef(R3BAsyTofDvsNeuLandOnlineSpectra, 1)
