@@ -22,5 +22,6 @@
 #pragma link C++ class R3BAsyChimeraOnlineSpectra+;
 #pragma link C++ class R3BAsyKrabOnlineSpectra+;
 #pragma link C++ class R3BAsyTofDOnlineSpectra+;
+#pragma link C++ class R3BAsyTofDvsNeuLandOnlineSpectra+;
 
 #endif

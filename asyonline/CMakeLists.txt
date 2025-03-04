@@ -5,6 +5,7 @@ set(SRCS
     R3BAsyChimeraOnlineSpectra.cxx
     R3BAsyKrabOnlineSpectra.cxx
     R3BAsyTofDOnlineSpectra.cxx
+    R3BAsyTofDvsNeuLandOnlineSpectra.cxx
    )
 
 change_file_extension(*.cxx *.h HEADERS "${SRCS}")
@@ -25,6 +26,7 @@ add_library_with_dictionary(
     Spectrum 
     R3BBase 
     R3BData
-    R3BTracking
+    R3BNeulandShared
     R3BTCal
-    R3BTofD)
+    R3BTofD
+    R3BTracking)
