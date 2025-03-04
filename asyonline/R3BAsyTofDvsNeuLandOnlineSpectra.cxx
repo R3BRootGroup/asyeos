@@ -139,10 +139,9 @@ InitStatus R3BAsyTofDvsNeuLandOnlineSpectra::Init()
     {
         auto* cBarsCorrelations =
             new TCanvas("TofD_NL_Bar_correlation", "TofD vs NL bar correlations", 10, 10, 1100, 1000);
-        cBarsCorrelations
-            ->Divide(1, 2)
+        cBarsCorrelations->Divide(1, 2);
 
-                fh2_tofdbar_vs_nlbar.resize(2);
+        fh2_tofdbar_vs_nlbar.resize(2);
         for (int pln = 0; pln < 2; pln++)
         {
             std::string nameHist = "fh2_TofD_Plane_" + std::to_string(pln + 3);
@@ -624,7 +623,6 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
         {
             for (Int_t ibr = 1; ibr < fPaddlesPerPlane + 1; ibr++)
             {
-                fh_tofd_multihit_coinc[ipl]->Fill(ibr, vmultihits[ipl][ibr - 1]);
                 if (ipl == 1 || ipl == 3)
                 {
                     for (Int_t imult1 = 0; imult1 < vmultihits[ipl][ibr - 1]; imult1++)
@@ -634,7 +632,7 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
                             Double_t tof_plane = 0. / 0.;
                             tof_plane = fTimeStitch->GetTime(time_bar[ipl][ibr - 1][imult1] -
                                                              time_bar[ipl - 1][ibr - 1][imult2]);
-                            fh_tofd_dt[ipl - 1]->Fill(ibr, tof_plane);
+                            // fh_tofd_dt[ipl - 1]->Fill(ibr, tof_plane);
                         }
                     }
                 }
@@ -719,45 +717,46 @@ void R3BAsyTofDvsNeuLandOnlineSpectra::Exec(Option_t* option)
                 nMulti[iPlane - 1] += 1;
             }
         }
-
-        fNEvents += 1;
     }
 
-    void R3BAsyTofDvsNeuLandOnlineSpectra::FinishEvent()
+    fNEvents += 1;
+}
+
+void R3BAsyTofDvsNeuLandOnlineSpectra::FinishEvent()
+{
+    R3BLOG(debug1, "Cleaning data structures");
+    if (fMappedItems)
     {
-        R3BLOG(debug1, "Cleaning data structures");
-        if (fMappedItems)
-        {
-            fMappedItems->Clear();
-        }
-        if (fCalItems)
-        {
-            fCalItems->Clear();
-        }
-        if (fHitItems)
-        {
-            fHitItems->Clear();
-        }
+        fMappedItems->Clear();
     }
-
-    void R3BAsyTofDvsNeuLandOnlineSpectra::FinishTask()
+    if (fCalItems)
     {
-        if (fCalItems)
+        fCalItems->Clear();
+    }
+    if (fHitItems)
+    {
+        fHitItems->Clear();
+    }
+}
+
+void R3BAsyTofDvsNeuLandOnlineSpectra::FinishTask()
+{
+    if (fCalItems)
+    {
+        for (const auto& hist : fh2_tofdbar_vs_nlbar)
         {
-            for (const auto& hist : fh2_tofdbar_vs_nlbar)
-            {
-                hist->Write();
-            }
-        }
-        if (fHitItems)
-        {
-            fh2_TofvsNlBar->Write();
-            fh2_XTofdvsXNl->Write();
-            fh2_YTofdvsYNl->Write();
-            // fh2_tofd_TofvsE->Write();
-            // fh2_nl_TofvsE_with_tofd->Write();
-            // fh2_nl_TofvsE_without_tofd->Write();
+            hist->Write();
         }
     }
+    if (fHitItems)
+    {
+        fh2_TofvsNlBar->Write();
+        fh2_XTofdvsXNl->Write();
+        fh2_YTofdvsYNl->Write();
+        // fh2_tofd_TofvsE->Write();
+        // fh2_nl_TofvsE_with_tofd->Write();
+        // fh2_nl_TofvsE_without_tofd->Write();
+    }
+}
 
-    ClassImp(R3BAsyTofDvsNeuLandOnlineSpectra)
+ClassImp(R3BAsyTofDvsNeuLandOnlineSpectra)
