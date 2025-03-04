@@ -124,6 +124,8 @@ class R3BAsyTofDOnlineSpectra : public FairTask
 
     void SetTotHistoRangeVeto(double tot) { fTotHistoRangeVeto = tot; }
 
+    void SetBarRefWalkCorr(int bar) { fBarRef_walk = bar; }
+
   private:
     void SetParameter();
     std::unique_ptr<R3BCoarseTimeStitch> fTimeStitch;
@@ -150,6 +152,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     unsigned long fNEvents = 0;                                   /**< Event counter. */
     std::vector<double> fTofcor = std::vector<double>(1000, NAN); // Avoid out of bounds if uninitialized
     int64_t fTimeStampCounter = 0;
+    int fBarRef_walk = 21;
 
     std::vector<TH1F*> fh_tofd_channels;
     std::vector<TH2F*> fh_tofd_multihit;
@@ -175,6 +178,8 @@ class R3BAsyTofDOnlineSpectra : public FairTask
 
     std::vector<TH2F*> fh_tofd_TotPm_top_vs_ts;
     std::vector<TH2F*> fh_tofd_TotPm_bot_vs_ts;
+
+    std::vector<TH2F*> fh2_tofd_walkcor;
 
     TH2F* fh2_tofd_time_vs_charge;
     TH2F* fh2_tofd_time_wouttrig_vs_charge;

@@ -503,6 +503,42 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 fh_tofd_TotPm_bot_vs_ts[j * 6 + p]->Draw("colz");
             }
         maintofd->Add(cTofd_bot_diagnosis_ts);
+
+        auto* cTofd_walk_cor = new TCanvas("TofD_walk_correction", "TOFD walk correction", 10, 10, 1100, 1000);
+        cTofd_walk_cor->Divide(2, 2);
+        fh2_tofd_walkcor.resize(4);
+
+        for (Int_t j = 0; j < 2; j++) // This is just for test!!!
+            for (Int_t p = 0; p < 2; p++)
+            {
+                char strName15[255];
+                char strName16[255];
+                if (j == 0)
+                {
+                    sprintf(strName16, "Tofd walk correction plane %d, paddle %d (TOP)", 1, fBarRef_walk + p);
+                    sprintf(strName15, "fh2_tofd_walk_correction_plane_%d_paddle_%d_top", 1, fBarRef_walk + p);
+                }
+                else
+                {
+                    sprintf(strName16, "Tofd walk correction plane %d, paddle %d (BOTTOM)", 1, fBarRef_walk + p);
+                    sprintf(strName15, "fh2_tofd_walk_correction_plane_%d_paddle_%d_bottom", 1, fBarRef_walk + p);
+                }
+                fh2_tofd_walkcor[j * 2 + p] =
+                    R3B::root_owned<TH2F>(strName15, strName16, 20000, 0, 190, 500, -2000., 2000);
+                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitle("ToF-PMT / ns");
+                fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitle("PMT time - start / ns");
+                fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitleOffset(1.1);
+                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->CenterTitle(true);
+                fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->CenterTitle(true);
+                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetLabelSize(0.045);
+                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitleSize(0.045);
+                fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetLabelSize(0.045);
+                fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitleSize(0.045);
+                cTofd_walk_cor->cd(j * 2 + p + 1);
+                fh2_tofd_walkcor[j * 2 + p]->Draw("colz");
+            }
+
+        maintofd->Add(cTofd_walk_cor);
     }
 
     if (fHitItems)
@@ -913,6 +949,11 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
         hist->Reset();
     }
 
+    for (const auto& hist : fh2_tofd_walkcor)
+    {
+        hist->Reset();
+    }
+
     if (fHitItems)
     {
         for (int i = 0; i < fNofPlanes; i++)
@@ -1239,6 +1280,7 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
 
         // With coincidences:
         bool s_was_trig_missingc = false;
+        std::vector<double> fTimesWalk = std::vector<double>(100, NAN);
         for (auto it = bar_map.begin(); bar_map.end() != it; ++it)
         {
             auto const& topc_vec = it->second.top;
@@ -1316,10 +1358,20 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                             fTof_without_trig[iBar - 1] = mean_tof_trig + fTofcor[iBar - 1];
                             fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
                                                                                    fTof_without_trig[iBar - 1]);
+                            if (iBar - 1 < 44)
+                            {
+                                fTimesWalk[iBar - 1] = tof_without_trig_top;
+                                fTimesWalk[50 + iBar - 1] = tof_without_trig_bot;
+                            }
+                            if (iBar == 48)
+                                fTimesWalk[iBar - 1] = topc->GetTimeLeading_ns();
                         }
                         else
                             fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
                                 topc->GetBarId(), mean_tof_trig + fTofcor[44 * (topc->GetDetectorId() - 1) + iBar - 1]);
+
+                        if (iPlane == 2 && iBar == 48)
+                            fTimesWalk[50 + iBar - 1] = topc->GetTimeLeading_ns();
                     }
                 }
 
@@ -1367,6 +1419,16 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                     ++botc_i;
                 }
             }
+        }
+
+        // Histograms for the walk correction
+        if (fTimesWalk[47] != 0 && fTimesWalk[97] != 0)
+        {
+            fh2_tofd_walkcor[0]->Fill(fTimesWalk[fBarRef_walk - 1], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
+            fh2_tofd_walkcor[1]->Fill(fTimesWalk[fBarRef_walk], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
+
+            fh2_tofd_walkcor[2]->Fill(fTimesWalk[50 + fBarRef_walk - 1], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
+            fh2_tofd_walkcor[3]->Fill(fTimesWalk[50 + fBarRef_walk], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
         }
 
         for (Int_t ipl = 0; ipl < fNofPlanes; ipl++)
@@ -1528,6 +1590,10 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
         for (Int_t i = 0; i < fNofPlanes - 1; i++)
         {
             fh_tofd_dt[i]->Write();
+        }
+        for (const auto& hist : fh2_tofd_walkcor)
+        {
+            hist->Write();
         }
     }
 
