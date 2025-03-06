@@ -127,7 +127,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
 
     SetParameter();
 
-    // MAIN FOLDER-Twim-Foot
+    // MAIN FOLDER
     auto* maintofd = new TFolder("TofD", "TofD info");
 
     //------------------------------------------------------------------------
@@ -504,6 +504,27 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             }
         maintofd->Add(cTofd_bot_diagnosis_ts);
 
+        auto* cToFd_los_h2_wt =
+            new TCanvas("ToFD_Los_time_without_trigger", "ToFD time - Los time without trigger", 20, 20, 1120, 1020);
+        cToFd_los_h2_wt->Divide(2, 2);
+        fh2_tofd_time_los_cal.resize(fNofPlanes);
+
+        for (Int_t i = 0; i < fNofPlanes; i++)
+        {
+
+            char strNameLos_c2[255];
+            snprintf(strNameLos_c2, sizeof(strNameLos_c2), "tofd_los_time_without_trigger_%d", i + 1);
+            fh2_tofd_time_los_cal[i] = R3B::root_owned<TH2F>(strNameLos_c2, strNameLos_c2, 44, 1, 45, 20000, 0, 100);
+            fh2_tofd_time_los_cal[i]->GetXaxis()->SetTitle("Bar");
+            fh2_tofd_time_los_cal[i]->GetYaxis()->SetTitle("ToF [ns]");
+            fh2_tofd_time_los_cal[i]->GetXaxis()->CenterTitle(true);
+            fh2_tofd_time_los_cal[i]->GetYaxis()->CenterTitle(true);
+            cToFd_los_h2_wt->cd(i + 1);
+            gPad->SetLogz();
+            fh2_tofd_time_los_cal[i]->Draw("colz");
+        }
+        maintofd->Add(cToFd_los_h2_wt);
+
         auto* cTofd_walk_cor = new TCanvas("TofD_walk_correction", "TOFD walk correction", 10, 10, 1100, 1000);
         cTofd_walk_cor->Divide(2, 2);
         fh2_tofd_walkcor.resize(4);
@@ -524,8 +545,8 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                     sprintf(strName15, "fh2_tofd_walk_correction_plane_%d_paddle_%d_bottom", 1, fBarRef_walk + p);
                 }
                 fh2_tofd_walkcor[j * 2 + p] =
-                    R3B::root_owned<TH2F>(strName15, strName16, 20000, 0, 190, 500, -2000., 2000);
-                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitle("ToF-PMT / ns");
+                    R3B::root_owned<TH2F>(strName15, strName16, 100, 0, 1000, 500, -1000., 1000);
+                fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitle("ToT / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitle("PMT time - start / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitleOffset(1.1);
                 fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->CenterTitle(true);
@@ -713,11 +734,6 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         cToFd_los_h2->Divide(2, 2);
         fh_tofd_time_los_h2.resize(fNofPlanes);
 
-        auto* cToFd_los_h2_wt =
-            new TCanvas("ToFD_Los_time_without_trigger", "ToFD time - Los time without trigger", 20, 20, 1120, 1020);
-        cToFd_los_h2_wt->Divide(2, 2);
-        fh2_tofd_time_los_cal.resize(fNofPlanes);
-
         for (Int_t j = 0; j < fPaddlesPerPlane; j++)
             fh_tofd_time_los[j].resize(fNofPlanes);
 
@@ -734,17 +750,6 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
             gPad->SetLogz();
             fh_tofd_time_los_h2[i]->Draw("colz");
 
-            char strNameLos_c2[255];
-            snprintf(strNameLos_c2, sizeof(strNameLos_c2), "tofd_los_time_without_trigger_%d", i + 1);
-            fh2_tofd_time_los_cal[i] = R3B::root_owned<TH2F>(strNameLos_c2, strNameLos_c2, 44, 1, 45, 20000, 0, 100);
-            fh2_tofd_time_los_cal[i]->GetXaxis()->SetTitle("Bar");
-            fh2_tofd_time_los_cal[i]->GetYaxis()->SetTitle("ToF [ns]");
-            fh2_tofd_time_los_cal[i]->GetXaxis()->CenterTitle(true);
-            fh2_tofd_time_los_cal[i]->GetYaxis()->CenterTitle(true);
-            cToFd_los_h2_wt->cd(i + 1);
-            gPad->SetLogz();
-            fh2_tofd_time_los_cal[i]->Draw("colz");
-
             auto cToFd_los = new TCanvas(strNameLos_c, strNameLos_c, 20, 20, 1120, 1020);
             cToFd_los->Divide(5, 9);
             for (Int_t j = 0; j < fPaddlesPerPlane; j++)
@@ -759,12 +764,10 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 fh_tofd_time_los[j][i]->SetFillColor(31);
                 cToFd_los->cd(j + 1);
                 fh_tofd_time_los[j][i]->Draw("");
-            }
-            // Adding this canvas to the main folder
+            } // Adding this canvas to the main folder
             maintofd->Add(cToFd_los);
         }
         maintofd->Add(cToFd_los_h2);
-        maintofd->Add(cToFd_los_h2_wt);
 
         auto cToFd_time_charge = new TCanvas("tofd_time_vs_charge", "", 20, 20, 1120, 1020);
         fh2_tofd_time_vs_charge = R3B::root_owned<TH2F>(
@@ -924,6 +927,7 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
         fh_tofd_TotPm_coinc[i]->Reset();
         fh2_tofd_ypos_cal[i]->Reset();
         fh2_tofd_timedif_cal[i]->Reset();
+        fh2_tofd_time_los_cal[i]->Reset();
     }
     fh_tofd_dt[0]->Reset();
     fh_tofd_dt[1]->Reset();
@@ -963,7 +967,6 @@ void R3BAsyTofDOnlineSpectra::Reset_Histo()
             fh_tofd_multihit_hit[i]->Reset();
             fh_tofd_bars[i]->Reset();
             fh_tofd_time_los_h2[i]->Reset();
-            fh2_tofd_time_los_cal[i]->Reset();
             for (Int_t j = 0; j < fPaddlesPerPlane; j++)
                 fh_tofd_time_los[j][i]->Reset();
         }
@@ -1088,7 +1091,7 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
         }
     }
 
-    std::vector<double> fTof_without_trig(44, 0.);
+    std::vector<double> fTof_without_trig(fPaddlesPerPlane, 0.);
     if (fCalItems)
     {
         UInt_t vmultihits[fNofPlanes + 1][fPaddlesPerPlane];
@@ -1278,6 +1281,13 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
             }
         }
 
+        Double_t walk_start1 = -1000.;
+        Double_t walk_start2 = -1000.;
+        Double_t ToT_ref_bar_bot = -1000;
+        Double_t ToT_ref_bar_top = -1000;
+        Double_t ToF_ref_bar_bot = -1000;
+        Double_t ToF_ref_bar_top = -1000;
+
         // With coincidences:
         bool s_was_trig_missingc = false;
         std::vector<double> fTimesWalk = std::vector<double>(100, NAN);
@@ -1346,32 +1356,24 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                     fh2_tofd_timedif_cal[iPlane - 1]->Fill(iBar, topc_ns);
                     fh2_tofd_timedif_cal[iPlane - 1]->Fill(-1 * iBar, botc_ns);
 
-                    if (topc->GetTimeLeading_ns() > 0 && header->GetTStartSimple() > 0)
+                    if (topc->GetTimeLeading_ns() > 0 && header->GetTStart() > 0)
                     {
                         auto tof_without_trig_top =
-                            fTimeStitch->GetTime(topc->GetTimeLeading_ns() - header->GetTStartSimple());
+                            fTimeStitch->GetTime(topc->GetTimeLeading_ns() - header->GetTStart());
                         auto tof_without_trig_bot =
-                            fTimeStitch->GetTime(botc->GetTimeLeading_ns() - header->GetTStartSimple());
+                            fTimeStitch->GetTime(botc->GetTimeLeading_ns() - header->GetTStart());
                         auto mean_tof_trig = (tof_without_trig_top + tof_without_trig_bot) / 2.;
-                        if (iPlane == 1)
-                        {
-                            fTof_without_trig[iBar - 1] = mean_tof_trig + fTofcor[iBar - 1];
-                            fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
-                                                                                   fTof_without_trig[iBar - 1]);
-                            if (iBar - 1 < 44)
+                        if (topc->GetDetectorId() < 5)
+                            if (iPlane == 1)
                             {
-                                fTimesWalk[iBar - 1] = tof_without_trig_top;
-                                fTimesWalk[50 + iBar - 1] = tof_without_trig_bot;
+                                fTof_without_trig[iBar - 1] = mean_tof_trig /* + fTofcor[iBar - 1]*/;
+                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
+                                                                                       fTof_without_trig[iBar - 1]);
                             }
-                            if (iBar == 48)
-                                fTimesWalk[iBar - 1] = topc->GetTimeLeading_ns();
-                        }
-                        else
-                            fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
-                                topc->GetBarId(), mean_tof_trig + fTofcor[44 * (topc->GetDetectorId() - 1) + iBar - 1]);
-
-                        if (iPlane == 2 && iBar == 48)
-                            fTimesWalk[50 + iBar - 1] = topc->GetTimeLeading_ns();
+                            else
+                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
+                                                      topc->GetBarId(), mean_tof_trig /*+ fTofcor[44 *
+                                                      (topc->GetDetectorId() - 1) + iBar - 1]*/);
                     }
                 }
 
@@ -1407,6 +1409,30 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                     time_bar[iPlane - 1][iBar - 1][imlt] = (topc_ns + botc_ns) / 2.;
                     vmultihits[iPlane - 1][iBar - 1] += 1;
 
+                    // MH
+                    if (topc->GetTimeLeading_ns() > 0)
+                    {
+                        if (iPlane == 1 && iBar == 48)
+                        {
+                            walk_start1 = topc_ns;
+                            // cout << "start1: " << walk_start1 << endl;
+                        }
+                        if (iPlane == 2 && iBar == 48)
+                        {
+                            walk_start2 = topc_ns;
+                            // cout << "start1: " << walk_start1 << endl;
+                        }
+                        if (iPlane == 1 && iBar == fBarRef_walk)
+                        {
+                            ToT_ref_bar_bot = botc_tot;
+                            ToT_ref_bar_top = topc_tot;
+                            ToF_ref_bar_bot = botc_ns;
+                            ToF_ref_bar_top = topc_ns;
+                            // cout << "Ref. bar ToT: " << ToT_ref_bar_bot << "  " << ToT_ref_bar_top << endl;
+                            // cout << "Ref. bar ToF: " << ToF_ref_bar_bot << "  " << ToF_ref_bar_top << endl;
+                        }
+                    }
+
                     ++topc_i;
                     ++botc_i;
                 }
@@ -1422,13 +1448,10 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
         }
 
         // Histograms for the walk correction
-        if (fTimesWalk[47] != 0 && fTimesWalk[97] != 0)
+        if (ToT_ref_bar_bot > 0 && ToT_ref_bar_top > 0)
         {
-            fh2_tofd_walkcor[0]->Fill(fTimesWalk[fBarRef_walk - 1], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
-            fh2_tofd_walkcor[1]->Fill(fTimesWalk[fBarRef_walk], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
-
-            fh2_tofd_walkcor[2]->Fill(fTimesWalk[50 + fBarRef_walk - 1], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
-            fh2_tofd_walkcor[3]->Fill(fTimesWalk[50 + fBarRef_walk], (fTimesWalk[47] + fTimesWalk[97]) / 2.);
+            fh2_tofd_walkcor[0]->Fill(ToT_ref_bar_bot, ToF_ref_bar_bot - (walk_start1 + walk_start2) / 2.);
+            fh2_tofd_walkcor[1]->Fill(ToT_ref_bar_top, ToF_ref_bar_top - (walk_start1 + walk_start2) / 2.);
         }
 
         for (Int_t ipl = 0; ipl < fNofPlanes; ipl++)
@@ -1586,6 +1609,7 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
             fh_tofd_multihit_coinc[i]->Write();
             fh2_tofd_ypos_cal[i]->Write();
             fh2_tofd_timedif_cal[i]->Write();
+            fh2_tofd_time_los_cal[i]->Write();
         }
         for (Int_t i = 0; i < fNofPlanes - 1; i++)
         {
@@ -1607,7 +1631,6 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
             fh_tofd_bars[i]->Write();
             fh_tofd_time_hit[i]->Write();
             fh_tofd_time_los_h2[i]->Write();
-            fh2_tofd_time_los_cal[i]->Write();
         }
         for (Int_t i = 0; i < fNofPlanes - 1; i++)
         {

@@ -33,8 +33,8 @@
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
-#include "TProfile.h"
 #include "TMath.h"
+#include "TProfile.h"
 
 class TClonesArray;
 class R3BEventHeader;
@@ -98,15 +98,15 @@ class R3BAsyCommonAna : public FairTask
      */
     virtual void Reset_Histo();
     inline void SetOnline(bool option) { fOnline = option; }
-    inline void SetCHI_RP_thr(Int_t thr)   {CHI_RP_thr  = thr; }
-    inline void SetKRAB_RP_thr(Int_t thr)   {KRAB_RP_thr  = thr; }
+    inline void SetCHI_RP_thr(Int_t thr) { CHI_RP_thr = thr; }
+    inline void SetKRAB_RP_thr(Int_t thr) { KRAB_RP_thr = thr; }
 
   private:
     TClonesArray* fPhysItemsChimera;
     TClonesArray* fPhysItemsKrab;
     bool fOnline = false;
-    Int_t CHI_RP_thr=3;
-    Int_t KRAB_RP_thr=6;
+    Int_t CHI_RP_thr = 3;
+    Int_t KRAB_RP_thr = 6;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
