@@ -1450,8 +1450,8 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
         // Histograms for the walk correction
         if (ToT_ref_bar_bot > 0 && ToT_ref_bar_top > 0)
         {
-            fh2_tofd_walkcor[0]->Fill(ToT_ref_bar_bot, ToF_ref_bar_bot - (walk_start1 + walk_start2) / 2.);
-            fh2_tofd_walkcor[1]->Fill(ToT_ref_bar_top, ToF_ref_bar_top - (walk_start1 + walk_start2) / 2.);
+            fh2_tofd_walkcor[2]->Fill(ToT_ref_bar_bot, ToF_ref_bar_bot - (walk_start1 + walk_start2) / 2.);
+            fh2_tofd_walkcor[0]->Fill(ToT_ref_bar_top, ToF_ref_bar_top - (walk_start1 + walk_start2) / 2.);
         }
 
         for (Int_t ipl = 0; ipl < fNofPlanes; ipl++)
