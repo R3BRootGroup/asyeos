@@ -88,7 +88,7 @@ InitStatus R3BAsyCommonAna::Init()
 
     // Register command to reset histograms
     // for online server
-    run->GetHttpServer()->RegisterCommand("Reset_Chimera", Form("/Objects/%s/->Reset_Histo()", GetName()));
+    run->GetHttpServer()->RegisterCommand("Reset_Common_Ana", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
     // --- get access to phys data of CHIMERA and KRAB --- //
