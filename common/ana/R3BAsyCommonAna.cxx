@@ -83,11 +83,11 @@ InitStatus R3BAsyCommonAna::Init()
         LOG(info) << "R3BAsyCommonAna::Init line 72";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    //for online server  
+    // for online server
     run->GetHttpServer()->Register("", this);
 
     // Register command to reset histograms
-    // for online server  
+    // for online server
     run->GetHttpServer()->RegisterCommand("Reset_Chimera", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
@@ -125,7 +125,7 @@ InitStatus R3BAsyCommonAna::Init()
     fh2_CHIMERA_KRAB_RP->Draw();
     c_CHIMERA_KRAB->cd(3);
     fh1_CHIMERAmKRAB_RP->Draw();
-    fp_CHIMERA_KRAB_multi->SetMarkerStyle(20); 
+    fp_CHIMERA_KRAB_multi->SetMarkerStyle(20);
 
     LOG(info) << "R3BAsyCommonAna::Init DONE";
     return kSUCCESS;
@@ -149,7 +149,7 @@ void R3BAsyCommonAna::Exec(Option_t* option)
     Int_t nHits_CHI, nHits_KRAB;
     UInt_t multi_CHI = -10, multi_KRAB = -10;
     Float_t RP_CHI = -1000, RP_KRAB = -1000;
-    Float_t RP_CHImKRAB= -1000;
+    Float_t RP_CHImKRAB = -1000;
 
     if (fPhysItemsChimera && fPhysItemsChimera->GetEntriesFast() && fPhysItemsKrab && fPhysItemsKrab->GetEntriesFast())
     {
@@ -177,18 +177,22 @@ void R3BAsyCommonAna::Exec(Option_t* option)
             RP_KRAB = physdata->GetRP();
         }
     }
-    
+
     fh2_CHIMERA_KRAB_multi->Fill(multi_CHI, multi_KRAB);
     fp_CHIMERA_KRAB_multi->Fill(multi_CHI, multi_KRAB);
-    if(multi_KRAB>=KRAB_RP_thr && multi_CHI>=CHI_RP_thr){
-//     fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
-     if(RP_CHI>-1000 && RP_KRAB>-1000) {
-      fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
-      RP_CHImKRAB = RP_CHI - RP_KRAB;
-      if(RP_CHImKRAB<-180)RP_CHImKRAB=-360-RP_CHImKRAB;
-      if(RP_CHImKRAB> 180)RP_CHImKRAB= 360-RP_CHImKRAB;
-      fh1_CHIMERAmKRAB_RP->Fill(RP_CHImKRAB);
-     }
+    if (multi_KRAB >= KRAB_RP_thr && multi_CHI >= CHI_RP_thr)
+    {
+        //     fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+        if (RP_CHI > -1000 && RP_KRAB > -1000)
+        {
+            fh2_CHIMERA_KRAB_RP->Fill(RP_CHI, RP_KRAB);
+            RP_CHImKRAB = RP_CHI - RP_KRAB;
+            if (RP_CHImKRAB < -180)
+                RP_CHImKRAB = -360 - RP_CHImKRAB;
+            if (RP_CHImKRAB > 180)
+                RP_CHImKRAB = 360 - RP_CHImKRAB;
+            fh1_CHIMERAmKRAB_RP->Fill(RP_CHImKRAB);
+        }
     }
     fNEvents += 1;
     //  std::cout << "#### Common Ana :: 142 " << std::endl;
@@ -219,10 +223,10 @@ void R3BAsyCommonAna::FinishTask()
 
         c_CHIMERA_KRAB->Update();
         c_CHIMERA_KRAB->Write();
-	fh2_CHIMERA_KRAB_multi->Write();
-	fp_CHIMERA_KRAB_multi->Write();
-	fh2_CHIMERA_KRAB_RP->Write();
-	fh1_CHIMERAmKRAB_RP->Write();
+        fh2_CHIMERA_KRAB_multi->Write();
+        fp_CHIMERA_KRAB_multi->Write();
+        fh2_CHIMERA_KRAB_RP->Write();
+        fh1_CHIMERAmKRAB_RP->Write();
     }
 }
 
