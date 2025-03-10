@@ -20,5 +20,6 @@
 #pragma link off all functions;
 
 #pragma link C++ class R3BAsyCommonAna +;
+#pragma link C++ class R3BAsyCommonAnaNC +;
 
 #endif

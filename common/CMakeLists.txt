@@ -13,12 +13,14 @@ set(INCLUDE_DIRECTORIES
     ${R3BASY_SOURCE_DIR}/asydata/krabData
     ${R3BASY_SOURCE_DIR}/common
     ${R3BASY_SOURCE_DIR}/common/ana
+    ${R3BROOT_SOURCE_DIR}/neuland
     )
 
 
 set(SRCS
 ##Put here your sourcefiles
     ana/R3BAsyCommonAna.cxx
+    ana/R3BAsyCommonAnaNC.cxx
 )
 
 # fill list of header files from list of source files
