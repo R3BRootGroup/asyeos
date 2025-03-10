@@ -403,7 +403,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (TOP)", j + 1, 20 + p);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 10000, 0, 100000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -431,7 +431,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (BOTTOM)", j + 1, 20 + p);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 10000, 0, 100000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -1364,16 +1364,18 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                             fTimeStitch->GetTime(botc->GetTimeLeading_ns() - header->GetTStart());
                         auto mean_tof_trig = (tof_without_trig_top + tof_without_trig_bot) / 2.;
                         if (topc->GetDetectorId() < 5)
+                        {
                             if (iPlane == 1)
                             {
-                                fTof_without_trig[iBar - 1] = mean_tof_trig /* + fTofcor[iBar - 1]*/;
+                                fTof_without_trig[iBar - 1] = mean_tof_trig;
                                 fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
                                                                                        fTof_without_trig[iBar - 1]);
                             }
                             else
-                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
-                                                      topc->GetBarId(), mean_tof_trig /*+ fTofcor[44 *
-                                                      (topc->GetDetectorId() - 1) + iBar - 1]*/);
+                            {
+                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(), mean_tof_trig);
+                            }
+                        }
                     }
                 }
 
@@ -1616,6 +1618,22 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
             fh_tofd_dt[i]->Write();
         }
         for (const auto& hist : fh2_tofd_walkcor)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_top_vs_ts)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_bot_vs_ts)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_top_vs_event)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_bot_vs_event)
         {
             hist->Write();
         }

@@ -102,11 +102,11 @@ InitStatus R3BAsyChimeraPhys::Init()
     LOG(info) << "R3BAsyChimeraPhys::Init DONE";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    // for online server  
+    // for online server
     run->GetHttpServer()->Register("", this);
 
     // Register command to reset histograms
-    // for online server  
+    // for online server
     run->GetHttpServer()->RegisterCommand("Reset_Chimera_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
