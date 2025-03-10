@@ -170,10 +170,11 @@ InitStatus R3BAsyChimeraOnlineSpectra::Init()
         fh1_CHIMERA_patt[j] = new TH1I(Name1, Name1, nch, xymin, xymax);
         fh1_CHIMERA_patt[j]->GetXaxis()->SetTitle("patt (ch)");
         fh1_CHIMERA_patt[j]->GetYaxis()->SetTitle("Yield");
-        if(j<9){
-	 c_CHIMERA_patt->cd(j + 1);
-         fh1_CHIMERA_patt[j]->Draw();
-	} 
+        if (j < 9)
+        {
+            c_CHIMERA_patt->cd(j + 1);
+            fh1_CHIMERA_patt[j]->Draw();
+        }
     }
     // Chimera main folder
     TFolder* mainfol = new TFolder("Chimera", "raw data");
@@ -296,33 +297,89 @@ void R3BAsyChimeraOnlineSpectra::Exec(Option_t* option)
             if (iSlowHG)
                 fh2_CHIMERA_numtel_slowHG->Fill(iNumTel, iSlowHG);
 
-            if (iNumTel == ntel1 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0) )
+            if (iNumTel == ntel1 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0))
             {
-                float x=-1., y=-1.;
-		if(iFastLG > 0) {y=iFastLG;} else {y=iFastHG/8. + 68.;}
-		if(iSlowLG > 0) {x=iSlowLG;} else {x=iSlowHG/8. + 68.;}
-		fh2_CHIMERA_fast_slow_1->Fill(x, y);
+                float x = -1., y = -1.;
+                if (iFastLG > 0)
+                {
+                    y = iFastLG;
+                }
+                else
+                {
+                    y = iFastHG / 8. + 68.;
+                }
+                if (iSlowLG > 0)
+                {
+                    x = iSlowLG;
+                }
+                else
+                {
+                    x = iSlowHG / 8. + 68.;
+                }
+                fh2_CHIMERA_fast_slow_1->Fill(x, y);
             }
-            if (iNumTel == ntel2 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0) )
+            if (iNumTel == ntel2 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0))
             {
-                float x=-1., y=-1.;
-		if(iFastLG > 0) {y=iFastLG;} else {y=iFastHG/8. + 68.;}
-		if(iSlowLG > 0) {x=iSlowLG;} else {x=iSlowHG/8. + 68.;}
-		fh2_CHIMERA_fast_slow_2->Fill(x, y);
-             }
-            if (iNumTel == ntel3 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0) )
+                float x = -1., y = -1.;
+                if (iFastLG > 0)
+                {
+                    y = iFastLG;
+                }
+                else
+                {
+                    y = iFastHG / 8. + 68.;
+                }
+                if (iSlowLG > 0)
+                {
+                    x = iSlowLG;
+                }
+                else
+                {
+                    x = iSlowHG / 8. + 68.;
+                }
+                fh2_CHIMERA_fast_slow_2->Fill(x, y);
+            }
+            if (iNumTel == ntel3 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0))
             {
-                float x=-1., y=-1.;
-		if(iFastLG > 0) {y=iFastLG;} else {y=iFastHG/8. + 68.;}
-		if(iSlowLG > 0) {x=iSlowLG;} else {x=iSlowHG/8. + 68.;}
-		fh2_CHIMERA_fast_slow_3->Fill(x, y);
-             }
+                float x = -1., y = -1.;
+                if (iFastLG > 0)
+                {
+                    y = iFastLG;
+                }
+                else
+                {
+                    y = iFastHG / 8. + 68.;
+                }
+                if (iSlowLG > 0)
+                {
+                    x = iSlowLG;
+                }
+                else
+                {
+                    x = iSlowHG / 8. + 68.;
+                }
+                fh2_CHIMERA_fast_slow_3->Fill(x, y);
+            }
             if (iNumTel == ntel4 && (iFastLG > 0 || iFastHG > 0) && (iSlowLG > 0 || iSlowHG > 0))
             {
-                float x=-1., y=-1.;
-		if(iFastLG > 0) {y=iFastLG;} else {y=iFastHG/8. + 68.;}
-		if(iSlowLG > 0) {x=iSlowLG;} else {x=iSlowHG/8. + 68.;}
-		fh2_CHIMERA_fast_slow_4->Fill(x, y);
+                float x = -1., y = -1.;
+                if (iFastLG > 0)
+                {
+                    y = iFastLG;
+                }
+                else
+                {
+                    y = iFastHG / 8. + 68.;
+                }
+                if (iSlowLG > 0)
+                {
+                    x = iSlowLG;
+                }
+                else
+                {
+                    x = iSlowHG / 8. + 68.;
+                }
+                fh2_CHIMERA_fast_slow_4->Fill(x, y);
             }
 
             if (iNumTel >= 1 && iNumTel <= 32)
