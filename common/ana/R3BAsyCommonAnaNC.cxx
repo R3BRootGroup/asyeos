@@ -121,25 +121,24 @@ InitStatus R3BAsyCommonAnaNC::Init()
     if (verbose)
         LOG(info) << "R3BAsyCommonAnaNC::Init line 87";
 
-
     c_NL_CHIMERA_KRAB = new TCanvas("c_NL_CHIMERA_KRAB", "NL_CHIMERA_KRAB", 0, 0, 1200, 1200);
     c_NL_CHIMERA_KRAB->Divide(2, 2);
     fh2_KRAB_NL_multi = new TH2I("fh2_KRAB_NL_multi", "KRAB_NL_multi", 100, -0.5, 99.5, 100, -0.5, 99.5);
-    fp_KRAB_NL_multi = new TProfile("fp_KRAB_NL_multi", "KRAB_NL_multi", 100, -0.5, 99.5,  -0.5, 99.5);
+    fp_KRAB_NL_multi = new TProfile("fp_KRAB_NL_multi", "KRAB_NL_multi", 100, -0.5, 99.5, -0.5, 99.5);
 
     fh2_CHIMERA_NL_multi = new TH2I("fh2_CHIMERA_NL_multi", "CHIMERA_NL_multi", 100, -0.5, 99.5, 50, -0.5, 49.5);
-    fp_CHIMERA_NL_multi = new TProfile("fp_CHIMERA_NL_multi", "CHIMERA_NL_multi", 100, -0.5, 99.5, 1 -0.5, 49.5);
-    
+    fp_CHIMERA_NL_multi = new TProfile("fp_CHIMERA_NL_multi", "CHIMERA_NL_multi", 100, -0.5, 99.5, 1 - 0.5, 49.5);
+
     c_NL_CHIMERA_KRAB->cd(1);
     fh2_KRAB_NL_multi->Draw();
     fp_KRAB_NL_multi->Draw("same");
     c_NL_CHIMERA_KRAB->cd(2);
     fh2_CHIMERA_NL_multi->Draw();
     fp_CHIMERA_NL_multi->Draw("same");
-    
+
     fp_CHIMERA_NL_multi->SetMarkerStyle(20);
     fp_KRAB_NL_multi->SetMarkerStyle(20);
-    
+
     LOG(info) << "R3BAsyCommonAnaNC::Init DONE";
     return kSUCCESS;
 }
@@ -164,9 +163,8 @@ void R3BAsyCommonAnaNC::Exec(Option_t* option)
     Float_t RP_CHI = -1000, RP_KRAB = -1000;
     Float_t RP_CHImKRAB = -1000;
 
-    if (fPhysItemsChimera && fPhysItemsChimera->GetEntriesFast() && 
-        fPhysItemsKrab && fPhysItemsKrab->GetEntriesFast() && 
-	fNeulandMappedData && fNeulandMappedData->GetEntriesFast() )
+    if (fPhysItemsChimera && fPhysItemsChimera->GetEntriesFast() && fPhysItemsKrab &&
+        fPhysItemsKrab->GetEntriesFast() && fNeulandMappedData && fNeulandMappedData->GetEntriesFast())
     {
         // --- --------------------- --- //
         // --- loop over mapped data --- //
@@ -194,12 +192,11 @@ void R3BAsyCommonAnaNC::Exec(Option_t* option)
         }
     }
 
-    
     fh2_KRAB_NL_multi->Fill(nHits_NL, multi_KRAB);
     fh2_CHIMERA_NL_multi->Fill(nHits_NL, multi_CHI);
     fp_KRAB_NL_multi->Fill(nHits_NL, multi_KRAB);
     fp_CHIMERA_NL_multi->Fill(nHits_NL, multi_CHI);
-    
+
     fNEvents += 1;
     //  std::cout << "#### Common Ana :: 142 " << std::endl;
     //  getchar();
@@ -231,7 +228,7 @@ void R3BAsyCommonAnaNC::FinishTask()
         std::cout << "#### CommonAnaNC :: Finish Task " << std::endl;
         //   getchar();
         c_NL_CHIMERA_KRAB->Update();
-	c_NL_CHIMERA_KRAB->Write();
+        c_NL_CHIMERA_KRAB->Write();
     }
 }
 

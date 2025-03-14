@@ -30,7 +30,6 @@
 #include "FairTask.h"
 #include "R3BAsyChimeraPhysData.h"
 #include "R3BAsyKrabPhysData.h"
-#include "R3BAsyKrabPhysData.h"
 #include "R3BPaddleTamexMappedData.h"
 #include "TCanvas.h"
 #include "TH1.h"
