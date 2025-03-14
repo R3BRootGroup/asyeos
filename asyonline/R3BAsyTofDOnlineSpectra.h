@@ -190,6 +190,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     TH2F* fh2_tofd_charges34;
     TH1F* fh1_Zcharge;
     TH2F* fh2_zcharge_tpat;
+    TH1F* fh_micro_spill;
 
   public:
     ClassDef(R3BAsyTofDOnlineSpectra, 1)

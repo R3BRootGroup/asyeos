@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------
-// -----            R3BAsyCommonAnaNC header file             -----
+// -----            R3BAsyCommonAnaNCKT header file             -----
 // -----    Created 15/10/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
@@ -16,8 +16,8 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BAsyCommonAnaNC_H
-#define R3BAsyCommonAnaNC_H
+#ifndef R3BAsyCommonAnaNCKT_H
+#define R3BAsyCommonAnaNCKT_H
 
 #include <R3BShared.h>
 
@@ -30,7 +30,9 @@
 #include "FairTask.h"
 #include "R3BAsyChimeraPhysData.h"
 #include "R3BAsyKrabPhysData.h"
+#include "R3BAsyKrabPhysData.h"
 #include "R3BPaddleTamexMappedData.h"
+#include "R3BTofdMappedData.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
@@ -43,14 +45,14 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyCommonAnaNC : public FairTask
+class R3BAsyCommonAnaNCKT : public FairTask
 {
   public:
     /**
      * Default constructor.
      * Creates an instance of the task with default parameters.
      */
-    R3BAsyCommonAnaNC();
+    R3BAsyCommonAnaNCKT();
 
     /**
      * Standard constructor.
@@ -58,13 +60,13 @@ class R3BAsyCommonAnaNC : public FairTask
      * @param name a name of the task.
      * @param iVerbose a verbosity level.
      */
-    R3BAsyCommonAnaNC(const char* name, Int_t iVerbose = 1);
+    R3BAsyCommonAnaNCKT(const char* name, Int_t iVerbose = 1);
 
     /**
      * Destructor.
      * Frees the memory used by the object.
      */
-    virtual ~R3BAsyCommonAnaNC();
+    virtual ~R3BAsyCommonAnaNCKT();
 
     /**
      * Method for task initialization.
@@ -104,6 +106,7 @@ class R3BAsyCommonAnaNC : public FairTask
     TClonesArray* fPhysItemsChimera;
     TClonesArray* fPhysItemsKrab;
     TClonesArray* fNeulandMappedData;
+    TClonesArray* fTofdMappedData;
     bool fOnline = false;
 
     // check for trigger should be done globablly (somewhere else)
@@ -112,14 +115,18 @@ class R3BAsyCommonAnaNC : public FairTask
 
     // Canvas
 
-    TCanvas* c_NL_CHIMERA_KRAB;
+    TCanvas* c_NCKT;
+    TH2I* fh2_KRAB_Tofd_multi;
+    TH2I* fh2_CHIMERA_Tofd_multi;
+    TProfile* fp_KRAB_Tofd_multi;
+    TProfile* fp_CHIMERA_Tofd_multi;
     TH2I* fh2_CHIMERA_NL_multi;
     TH2I* fh2_KRAB_NL_multi;
     TProfile* fp_CHIMERA_NL_multi;
     TProfile* fp_KRAB_NL_multi;
-
+   
   public:
-    ClassDef(R3BAsyCommonAnaNC, 1)
+    ClassDef(R3BAsyCommonAnaNCKT, 1)
 };
 
 #endif

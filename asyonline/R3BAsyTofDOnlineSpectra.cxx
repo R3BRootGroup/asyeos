@@ -150,6 +150,14 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         fh_tofd_multihit_coinc.resize(fNofPlanes);
         fh_tofd_dt.resize(fNofPlanes - 1);
 
+        fh_micro_spill =
+            R3B::root_owned<TH1F>("fh_micro_spill", "Time difference between 2 particles", 5000, -2500, 2500);
+        fh_micro_spill->GetXaxis()->SetTitle("dt in ns");
+        fh_micro_spill->GetYaxis()->SetTitle("Counts");
+        fh_micro_spill->GetXaxis()->CenterTitle(true);
+        fh_micro_spill->GetYaxis()->CenterTitle(true);
+        fh_micro_spill->SetFillColor(31);
+
         // Canvas to display the Y position as a function of paddle and per plane  ---------------
         auto* cTofd_Y_per_planes =
             new TCanvas("TofD_Ypos_planes_Cal", "TOFD: Y-pos per plane with CAL data", 10, 10, 1100, 1000);
@@ -1476,7 +1484,15 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 }
             }
         }
-
+        // To see the micro-spill structure one can plot the time difference of 2 meighbored bars
+        for (Int_t imult1 = 0; imult1 < vmultihits[0][21]; imult1++)
+        {
+            for (Int_t imult2 = 0; imult2 < vmultihits[0][24]; imult2++)
+            {
+                // if(time_bar[1][21][imult1] > time_bar[1][22][imult2])
+                fh_micro_spill->Fill(time_bar[0][21][imult1] - time_bar[0][24][imult2]);
+            }
+        }
     } // endi if fCalItems
 
     if (fHitItems)
@@ -1637,6 +1653,7 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
         {
             hist->Write();
         }
+        fh_micro_spill->Write();
     }
 
     if (fHitItems)
