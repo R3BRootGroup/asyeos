@@ -21,6 +21,7 @@ set(SRCS
 ##Put here your sourcefiles
     ana/R3BAsyCommonAna.cxx
     ana/R3BAsyCommonAnaNC.cxx
+    ana/R3BAsyCommonAnaNCKT.cxx
 )
 
 # fill list of header files from list of source files
