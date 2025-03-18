@@ -552,8 +552,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                     sprintf(strName16, "Tofd walk correction plane %d, paddle %d (BOTTOM)", 1, fBarRef_walk + p);
                     sprintf(strName15, "fh2_tofd_walk_correction_plane_%d_paddle_%d_bottom", 1, fBarRef_walk + p);
                 }
-                fh2_tofd_walkcor[j * 2 + p] =
-                    R3B::root_owned<TH2F>(strName15, strName16, 100, 0, 1000, 500, -1000., 1000);
+                fh2_tofd_walkcor[j * 2 + p] = R3B::root_owned<TH2F>(strName15, strName16, 100, 0, 1000, 4000, -400., 0);
                 fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitle("ToT / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitle("PMT time - start / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -1529,6 +1528,9 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
             if (IS_NAN(hitTofd->GetTime()))
                 continue;
             Int_t iPlane = hitTofd->GetDetId();
+            if (hitTofd->GetBarId() > 44)
+                continue;
+
             Double_t randx = (std::rand() / (float)RAND_MAX) - 0.5;
             Int_t ictemp = iCounts[iPlane - 1];
             x[iPlane - 1][ictemp] = hitTofd->GetX() + 2.7 * randx;
