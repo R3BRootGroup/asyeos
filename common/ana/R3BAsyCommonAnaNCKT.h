@@ -30,7 +30,6 @@
 #include "FairTask.h"
 #include "R3BAsyChimeraPhysData.h"
 #include "R3BAsyKrabPhysData.h"
-#include "R3BAsyKrabPhysData.h"
 #include "R3BPaddleTamexMappedData.h"
 #include "R3BTofdMappedData.h"
 #include "TCanvas.h"
@@ -124,7 +123,7 @@ class R3BAsyCommonAnaNCKT : public FairTask
     TH2I* fh2_KRAB_NL_multi;
     TProfile* fp_CHIMERA_NL_multi;
     TProfile* fp_KRAB_NL_multi;
-   
+
   public:
     ClassDef(R3BAsyCommonAnaNCKT, 1)
 };
