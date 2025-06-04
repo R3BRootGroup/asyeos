@@ -22,27 +22,32 @@
 #include <R3BShared.h>
 
 #include <array>
-#include <vector>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "FairTask.h"
+#include "R3BAsyChimeraIdData.h"
+#include "R3BAsyChimeraMatchedData.h"
+#include "R3BEventHeader.h"
+#include "TCHICsIEnergy.h"
+#include "TCHIResult.h"
 #include "TCanvas.h"
+#include "TCsIIdent.h"
 #include "TH1.h"
 #include "TH2F.h"
 #include "TMath.h"
-#include "R3BAsyChimeraMatchedData.h"
-#include "R3BAsyChimeraIdData.h"
-#include "R3BEventHeader.h"
-#include "TCsIIdent.h"
-#include "TCHIResult.h"
-#include "TCHICsIEnergy.h"
+<<<<<<< HEAD
+=======
+#include "TRandom.h"
+#include "TRootCHIEvent.h"
+#include "TRootDefine.h"
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
-
-class TClonesArray;
+    class TClonesArray;
 class R3BEventHeader;
 
 /**
@@ -56,7 +61,6 @@ class R3BAsyChimeraId : public FairTask
      * Creates an instance of the task with default parameters.
      */
     R3BAsyChimeraId(const char* inFileName);
-
 
     /**
      * Destructor.
@@ -100,20 +104,19 @@ class R3BAsyChimeraId : public FairTask
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
 
-
     string CalDirName;
     string GridFileName;
     string ECalibFileName;
     string ECalibTableFileName;
-    
-    inline void SetCalDir(string DirName){CalDirName = DirName;}  
-    inline void SetGridFileName(string FileName){GridFileName = FileName;}
-    inline void SetECalibFileName(string FileName){ECalibFileName = FileName;}  
-    inline void SetECalibTableFileName(string FileName){ECalibTableFileName = FileName;}  
+
+    inline void SetCalDir(string DirName) { CalDirName = DirName; }
+    inline void SetGridFileName(string FileName) { GridFileName = FileName; }
+    inline void SetECalibFileName(string FileName) { ECalibFileName = FileName; }
+    inline void SetECalibTableFileName(string FileName) { ECalibTableFileName = FileName; }
 
   private:
     TClonesArray* fChimeraMatchedData; /**< Array with chimera matched items. */
-    TClonesArray* fChimeraIdData; /**< Array with chimera Id items. */
+    TClonesArray* fChimeraIdData;      /**< Array with chimera Id items. */
     bool fOnline = false;
 
     // check for trigger should be done globablly (somewhere else)
@@ -121,18 +124,55 @@ class R3BAsyChimeraId : public FairTask
     Int_t fNEvents;         /**< Event counter.     */
     Int_t fTrigger = -1;
     Int_t fTpat = 2;
-    TCsIIdent* fCsIIdent;   
-    TCHIResult* fCHIResult;   
+    TCsIIdent* fCsIIdent;
+    TCHIResult* fCHIResult;
     TCHICsIGSIEnergy* fCHICsIEnergy;
     
-    
- 
-    const char* finFileName;
-    
-    R3BAsyChimeraIdData* AddIdData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t time, UInt_t Z, UInt_t A, UInt_t Stopped, UInt_t Code, UInt_t PID, double DE, double Energy);
+<<<<<<< HEAD
 
-    public:
-     ClassDef(R3BAsyChimeraId, 1)
+    const char* finFileName;
+
+    R3BAsyChimeraIdData* AddIdData(UInt_t numtel,
+                                   Float_t fast,
+                                   Float_t slow,
+                                   UInt_t time,
+                                   UInt_t Z,
+                                   UInt_t A,
+                                   UInt_t Stopped,
+                                   UInt_t Code,
+                                   UInt_t PID,
+                                   double DE,
+                                   double Energy);
+=======
+    Float_t GetThetaRnd(int);
+    Float_t GetPhiRnd(int);
+    TRandom* rrn;
+
+    TCanvas* cc;
+    TH2F* h2_ylab_bt;
+
+    TFile* f1;
+
+    TRootDefine chitree;
+    TRootCHIEvent* evt;
+
+    const char* finFileName;
+
+    R3BAsyChimeraIdData* AddIdData(UInt_t numtel,
+                                   Float_t fast,
+                                   Float_t slow,
+                                   UInt_t time,
+                                   Int_t Z,
+                                   Int_t A,
+                                   Int_t Stopped,
+                                   Int_t Code,
+                                   Float_t PID,
+                                   double DE,
+                                   double Energy);
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+
+  public:
+    ClassDef(R3BAsyChimeraId, 1)
 };
 
 #endif

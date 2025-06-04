@@ -41,7 +41,6 @@
 
 #define verbose 0
 
-
 R3BAsyChimeraPuls::R3BAsyChimeraPuls()
     : FairTask("AsyChimeraPuls", 1)
     , fMappedItemsChimera(NULL)
@@ -56,10 +55,7 @@ R3BAsyChimeraPuls::R3BAsyChimeraPuls(const char* name, Int_t iVerbose)
 {
 }
 
-R3BAsyChimeraPuls::~R3BAsyChimeraPuls()
-{
-    LOG(info) << "R3BAsyChimeraPuls::Delete instance";
-}
+R3BAsyChimeraPuls::~R3BAsyChimeraPuls() { LOG(info) << "R3BAsyChimeraPuls::Delete instance"; }
 
 InitStatus R3BAsyChimeraPuls::Init()
 {
@@ -80,7 +76,6 @@ InitStatus R3BAsyChimeraPuls::Init()
 
     LOG(info) << "R3BAsyChimeraPuls::Init DONE";
 
-
     // --- ------------------------------------- --- //
     // --- get access to mapped data of CHIMERA --- //
     // --- ------------------------------------- --- //
@@ -95,165 +90,181 @@ InitStatus R3BAsyChimeraPuls::Init()
     if (verbose)
         LOG(info) << "R3BAsyChimeraPuls::Init line 87";
 
-//    f1= new TFile("pulser_out.root","RECREATE");
-    
+    //    f1= new TFile("pulser_out.root","RECREATE");
+
     char Name1[255];
     char Name2[255];
-    
+
     char Name11[255];
     char Name22[255];
- 
+
     int nch = 1000;
     int xymin = -0.5;
     int xymax = 4000.5;
 
     for (Int_t j = 0; j <= 79; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
         fh1_fast_HG[j] = new TH1I(Name1, Name1, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name2, nch, xymin, xymax);
     }
 
-
     for (Int_t j = 80; j <= 111; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-80)<=9){
-	 sprintf(Name11, "R3SLOW0%i-I", j-80);
-         sprintf(Name22, "R3SLOW0%i-I", j-80);
-        }else{
-	 sprintf(Name11, "R3SLOW%i-I", j-80);
-         sprintf(Name22, "R3SLOW%i-I", j-80);
-	}
-	fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 80) <= 9)
+        {
+            sprintf(Name11, "R3SLOW0%i-I", j - 80);
+            sprintf(Name22, "R3SLOW0%i-I", j - 80);
+        }
+        else
+        {
+            sprintf(Name11, "R3SLOW%i-I", j - 80);
+            sprintf(Name22, "R3SLOW%i-I", j - 80);
+        }
+        fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
     for (Int_t j = 112; j <= 143; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-112)<=9){
-	 sprintf(Name11, "R3SLOW0%i-E", j-112);
-         sprintf(Name22, "R3SLOW0%i-E", j-112);
-        }else{
-	 sprintf(Name11, "R3SLOW%i-E", j-112);
-         sprintf(Name22, "R3SLOW%i-E", j-112);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 112) <= 9)
+        {
+            sprintf(Name11, "R3SLOW0%i-E", j - 112);
+            sprintf(Name22, "R3SLOW0%i-E", j - 112);
+        }
+        else
+        {
+            sprintf(Name11, "R3SLOW%i-E", j - 112);
+            sprintf(Name22, "R3SLOW%i-E", j - 112);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
-    
-    
+
     for (Int_t j = 144; j <= 183; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-144)<=9){
-	 sprintf(Name11, "R4SLOW0%i-I", j-144);
-         sprintf(Name22, "R4SLOW0%i-I", j-144);
-        }else{
-	 sprintf(Name11, "R4SLOW%i-I", j-144);
-         sprintf(Name22, "R4SLOW%i-I", j-144);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 144) <= 9)
+        {
+            sprintf(Name11, "R4SLOW0%i-I", j - 144);
+            sprintf(Name22, "R4SLOW0%i-I", j - 144);
+        }
+        else
+        {
+            sprintf(Name11, "R4SLOW%i-I", j - 144);
+            sprintf(Name22, "R4SLOW%i-I", j - 144);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
     for (Int_t j = 184; j <= 223; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-184)<=9){
-	 sprintf(Name11, "R4SLOW0%i-E", j-184);
-         sprintf(Name22, "R4SLOW0%i-E", j-184);
-        }else{
-	 sprintf(Name11, "R4SLOW%i-E", j-184);
-         sprintf(Name22, "R4SLOW%i-E", j-184);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 184) <= 9)
+        {
+            sprintf(Name11, "R4SLOW0%i-E", j - 184);
+            sprintf(Name22, "R4SLOW0%i-E", j - 184);
+        }
+        else
+        {
+            sprintf(Name11, "R4SLOW%i-E", j - 184);
+            sprintf(Name22, "R4SLOW%i-E", j - 184);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
 
-
     for (Int_t j = 224; j <= 263; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-224)<=9){
-	 sprintf(Name11, "R5SLOW0%i-I", j-224);
-         sprintf(Name22, "R5SLOW0%i-I", j-224);
-        }else{
-	 sprintf(Name11, "R5SLOW%i-I", j-224);
-         sprintf(Name22, "R5SLOW%i-I", j-224);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 224) <= 9)
+        {
+            sprintf(Name11, "R5SLOW0%i-I", j - 224);
+            sprintf(Name22, "R5SLOW0%i-I", j - 224);
+        }
+        else
+        {
+            sprintf(Name11, "R5SLOW%i-I", j - 224);
+            sprintf(Name22, "R5SLOW%i-I", j - 224);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
     for (Int_t j = 264; j <= 303; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-264)<=9){
-	 sprintf(Name11, "R5SLOW0%i-E", j-264);
-         sprintf(Name22, "R5SLOW0%i-E", j-264);
-        }else{
-	 sprintf(Name11, "R5SLOW%i-E", j-264);
-         sprintf(Name22, "R5SLOW%i-E", j-264);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 264) <= 9)
+        {
+            sprintf(Name11, "R5SLOW0%i-E", j - 264);
+            sprintf(Name22, "R5SLOW0%i-E", j - 264);
+        }
+        else
+        {
+            sprintf(Name11, "R5SLOW%i-E", j - 264);
+            sprintf(Name22, "R5SLOW%i-E", j - 264);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
 
-
     for (Int_t j = 304; j <= 351; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-303)<=9){
-	 sprintf(Name11, "R6SLOW0%i-I", j-304);
-         sprintf(Name22, "R6SLOW0%i-I", j-304);
-        }else{
-	 sprintf(Name11, "R6SLOW%i-I", j-304);
-         sprintf(Name22, "R6SLOW%i-I", j-304);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 303) <= 9)
+        {
+            sprintf(Name11, "R6SLOW0%i-I", j - 304);
+            sprintf(Name22, "R6SLOW0%i-I", j - 304);
+        }
+        else
+        {
+            sprintf(Name11, "R6SLOW%i-I", j - 304);
+            sprintf(Name22, "R6SLOW%i-I", j - 304);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
     for (Int_t j = 352; j <= 399; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
-        if((j-352)<=9){
-	 sprintf(Name11, "R6SLOW0%i-E", j-352);
-         sprintf(Name22, "R6SLOW0%i-E", j-352);
-        }else{
-	 sprintf(Name11, "R6SLOW%i-E", j-352);
-         sprintf(Name22, "R6SLOW%i-E", j-352);
-	}
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
+        if ((j - 352) <= 9)
+        {
+            sprintf(Name11, "R6SLOW0%i-E", j - 352);
+            sprintf(Name22, "R6SLOW0%i-E", j - 352);
+        }
+        else
+        {
+            sprintf(Name11, "R6SLOW%i-E", j - 352);
+            sprintf(Name22, "R6SLOW%i-E", j - 352);
+        }
         fh1_fast_HG[j] = new TH1I(Name1, Name11, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name22, nch, xymin, xymax);
     }
 
     for (Int_t j = 400; j <= 1191; j++)
     {
-        sprintf(Name1, "h%i", 10000+j);
-        sprintf(Name2, "h%i", 20000+j);
+        sprintf(Name1, "h%i", 10000 + j);
+        sprintf(Name2, "h%i", 20000 + j);
         fh1_fast_HG[j] = new TH1I(Name1, Name1, nch, xymin, xymax);
         fh1_fast_LG[j] = new TH1I(Name2, Name2, nch, xymin, xymax);
     }
 
     LOG(info) << "R3BAsyChimeraPuls::Init DONE";
-//    coll
-    
+    //    coll
+
     return kSUCCESS;
-
 }
 
-void R3BAsyChimeraPuls::Reset_Histo()
-{
-    LOG(info) << "R3BAsyChimeraPuls::Reset_Histo";
-}
+void R3BAsyChimeraPuls::Reset_Histo() { LOG(info) << "R3BAsyChimeraPuls::Reset_Histo"; }
 
 void R3BAsyChimeraPuls::Exec(Option_t* option)
 {
@@ -295,11 +306,12 @@ void R3BAsyChimeraPuls::Exec(Option_t* option)
             iTimeSil = hitmapped->GetTimeSil();
             iPatt = hitmapped->GetPatt();
 
-            if (iSlowLG > 480) fh1_fast_LG[iNumTel]->Fill(iSlowLG);
-            if (iSlowHG > 0) fh1_fast_HG[iNumTel]->Fill(iSlowHG);
+            if (iSlowLG > 480)
+                fh1_fast_LG[iNumTel]->Fill(iSlowLG);
+            if (iSlowHG > 0)
+                fh1_fast_HG[iNumTel]->Fill(iSlowHG);
         }
     }
-
 
     fNEvents += 1;
 }
@@ -314,21 +326,20 @@ void R3BAsyChimeraPuls::FinishEvent()
 
 void R3BAsyChimeraPuls::FinishTask()
 {
-    bool towrite=true;
+    bool towrite = true;
     if (fMappedItemsChimera)
     {
-//     f1->cd();  
-     for (Int_t j = 0; j < 1192; j++)
-     {
-        fh1_fast_HG[j]->Write();
-        fh1_fast_LG[j]->Write();
-	if(towrite)std::cout << "write " << std::endl;
-        towrite=false;
-     }
-//     f1->Close();
+        //     f1->cd();
+        for (Int_t j = 0; j < 1192; j++)
+        {
+            fh1_fast_HG[j]->Write();
+            fh1_fast_LG[j]->Write();
+            if (towrite)
+                std::cout << "write " << std::endl;
+            towrite = false;
+        }
+        //     f1->Close();
     }
 }
-
-
 
 ClassImp(R3BAsyChimeraPuls)

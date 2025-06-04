@@ -29,9 +29,9 @@
 
 #include "FairTask.h"
 #include "TCanvas.h"
+#include "TFile.h"
 #include "TH1.h"
 #include "TH2F.h"
-#include "TFile.h"
 #include "TMath.h"
 
 class TClonesArray;
@@ -107,8 +107,8 @@ class R3BAsyChimeraPuls : public FairTask
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
 
-//    TFile *f1;
-        
+    //    TFile *f1;
+
     TH1I* fh1_fast_HG[1192];
     TH1I* fh1_fast_LG[1192];
 
