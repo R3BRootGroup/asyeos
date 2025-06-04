@@ -1,5 +1,3 @@
-// clang-format off
-
 /******************************************************************************
  *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
@@ -13,23 +11,33 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifdef __CINT__
+#include "R3BAsyChimeraMatchedData.h"
 
-#pragma link off all globals;
-#pragma link off all classes;
-#pragma link off all functions;
+R3BAsyChimeraMatchedData::R3BAsyChimeraMatchedData()
+    : fNumTel(-1)
+    , fFast(-1)
+    , fSlow(-1)
+    , fTimeCsI(-1)
+{
+}
 
-// Point classes for simulation 
-#pragma link C++ class R3BAsyChimeraPoint+;
-#pragma link C++ class R3BAsyChimeraHitData+;
-#pragma link C++ class R3BAsyChimeraMappedData+;
-#pragma link C++ class R3BAsyChimeraMatchedData+;
-#pragma link C++ class R3BAsyChimeraIdData+;
-#pragma link C++ class R3BAsyChimeraPhysData+;
-#pragma link C++ class R3BAsyChimeraArrayData+;
-#pragma link C++ class R3BAsyKrabPoint+;
-#pragma link C++ class R3BAsyKrabHitData+;
-#pragma link C++ class R3BAsyKrabMappedData+;
-#pragma link C++ class R3BAsyKrabArrayData+;
-#pragma link C++ class R3BAsyKrabPhysData+;
-#endif
+R3BAsyChimeraMatchedData::R3BAsyChimeraMatchedData(UInt_t numtel,
+                                                 Float_t fast,
+                                                 Float_t slow,
+                                                 UInt_t timeCsI)
+    : fNumTel(numtel)
+    , fFast(fast)
+    , fSlow(slow)
+    , fTimeCsI(timeCsI)
+{
+}
+
+UInt_t R3BAsyChimeraMatchedData::GetNumTel() const { return fNumTel; }
+
+Float_t R3BAsyChimeraMatchedData::GetFast() const { return fFast; }
+
+Float_t R3BAsyChimeraMatchedData::GetSlow() const { return fSlow; }
+
+UInt_t R3BAsyChimeraMatchedData::GetTimeCsI() const { return fTimeCsI; }
+
+ClassImp(R3BAsyChimeraMatchedData)
