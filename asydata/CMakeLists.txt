@@ -17,8 +17,10 @@ set(SRCS
     chimeraData/R3BAsyChimeraPoint.cxx
     chimeraData/R3BAsyChimeraHitData.cxx
     chimeraData/R3BAsyChimeraMappedData.cxx
+    chimeraData/R3BAsyChimeraMatchedData.cxx
     chimeraData/R3BAsyChimeraArrayData.cxx
     chimeraData/R3BAsyChimeraPhysData.cxx
+    chimeraData/R3BAsyChimeraIdData.cxx
     krabData/R3BAsyKrabPoint.cxx
     krabData/R3BAsyKrabHitData.cxx
     krabData/R3BAsyKrabMappedData.cxx

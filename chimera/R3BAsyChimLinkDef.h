@@ -19,11 +19,19 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
-#pragma link C++ class R3BAsyChimera +;
-#pragma link C++ class R3BAsyChimeraContFact +;
-#pragma link C++ class R3BAsyChimeraDoArray +;
-#pragma link C++ class R3BAsyChimeraPhys +;
-#pragma link C++ class R3BAsyChimeraCalPar +;
-#pragma link C++ class R3BAsyChimeraHitPar +;
+#pragma link C++ class R3BAsyChimera+;
+#pragma link C++ class R3BAsyChimeraContFact+;
+#pragma link C++ class R3BAsyChimeraDoArray+;
+#pragma link C++ class R3BAsyChimeraPuls+;
+#pragma link C++ class R3BAsyChimeraMatch+;
+#pragma link C++ class R3BAsyChimeraId+;
+#pragma link C++ class R3BAsyChimeraPhys+;
+#pragma link C++ class R3BAsyChimeraCalPar+;
+#pragma link C++ class R3BAsyChimeraHitPar+;
+#pragma link C++ class TCsIParams+;
+#pragma link C++ class TCsIIdent+;
+#pragma link C++ class TCHIResult+;
+#pragma link C++ class TCHICsIEnergy+;
+#pragma link C++ class TCHICsIGSIEnergy+;
 
 #endif

@@ -16,7 +16,6 @@
 #include <FairLogger.h>
 #include <FairRootManager.h>
 #include <TClonesArray.h>
-
 #include "R3BAsyChimeraMappedData.h"
 #include "R3BWRData.h"
 
