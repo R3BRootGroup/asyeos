@@ -31,14 +31,22 @@ R3BAsyChimeraIdData::R3BAsyChimeraIdData()
 R3BAsyChimeraIdData::R3BAsyChimeraIdData(UInt_t numtel,
                                          Float_t fast,
                                          Float_t slow,
-					 UInt_t timeCsI,
+                                         UInt_t timeCsI,
+<<<<<<< HEAD
                                          UInt_t Z,
                                          UInt_t A,
-					 UInt_t Stopped,
-					 UInt_t Code,
-					 UInt_t PID,
+                                         UInt_t Stopped,
+                                         UInt_t Code,
+                                         UInt_t PID,
+=======
+                                         Int_t Z,
+                                         Int_t A,
+                                         Int_t Stopped,
+                                         Int_t Code,
+                                         Float_t PID,
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
                                          double DE,
-					 double Energy)
+                                         double Energy)
     : fNumTel(numtel)
     , fFast(fast)
     , fSlow(slow)
@@ -59,6 +67,7 @@ Float_t R3BAsyChimeraIdData::GetFast() const { return fFast; }
 
 Float_t R3BAsyChimeraIdData::GetSlow() const { return fSlow; }
 
+<<<<<<< HEAD
 UInt_t R3BAsyChimeraIdData::GetZ() const { return fZ; }
 
 UInt_t R3BAsyChimeraIdData::GetA() const { return fA; }
@@ -70,10 +79,22 @@ UInt_t R3BAsyChimeraIdData::GetStopped() const { return fStopped; }
 UInt_t R3BAsyChimeraIdData::GetCode() const { return fCode; }
 
 UInt_t R3BAsyChimeraIdData::GetPID() const { return fPID; }
+=======
+Int_t R3BAsyChimeraIdData::GetZ() const { return fZ; }
+
+Int_t R3BAsyChimeraIdData::GetA() const { return fA; }
+
+UInt_t R3BAsyChimeraIdData::GetTimeCsI() const { return fTimeCsI; }
+
+Int_t R3BAsyChimeraIdData::GetStopped() const { return fStopped; }
+
+Int_t R3BAsyChimeraIdData::GetCode() const { return fCode; }
+
+Float_t R3BAsyChimeraIdData::GetPID() const { return fPID; }
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
 double R3BAsyChimeraIdData::GetDE() const { return fDE; }
 
 double R3BAsyChimeraIdData::GetEnergy() const { return fEnergy; }
-
 
 ClassImp(R3BAsyChimeraIdData)

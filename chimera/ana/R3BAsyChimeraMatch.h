@@ -30,13 +30,13 @@
 
 #include "FairTask.h"
 #include "R3BAsyChimeraMatchedData.h"
+#include "R3BEventHeader.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
 #include "TMath.h"
-#include "R3BEventHeader.h"
 
-#define ndim 400 
+#define ndim 400
 
 class TClonesArray;
 class R3BEventHeader;
@@ -52,7 +52,6 @@ class R3BAsyChimeraMatch : public FairTask
      * Creates an instance of the task with default parameters.
      */
     R3BAsyChimeraMatch(const char* inFileName);
-
 
     /**
      * Destructor.
@@ -95,23 +94,35 @@ class R3BAsyChimeraMatch : public FairTask
 
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
+<<<<<<< HEAD
+=======
+
+    inline void SetNTelMin(Int_t ntel) { NTelMin = ntel; }
+    inline void SetNTelMax(Int_t ntel) { NTelMax = ntel; }
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
     TClonesArray* fChimeraMatchedData;
     bool fOnline = false;
+<<<<<<< HEAD
 
+=======
+    Int_t NTelMin = 0;
+    Int_t NTelMax = 0;
+    
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
     Int_t fTrigger = -1;
     Int_t fTpat = 2;
-        
+
     Float_t offset_fast[ndim], gain_fast[ndim];
     Float_t offset_slow[ndim], gain_slow[ndim];
- 
+
     const char* finFileName;
-    
+
     R3BAsyChimeraMatchedData* AddMatchedData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t timeCsI);
 
   public:

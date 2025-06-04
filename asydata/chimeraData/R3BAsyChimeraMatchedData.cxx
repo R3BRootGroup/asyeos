@@ -21,10 +21,7 @@ R3BAsyChimeraMatchedData::R3BAsyChimeraMatchedData()
 {
 }
 
-R3BAsyChimeraMatchedData::R3BAsyChimeraMatchedData(UInt_t numtel,
-                                                 Float_t fast,
-                                                 Float_t slow,
-                                                 UInt_t timeCsI)
+R3BAsyChimeraMatchedData::R3BAsyChimeraMatchedData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t timeCsI)
     : fNumTel(numtel)
     , fFast(fast)
     , fSlow(slow)

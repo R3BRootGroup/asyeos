@@ -16,51 +16,49 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-
-
-
 #ifndef TCsIIdent_H
 #define TCsIIdent_H
 
-#include <iostream>
-#include <iomanip>
+#include "TCHIResult.h"
+#include "TCsIParams.h"
+#include <cmath>
+#include <cstring>
 #include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <string>
-#include <cstring>
 #include <vector>
-#include <cmath>
-#include <cmath>
-#include "TCsIParams.h"
-#include "TCHIResult.h"
+<<<<<<< HEAD
 
-using namespace std;
+=======
+#include <TMath.h>
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration) using namespace std;
 
-const int CNTEL = 1192;      //Chimera max number of telescopes 
-const int UNSET = -10;       //A start init value for some variables 
-
-
+const int CNTEL = 1192; // Chimera max number of telescopes
+const int UNSET = -10;  // A start init value for some variables
 
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//Class for CsI identification
-class TCsIIdent {
-protected:
- int frun; 
- TCsIParams *ftableCHI_CsI[CNTEL];         //Chimera identification table for a given run 
- string fname;                             //Current file name for CsI parameters 
- bool fgridexist[CNTEL];                   //are grids filled ?  
-public: 
- TCsIIdent(string dir, string filename, int *code, int run);  //constructor
- TCsIIdent(string dir, string filename, int run);             //constructor
- ~TCsIIdent();                                                //destructor
- int ReadAsciiFile();                                         //Read fit parameters from ascii file 
-// int Get_Alternate_Offset_Data(string filename, TCHIEvent *gevent);  //Read alternate offset data (if any)
- bool IsGridExisting(int nt) {return fgridexist[nt];}         //Is grid defined ?
- TCsIParams *GetParams(int nt) {return ftableCHI_CsI[nt];}    //Return the parameter table or null 
-// void CsI_Identification(vector<int> &, SParticle* , int, float, bool);  //Main CsI Identification routine
- void CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg, TCHIResult *fchiresult, float tave);
- void CsI_Identification_Base(TCsIParams *, float, float, int *, int*, float*);    //Common base for CsI identification 
+// Class for CsI identification
+class TCsIIdent
+{
+  protected:
+    int frun;
+    TCsIParams* ftableCHI_CsI[CNTEL]; // Chimera identification table for a given run
+    string fname;                     // Current file name for CsI parameters
+    bool fgridexist[CNTEL];           // are grids filled ?
+  public:
+    TCsIIdent(string dir, string filename, int* code, int run); // constructor
+    TCsIIdent(string dir, string filename, int run);            // constructor
+    ~TCsIIdent();                                               // destructor
+    int ReadAsciiFile();                                        // Read fit parameters from ascii file
+    // int Get_Alternate_Offset_Data(string filename, TCHIEvent *gevent);  //Read alternate offset data (if any)
+    bool IsGridExisting(int nt) { return fgridexist[nt]; }      // Is grid defined ?
+    TCsIParams* GetParams(int nt) { return ftableCHI_CsI[nt]; } // Return the parameter table or null
+    // void CsI_Identification(vector<int> &, SParticle* , int, float, bool);  //Main CsI Identification routine
+    void CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg, TCHIResult* fchiresult, float tave);
+    void CsI_Identification_Base(TCsIParams*, float, float, int*, int*, float*); // Common base for CsI identification
 };
 
 #endif

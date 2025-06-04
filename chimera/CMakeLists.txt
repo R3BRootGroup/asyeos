@@ -14,6 +14,7 @@ set(INCLUDE_DIRECTORIES
     ${R3BASY_SOURCE_DIR}/chimera/sim
     ${R3BASY_SOURCE_DIR}/chimera/pars
     ${R3BASY_SOURCE_DIR}/chimera/ana
+    ${R3BASY_SOURCE_DIR}/krab/ana
     )
 
     file(
@@ -26,6 +27,11 @@ set(INCLUDE_DIRECTORIES
     ./ana/TCsIIdent.cxx
     ./ana/TCCHIResult.cxx
     ./ana/TCCHICsIEnergy.cxx
+<<<<<<< HEAD
+=======
+    ./ana/TRootCHIEvent.cxx
+    ./ana/TRootDefine.cxx
+>>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
     )
 
     change_file_extension(*.cxx *.h HEADERS "${SRCS}")
