@@ -26,5 +26,6 @@
 #pragma link C++ class R3BAsyKrabMappingPar+;
 #pragma link C++ class R3BAsyKrabDoArray+;
 #pragma link C++ class R3BAsyKrabPhys+;
+#pragma link C++ class TRootKRABEvent+;
 
 #endif

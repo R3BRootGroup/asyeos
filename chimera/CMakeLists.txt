@@ -14,6 +14,7 @@ set(INCLUDE_DIRECTORIES
     ${R3BASY_SOURCE_DIR}/chimera/sim
     ${R3BASY_SOURCE_DIR}/chimera/pars
     ${R3BASY_SOURCE_DIR}/chimera/ana
+    ${R3BASY_SOURCE_DIR}/krab/ana
     )
 
     file(
@@ -21,9 +22,18 @@ set(INCLUDE_DIRECTORIES
     SRCS 
     ./sim/*.cxx  
     ./pars/*.cxx 
-    ./ana/*.cxx )
+    ./ana/*.cxx 
+    ./ana/TCsIParams.cxx
+    ./ana/TCsIIdent.cxx
+    ./ana/TCCHIResult.cxx
+    ./ana/TCCHICsIEnergy.cxx
+    ./ana/TRootCHIEvent.cxx
+    ./ana/TRootDefine.cxx
+    )
 
     change_file_extension(*.cxx *.h HEADERS "${SRCS}")
+    
+    
     
     add_library_with_dictionary(
     LIBNAME
@@ -37,6 +47,7 @@ set(INCLUDE_DIRECTORIES
     INCLUDEDIRS
     ${INCLUDE_DIRECTORIES}
     DEPENDENCIES
+    R3BAsyData 
     R3BData 
     R3BBase 
     Core 
