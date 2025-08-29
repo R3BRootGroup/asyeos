@@ -40,6 +40,7 @@
 #include "TVector3.h"
 #define verbose 0
 
+
 const Float_t thetamin[35] = { 1.,    1.80,  2.60,  3.60,  4.60,  5.80,  7.00, 8.50, 10.00, 11.50, 13.00, 14.50,
                                16.00, 18.00, 20.00, 22.00, 24.00, 27.00, 30.,  38.,  46.,   54.,   62.,   70.,
                                78.,   86.,   94.,   102.,  110.,  118.,  126., 134., 142.,  150.,  163. };
@@ -55,6 +56,7 @@ const Int_t telmax[35] = { 15,  31,  55,  79,   111,  143,  183,  223,  263,  30
 const Float_t delta_phi[35] = { 22.5,  22.5,  15.,   15.,   11.25, 11.25, 9.,    9.,    9.,    9.,    7.5,   7.5,
                                 7.5,   7.5,   7.5,   7.5,   7.5,   7.5,   11.25, 11.25, 11.25, 11.25, 11.25, 11.25,
                                 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 22.5,  45.0 };
+
 
 
 R3BAsyChimeraId::R3BAsyChimeraId(const char* inFileName)
@@ -122,7 +124,9 @@ InitStatus R3BAsyChimeraId::Init()
     int nrun=1;
 
     string chiecalib = "ecalib141111.txt";
+
     string chiecalibrec = "dee-16072025.txt";
+
    
     fCsIIdent = new  TCsIIdent(CalDirName,GridFileName,nrun);  
     fCsIIdent->ReadAsciiFile();
@@ -204,6 +208,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
 	evt->tavecsi=-100;
 	
 	for (Int_t ihit = 0; ihit < nHits; ihit++)
+
         {
             Fast=-1, Slow=-1;
 	    R3BAsyChimeraMatchedData* hitmatched = (R3BAsyChimeraMatchedData*)fChimeraMatchedData->At(ihit);
@@ -231,6 +236,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
 	    bool IDOK=   fCHIResult->GetIDOK();     
             bool Zident= fCHIResult->GetZident();   
             bool Aident= fCHIResult->GetAident(); 
+
 
 //	    if(NumTel== 371) std::cout <<" R3BAsyChimeraId::ntel=371 " <<  Fast << " " << Slow << " "  << fCHIResult->GetZ() << " " << fCHIResult->GetA() << std::endl;
 

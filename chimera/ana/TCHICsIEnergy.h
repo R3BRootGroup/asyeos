@@ -75,6 +75,7 @@ private:
   double  DE24[64],  E24[64];
   double  DE37[69],  E37[69];
   double  DE49[57],  E49[57];
+
   double DE511[12], E511[12];
   TCutG *cut3He;
   TCutG *cut3Hebis; 

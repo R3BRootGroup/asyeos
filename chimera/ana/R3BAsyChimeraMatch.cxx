@@ -250,7 +250,9 @@ void R3BAsyChimeraMatch::Exec(Option_t* option)
 	     slow=1.0*iSlowLG;
 	    }	    
 //          std::cout << fast << " " << slow << " " << iNumTel << std::endl;
+
 	    if((slow>0 && fast>0) && iNumTel>=NTelMin && iNumTel<=NTelMax){	    
+
              AddMatchedData(iNumTel, fast, slow, iTimeCsI);
 //	     std::cout <<  "added" << std::endl;
             }

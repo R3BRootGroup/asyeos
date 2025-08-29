@@ -150,6 +150,14 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
         fh_tofd_multihit_coinc.resize(fNofPlanes);
         fh_tofd_dt.resize(fNofPlanes - 1);
 
+        fh_micro_spill =
+            R3B::root_owned<TH1F>("fh_micro_spill", "Time difference between 2 particles", 5000, -2500, 2500);
+        fh_micro_spill->GetXaxis()->SetTitle("dt in ns");
+        fh_micro_spill->GetYaxis()->SetTitle("Counts");
+        fh_micro_spill->GetXaxis()->CenterTitle(true);
+        fh_micro_spill->GetYaxis()->CenterTitle(true);
+        fh_micro_spill->SetFillColor(31);
+
         // Canvas to display the Y position as a function of paddle and per plane  ---------------
         auto* cTofd_Y_per_planes =
             new TCanvas("TofD_Ypos_planes_Cal", "TOFD: Y-pos per plane with CAL data", 10, 10, 1100, 1000);
@@ -403,7 +411,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (TOP)", j + 1, 20 + p);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 10000, 0, 100000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_top_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -431,7 +439,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                 char strName16[255];
                 sprintf(strName16, "Tofd ToT diagnosis plane %d, paddle %d (BOTTOM)", j + 1, 20 + p);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p] = R3B::root_owned<TH2F>(
-                    strName15, strName16, 2000, 0, 10000000, 3 * fTotHistoRange, 0., fTotHistoRange);
+                    strName15, strName16, 10000, 0, 100000000, 3 * fTotHistoRange, 0., fTotHistoRange);
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetXaxis()->SetTitle("Event number");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitle("ToT / ns");
                 fh_tofd_TotPm_bot_vs_event[j * 6 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -544,8 +552,7 @@ InitStatus R3BAsyTofDOnlineSpectra::Init()
                     sprintf(strName16, "Tofd walk correction plane %d, paddle %d (BOTTOM)", 1, fBarRef_walk + p);
                     sprintf(strName15, "fh2_tofd_walk_correction_plane_%d_paddle_%d_bottom", 1, fBarRef_walk + p);
                 }
-                fh2_tofd_walkcor[j * 2 + p] =
-                    R3B::root_owned<TH2F>(strName15, strName16, 100, 0, 1000, 500, -1000., 1000);
+                fh2_tofd_walkcor[j * 2 + p] = R3B::root_owned<TH2F>(strName15, strName16, 100, 0, 1000, 4000, -400., 0);
                 fh2_tofd_walkcor[j * 2 + p]->GetXaxis()->SetTitle("ToT / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitle("PMT time - start / ns");
                 fh2_tofd_walkcor[j * 2 + p]->GetYaxis()->SetTitleOffset(1.1);
@@ -1364,16 +1371,18 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                             fTimeStitch->GetTime(botc->GetTimeLeading_ns() - header->GetTStart());
                         auto mean_tof_trig = (tof_without_trig_top + tof_without_trig_bot) / 2.;
                         if (topc->GetDetectorId() < 5)
+                        {
                             if (iPlane == 1)
                             {
-                                fTof_without_trig[iBar - 1] = mean_tof_trig /* + fTofcor[iBar - 1]*/;
+                                fTof_without_trig[iBar - 1] = mean_tof_trig;
                                 fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(),
                                                                                        fTof_without_trig[iBar - 1]);
                             }
                             else
-                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(
-                                                      topc->GetBarId(), mean_tof_trig /*+ fTofcor[44 *
-                                                      (topc->GetDetectorId() - 1) + iBar - 1]*/);
+                            {
+                                fh2_tofd_time_los_cal[topc->GetDetectorId() - 1]->Fill(topc->GetBarId(), mean_tof_trig);
+                            }
+                        }
                     }
                 }
 
@@ -1474,7 +1483,15 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
                 }
             }
         }
-
+        // To see the micro-spill structure one can plot the time difference of 2 meighbored bars
+        for (Int_t imult1 = 0; imult1 < vmultihits[0][21]; imult1++)
+        {
+            for (Int_t imult2 = 0; imult2 < vmultihits[0][24]; imult2++)
+            {
+                // if(time_bar[1][21][imult1] > time_bar[1][22][imult2])
+                fh_micro_spill->Fill(time_bar[0][21][imult1] - time_bar[0][24][imult2]);
+            }
+        }
     } // endi if fCalItems
 
     if (fHitItems)
@@ -1511,6 +1528,9 @@ void R3BAsyTofDOnlineSpectra::Exec(Option_t* option)
             if (IS_NAN(hitTofd->GetTime()))
                 continue;
             Int_t iPlane = hitTofd->GetDetId();
+            if (hitTofd->GetBarId() > 44)
+                continue;
+
             Double_t randx = (std::rand() / (float)RAND_MAX) - 0.5;
             Int_t ictemp = iCounts[iPlane - 1];
             x[iPlane - 1][ictemp] = hitTofd->GetX() + 2.7 * randx;
@@ -1619,6 +1639,23 @@ void R3BAsyTofDOnlineSpectra::FinishTask()
         {
             hist->Write();
         }
+        for (const auto& hist : fh_tofd_TotPm_top_vs_ts)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_bot_vs_ts)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_top_vs_event)
+        {
+            hist->Write();
+        }
+        for (const auto& hist : fh_tofd_TotPm_bot_vs_event)
+        {
+            hist->Write();
+        }
+        fh_micro_spill->Write();
     }
 
     if (fHitItems)

@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fÃ¼r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -34,6 +34,7 @@
 #include "TCsIParams.h"
 #include "TCHIResult.h"
 #include <TMath.h>
+
 using namespace std;
 
 const int CNTEL = 1192;      //Chimera max number of telescopes 

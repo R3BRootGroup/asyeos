@@ -86,6 +86,7 @@ int TCHICsIGSIEnergy::Init()
   }
 //  getchar();
   
+
   pippo >> ZZZ >> AAA;
   cout <<"reading energy loss table for Z="<<  ZZZ <<" A="<< AAA<< endl;
   for (int iii=0;iii<45;iii++){
@@ -467,6 +468,7 @@ int myflag=0;
  
  
   
+
   if((idr->Getcod()==8) && (idr->GetZ()==-1) && (slow>2500)){
    if(de<888.1){
     idr->SetA(4);fA=4;

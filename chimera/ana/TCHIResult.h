@@ -37,6 +37,7 @@ private:
  ECode fcod;     //quality code by identification procedure
  Int_t Icod;     //quality code by identification procedure Int_t
  Float_t fPID;     //particle pid 
+
  bool fIDOK;     //true if acceptable identification done 
  bool fZident;   //true if Z established
  bool fAident;   //true if A established

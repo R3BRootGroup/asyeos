@@ -171,7 +171,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
 
     std::vector<TH2F*> fh_tofd_time_los_h2;
     std::vector<TH2F*> fh2_tofd_time_los_cal;
-    std::vector<TH1F*> fh_tofd_time_los[44];
+    std::vector<TH1F*> fh_tofd_time_los[48];
 
     std::vector<TH2F*> fh_tofd_TotPm_top_vs_event;
     std::vector<TH2F*> fh_tofd_TotPm_bot_vs_event;
@@ -190,6 +190,7 @@ class R3BAsyTofDOnlineSpectra : public FairTask
     TH2F* fh2_tofd_charges34;
     TH1F* fh1_Zcharge;
     TH2F* fh2_zcharge_tpat;
+    TH1F* fh_micro_spill;
 
   public:
     ClassDef(R3BAsyTofDOnlineSpectra, 1)

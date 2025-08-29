@@ -1,10 +1,10 @@
 // -------------------------------------------------------------------------
-// -----            R3BAsyChimeraId header file             -----
+// -----            R3BAsyCommonAnaNCKT header file             -----
 // -----    Created 15/10/24  by E. De Filippo and P. Russotto         -----
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum f�r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -16,35 +16,27 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BAsyChimeraId_H
-#define R3BAsyChimeraId_H
+#ifndef R3BAsyCommonAnaNCKT_H
+#define R3BAsyCommonAnaNCKT_H
 
 #include <R3BShared.h>
 
 #include <array>
-#include <vector>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
 
 #include "FairTask.h"
+#include "R3BAsyChimeraPhysData.h"
+#include "R3BAsyKrabPhysData.h"
+#include "R3BPaddleTamexMappedData.h"
+#include "R3BTofdMappedData.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
 #include "TMath.h"
-#include "R3BAsyChimeraMatchedData.h"
-#include "R3BAsyChimeraIdData.h"
-#include "R3BEventHeader.h"
-#include "TCsIIdent.h"
-#include "TCHIResult.h"
-#include "TCHICsIEnergy.h"
-#include "TRandom.h"
-#include "TRootCHIEvent.h"
-#include "TRootDefine.h"
-
-
+#include "TProfile.h"
 
 class TClonesArray;
 class R3BEventHeader;
@@ -52,21 +44,28 @@ class R3BEventHeader;
 /**
  * This taks reads mapped data and plots online histograms
  */
-class R3BAsyChimeraId : public FairTask
+class R3BAsyCommonAnaNCKT : public FairTask
 {
   public:
     /**
      * Default constructor.
      * Creates an instance of the task with default parameters.
      */
-    R3BAsyChimeraId(const char* inFileName);
+    R3BAsyCommonAnaNCKT();
 
+    /**
+     * Standard constructor.
+     * Creates an instance of the task.
+     * @param name a name of the task.
+     * @param iVerbose a verbosity level.
+     */
+    R3BAsyCommonAnaNCKT(const char* name, Int_t iVerbose = 1);
 
     /**
      * Destructor.
      * Frees the memory used by the object.
      */
-    virtual ~R3BAsyChimeraId();
+    virtual ~R3BAsyCommonAnaNCKT();
 
     /**
      * Method for task initialization.
@@ -100,54 +99,33 @@ class R3BAsyChimeraId : public FairTask
      * Methods to clean histograms.
      */
     virtual void Reset_Histo();
-
-    // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
 
-
-    string CalDirName;
-    string GridFileName;
-    string ECalibFileName;
-    string ECalibTableFileName;
-    
-    inline void SetCalDir(string DirName){CalDirName = DirName;}  
-    inline void SetGridFileName(string FileName){GridFileName = FileName;}
-    inline void SetECalibFileName(string FileName){ECalibFileName = FileName;}  
-    inline void SetECalibTableFileName(string FileName){ECalibTableFileName = FileName;}  
-
   private:
-    TClonesArray* fChimeraMatchedData; /**< Array with chimera matched items. */
-    TClonesArray* fChimeraIdData; /**< Array with chimera Id items. */
+    TClonesArray* fPhysItemsChimera;
+    TClonesArray* fPhysItemsKrab;
+    TClonesArray* fNeulandMappedData;
+    TClonesArray* fTofdMappedData;
     bool fOnline = false;
 
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
-    Int_t fTrigger = -1;
-    Int_t fTpat = 2;
-    TCsIIdent* fCsIIdent;   
-    TCHIResult* fCHIResult;   
-    TCHICsIGSIEnergy* fCHICsIEnergy;
-    
-    Float_t GetThetaRnd(int);
-    Float_t GetPhiRnd(int);
-    TRandom* rrn;
-    
-    TCanvas *cc;
-    TH2F* h2_ylab_bt;
-    
-    TFile *f1;
-    
-    TRootDefine chitree;
-    TRootCHIEvent *evt;
- 
-    const char* finFileName;
-    
-    R3BAsyChimeraIdData* AddIdData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t time, Int_t Z, Int_t A, Int_t Stopped, Int_t Code, Float_t PID, double DE, double Energy);
 
+    // Canvas
 
-    public:
-     ClassDef(R3BAsyChimeraId, 1)
+    TCanvas* c_NCKT;
+    TH2I* fh2_KRAB_Tofd_multi;
+    TH2I* fh2_CHIMERA_Tofd_multi;
+    TProfile* fp_KRAB_Tofd_multi;
+    TProfile* fp_CHIMERA_Tofd_multi;
+    TH2I* fh2_CHIMERA_NL_multi;
+    TH2I* fh2_KRAB_NL_multi;
+    TProfile* fp_CHIMERA_NL_multi;
+    TProfile* fp_KRAB_NL_multi;
+
+  public:
+    ClassDef(R3BAsyCommonAnaNCKT, 1)
 };
 
 #endif

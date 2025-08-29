@@ -218,6 +218,7 @@ void TCsIIdent::CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg,
   chiresult->Setpid(pid_old);
   if(izt<0 && iat <0)chiresult->Setpid(100);
   if(izt==4 && iat==8)chiresult->Setpid(50);
+
         
 }
 
@@ -539,7 +540,9 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams *param, float fastp, float sl
  if(ki != 0 && (icode == 0 ||  icode == 7)) {
   if(yy < y1)icode = 5;
  }
+
 //paolo 18072025 if(icode == 4 || icode == 5) a = -1.;
+
 
 //Other masses are possible ?
  if(icode == 0) {

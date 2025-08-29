@@ -31,14 +31,14 @@ R3BAsyChimeraIdData::R3BAsyChimeraIdData()
 R3BAsyChimeraIdData::R3BAsyChimeraIdData(UInt_t numtel,
                                          Float_t fast,
                                          Float_t slow,
-					 UInt_t timeCsI,
+                              					 UInt_t timeCsI,
                                          Int_t Z,
                                          Int_t A,
-					 Int_t Stopped,
-					 Int_t Code,
-					 Float_t PID,
+					                               Int_t Stopped,
+					                               Int_t Code,
+					                               Float_t PID,
                                          double DE,
-					 double Energy)
+                              					 double Energy)
     : fNumTel(numtel)
     , fFast(fast)
     , fSlow(slow)

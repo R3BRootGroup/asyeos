@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fÃ¼r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -99,6 +99,7 @@ class R3BAsyChimeraMatch : public FairTask
     inline void SetNTelMin(Int_t ntel) { NTelMin = ntel; }
     inline void SetNTelMax(Int_t ntel) { NTelMax = ntel; }
 
+
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
     TClonesArray* fChimeraMatchedData;
@@ -106,6 +107,7 @@ class R3BAsyChimeraMatch : public FairTask
     Int_t NTelMin = 0;
     Int_t NTelMax = 0;
     
+
     // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */

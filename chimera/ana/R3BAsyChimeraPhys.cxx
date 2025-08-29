@@ -102,11 +102,11 @@ InitStatus R3BAsyChimeraPhys::Init()
     LOG(info) << "R3BAsyChimeraPhys::Init DONE";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    // for online server  
+    // for online server
     run->GetHttpServer()->Register("", this);
 
     // Register command to reset histograms
-    // for online server  
+    // for online server
     run->GetHttpServer()->RegisterCommand("Reset_Chimera_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
 
     // --- ------------------------------------- --- //
@@ -129,7 +129,7 @@ InitStatus R3BAsyChimeraPhys::Init()
     fh1_CHIMERA_RP12 = new TH1F("fh1_CHIMERA_RP12", "CHIMERA_RP12", 92, -184, 184);
     fh2_CHIMERA_crings = new TH2F("fh2_CHIMERA_crings", "CHIMERA_crings", 300, 180, 220, 300, 180, 220);
     c_CHIMERA_phys->Divide(2, 2);
-    c_CHIMERA_phys->cd(1);
+    c_CHIMERA_phys->cd(1)->SetLogy();
     fh1_CHIMERA_multi->Draw();
     c_CHIMERA_phys->cd(2);
     fh1_CHIMERA_RP->Draw();
