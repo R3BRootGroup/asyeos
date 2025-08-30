@@ -40,11 +40,9 @@
 #include "TVector3.h"
 #define verbose 0
 
-<<<<<<< HEAD
-=======
-    const Float_t thetamin[35] = { 1.,    1.80,  2.60,  3.60,  4.60,  5.80,  7.00, 8.50, 10.00, 11.50, 13.00, 14.50,
-                                   16.00, 18.00, 20.00, 22.00, 24.00, 27.00, 30.,  38.,  46.,   54.,   62.,   70.,
-                                   78.,   86.,   94.,   102.,  110.,  118.,  126., 134., 142.,  150.,  163. };
+const Float_t thetamin[35] = { 1.,    1.80,  2.60,  3.60,  4.60,  5.80,  7.00, 8.50, 10.00, 11.50, 13.00, 14.50,
+                               16.00, 18.00, 20.00, 22.00, 24.00, 27.00, 30.,  38.,  46.,   54.,   62.,   70.,
+                               78.,   86.,   94.,   102.,  110.,  118.,  126., 134., 142.,  150.,  163. };
 const Float_t thetamax[35] = { 1.80,  2.60,  3.60,  4.60,  5.80,  7.00, 8.50, 10.00, 11.50, 13.00, 14.50, 16.00,
                                18.00, 20.00, 22.00, 24.00, 27.00, 30.,  38.,  46.,   54.,   62.,   70.,   78.,
                                86.,   94.,   102.,  110.,  118.,  126., 134., 142.,  150.,  163.,  176. };
@@ -57,8 +55,6 @@ const Int_t telmax[35] = { 15,  31,  55,  79,   111,  143,  183,  223,  263,  30
 const Float_t delta_phi[35] = { 22.5,  22.5,  15.,   15.,   11.25, 11.25, 9.,    9.,    9.,    9.,    7.5,   7.5,
                                 7.5,   7.5,   7.5,   7.5,   7.5,   7.5,   11.25, 11.25, 11.25, 11.25, 11.25, 11.25,
                                 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 11.25, 22.5,  45.0 };
-
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
 R3BAsyChimeraId::R3BAsyChimeraId(const char* inFileName)
     : FairTask("AsyChimeraId", 1)
@@ -124,11 +120,8 @@ InitStatus R3BAsyChimeraId::Init()
     int nrun = 1;
 
     string chiecalib = "ecalib141111.txt";
-<<<<<<< HEAD
-    string chiecalibrec = "dee.txt";
-=======
+
     string chiecalibrec = "dee-16072025.txt";
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
     fCsIIdent = new TCsIIdent(CalDirName, GridFileName, nrun);
     fCsIIdent->ReadAsciiFile();
@@ -136,10 +129,7 @@ InitStatus R3BAsyChimeraId::Init()
     fCHICsIEnergy = new TCHICsIGSIEnergy(ECalibFileName, ECalibTableFileName, CalDirName);
     fCHICsIEnergy->Init();
 
-    fCHIResult = new TCHIResult();  
-<<<<<<< HEAD
-    
-=======
+    fCHIResult = new TCHIResult();
 
     rrn = new TRandom();
 
@@ -155,7 +145,6 @@ InitStatus R3BAsyChimeraId::Init()
     chitree.Open("Id_run1670-1686_fr.root");
     chitree.GetTree()->SetTitle("AsyEos beam");
     evt = chitree.GetCHIEvt();
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
     //**********************************************************************************
     return kSUCCESS;
 }
@@ -206,15 +195,12 @@ void R3BAsyChimeraId::Exec(Option_t* option)
             nHits = fChimeraMatchedData->GetEntriesFast();
 
             //	std::cout <<  nHits << std::endl;
-<<<<<<< HEAD
-            for (Int_t ihit = 0; ihit < nHits; ihit++)
-=======
 
             Int_t num = 0;
             evt->tavecsi = -100;
 
             for (Int_t ihit = 0; ihit < nHits; ihit++)
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+
             {
                 Fast = -1, Slow = -1;
                 R3BAsyChimeraMatchedData* hitmatched = (R3BAsyChimeraMatchedData*)fChimeraMatchedData->At(ihit);
@@ -233,36 +219,17 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                 double DE = fCHICsIEnergy->GetDE();
                 double Energy = fCHICsIEnergy->GetEnergy();
 
-<<<<<<< HEAD
-                UInt_t Z = fCHIResult->GetZ();
-                UInt_t A = fCHIResult->GetA();
-                UInt_t Stopped = fCHIResult->GetIfStopped();
-                UInt_t Icod = fCHIResult->GetIcod();
-                Double_t PID = fCHIResult->GetPID(); 
-=======
                 Int_t Z = fCHIResult->GetZ();
                 Int_t A = fCHIResult->GetA();
                 Int_t Stopped = fCHIResult->GetIfStopped();
                 Int_t Icod = fCHIResult->GetIcod();
-                Float_t PID = fCHIResult->GetPID(); 
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+                Float_t PID = fCHIResult->GetPID();
                 bool IDOK = fCHIResult->GetIDOK();
                 bool Zident = fCHIResult->GetZident();
-                bool Aident = fCHIResult->GetAident(); 
+                bool Aident = fCHIResult->GetAident();
 
-<<<<<<< HEAD
-                if (NumTel == 371)
-                    std::cout << " R3BAsyChimeraId::ntel=371 " << Fast << " " << Slow << " " << fCHIResult->GetZ()
-                              << " " << fCHIResult->GetA() << std::endl;
-
-                if (NumTel >= 304 && NumTel <= 399 && fCsIIdent->IsGridExisting(NumTel))
-                    AddIdData(NumTel, Fast, Slow, TimeCsI, Z, A, Stopped, Icod, PID, DE, Energy);
-
-                fCHIResult->SetZ(-10);
-            }
-=======
                 //	    if(NumTel== 371) std::cout <<" R3BAsyChimeraId::ntel=371 " <<  Fast << " " << Slow << " "  <<
-                //fCHIResult->GetZ() << " " << fCHIResult->GetA() << std::endl;
+                // fCHIResult->GetZ() << " " << fCHIResult->GetA() << std::endl;
 
                 if (NumTel >= 80 && NumTel <= 399 && fCsIIdent->IsGridExisting(NumTel))
                 {
@@ -304,7 +271,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                         float gammabt = gamma * bt;
                         float ylab = 0.5 * TMath::Log((1 + bz) / (1 - bz));
                         //	      cout << EKin << " " << ETot << " " << gamma << " " << beta << " " << ylab << " " <<
-                        //gammabt << endl;
+                        // gammabt << endl;
                         h2_ylab_bt->Fill(ylab, gammabt);
                     }
                 }
@@ -312,7 +279,6 @@ void R3BAsyChimeraId::Exec(Option_t* option)
             }
             evt->Idmulti = num;
             chitree.GetTree()->Fill();
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
         }
 
         fNEvents += 1;
@@ -334,30 +300,6 @@ void R3BAsyChimeraId::FinishEvent()
 void R3BAsyChimeraId::FinishTask()
 {
     if (fChimeraMatchedData)
-<<<<<<< HEAD
-    {
-    }
-    if (fChimeraIdData)
-    {
-    }
-}
-
-// -----   Private method AddHitData -------------------------------------------
-
-R3BAsyChimeraIdData* R3BAsyChimeraId::AddIdData(UInt_t numtel,
-                                                Float_t fast,
-                                                Float_t slow,
-                                                UInt_t time,
-                                                UInt_t Z,
-                                                UInt_t A,
-                                                UInt_t Stopped,
-                                                UInt_t Code,
-                                                UInt_t PID,
-                                                double DE,
-                                                double Energy)
-{
-    TClonesArray& clref = *fChimeraIdData;
-=======
     {
     }
     if (fChimeraIdData)
@@ -420,7 +362,6 @@ R3BAsyChimeraIdData* R3BAsyChimeraId::AddIdData(UInt_t numtel,
                                                 double Energy)
 {
     TClonesArray& clref = *fChimeraIdData;
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
     Int_t size = clref.GetEntriesFast();
     //    std::cout << "Added....numtel=" << numtel << std::endl;
     return new (clref[size]) R3BAsyChimeraIdData(numtel, fast, slow, time, Z, A, Stopped, Code, PID, DE, Energy);

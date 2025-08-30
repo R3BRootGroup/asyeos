@@ -1,4 +1,4 @@
-# AsyEOS Software [![license](https://alfa-ci.gsi.de/shields/badge/license-LGPL--3.0-orange.svg)](COPYRIGHT) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14291386.svg)](https://doi.org/10.5281/zenodo.14291386)
+# AsyEOS Software [![license](https://img.shields.io/badge/License-GPLv3-blue.svg)](COPYRIGHT) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14291386.svg)](https://doi.org/10.5281/zenodo.14291386)
 
 [![static analysis](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml) [![CI-CD](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml)
 
@@ -70,55 +70,6 @@ Some simulations will be included inside the asyeos directory. You can find the 
 
 This directory contains all the detector geometries generated from the macros located at ./asyeos/macros/geo. The existing geometries are:
 
-- 
-
-### asyeos/macros/
-
-This directory contains the macros to simulate the asyeos experiment. 
-
-~~~bash
-cd %BUILD_DIRECTORY_FOR_R3BROOT%
-. ./config.sh
-cd ./asyeos/macros/
-root -l 
-.L runsim.C
-runsim(100)
-~~~
-where 100 is the number of events.
-
-This will create an output file `sim.root` with the simulation results and a parameter file `par.root` with geometry and magnetic field parameters.
-
-After the simulation :
-
-1. To start an event display:
-
-~~~bash
-root -l eventDisplay.C
-~~~
-
-2. To perform a quick analysis with GUI :
-
-~~~bash
-root -l sim.root
-[] evt->StartViewer();
-~~~
-
-
-After the simulation :
-
-1. To start an event display :
-
-~~~bash
-root -l eventDisplay.C
-~~~
-
-2. To perform a quick analysis with GUI :
-
-~~~bash
-root -l sim.root
-[] evt->StartViewer();
-~~~
-
 ## Data Analysis (ongoing work)
 
 Data analysis is included inside the asyeos directory. You can find the subdirectories :
@@ -151,51 +102,27 @@ This directory contains all the online analysis classes to correlate the data co
 
 This directory contains all the analysis classes to correlate the data collected by the asyeos detectors.
 
-
 ### macros/
 
-This directory contains all the macros for online and offline analysis.
+This directory contains some macros for online and offline analysis.
 
-#### macros/online
+## Tested systems
 
-This directory contains the online analysis macro. Execute it as:
+The following systems are tested regularly.
 
-~~~bash
-root -b main_online.C
-~~~
-after defining the stream data server and the port number for data visualization.
-
-
-#### macros/unpack
-
-This directory contains the offline macros for the experiment analysis. There are two macros:
-
-- unpack_offline.C for producing a root file with the mapped/raw data of all the detectors
-- cal_offline.C for producing a root file with the cal and hit data levels of all the detectors
-
-After defining the paths to the input files of each macro, one can execute it as follows:
-
-~~~bash
-1) If all the parameters are right by default
-   root -l unpack_offline.C
-2) If one wants to select a RunId, for instance 'RunId = 273'
-   root -l 'unpack_offline.C(273)'
-3) If one wants to select a RunId and max number of events, for instance 'RunId = 273' and 'nev = 200'
-   root -l 'unpack_offline.C(273,200)'
-~~~
-or
-
-~~~bash
-1) If all the parameters are right by default
-   root -l cal_offline.C
-2) If one wants to select a RunId, for instance 'RunId = 273'
-   root -l 'cal_offline.C(273)'
-3) If one wants to select a RunId and max number of events, for instance 'RunId = 273' and 'nev = 200'
-   root -l 'cal_offline.C(273,200)'
-~~~
+| **OS Name** | **Arch** | **OS Version** | **Compiler**  | **CMake**       | **C++ Version** |
+| ----------- | -------- | -------------- | ------------- | --------------- | --------------- |
+| Almalinux   | x86\_64  | 9.3            | GCC 11.4.1    | 3.27.9 / 4.0.3  | C++17 / C++20   |
+| Almalinux   | x86\_64  | 9.4            | GCC 14.2.0    | 3.30.6          | C++17           |
+| RHEL        | x86\_64  | 9.6            | GCC 14.2.0    | 3.30.6          | C++17           |
+| Debian      | x86\_64  | 10             | GCC 8.3.0     | 3.27.4 / 4.0.3  | C++17           |
+| Debian      | x86\_64  | 11             | GCC 10.2.1    | 3.27.4 / 3.30.0 | C++17           |
+| Debian      | x86\_64  | 12             | GCC 12.2.0    | 3.27.4 / 3.30.0 | C++17 / C++20   |
+| Ubuntu      | x86\_64  | 24.04          | GCC 13.3.0    | 3.28.3 / 4.0.3  | C++17 / C++20   |
+| Ubuntu      | x86\_64  | 25.04          | GCC 14.2.0    | 3.31.6 / 4.0.3  | C++17           |
 
 ## More Information
 
-* [Static analyzer using Clang-tidy](config/clang_tidy/README.md)
-* [CMake build system for R3BRoot/asyeos](doc/cmake_usage.md)
-* [How to use an unmerged pull request](doc/git_usage.md#fetch-the-update-from-an-unmerged-pull-request-pr)
+* [Static analyzer using Clang-tidy](https://github.com/R3BRootGroup/R3BRoot/blob/dev/config/clang_tidy/README.md)
+* [CMake build system for R3BRoot/asyeos](https://github.com/R3BRootGroup/R3BRoot/blob/dev/doc/cmake_usage.md)
+* [How to use an unmerged pull request](https://github.com/R3BRootGroup/R3BRoot/blob/dev/doc/git_usage.md#fetch-the-update-from-an-unmerged-pull-request-pr)

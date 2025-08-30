@@ -37,11 +37,8 @@ class TCHIResult
     Int_t fA;     // A of particle found
     ECode fcod;   // quality code by identification procedure
     Int_t Icod;   // quality code by identification procedure Int_t
-<<<<<<< HEAD
-    float fPID;   // particle pid 
-=======
-    Float_t fPID; // particle pid 
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+    Float_t fPID; // particle pid
+
     bool fIDOK;   // true if acceptable identification done
     bool fZident; // true if Z established
     bool fAident; // true if A established
