@@ -257,13 +257,10 @@ void R3BAsyChimeraMatch::Exec(Option_t* option)
                     slow = 1.0 * iSlowLG;
                 }
                 //          std::cout << fast << " " << slow << " " << iNumTel << std::endl;
-<<<<<<< HEAD
-                if ((slow > 0 && fast > 0) && iNumTel >= 304 && iNumTel <= 399)
-                {	    
-=======
+
                 if ((slow > 0 && fast > 0) && iNumTel >= NTelMin && iNumTel <= NTelMax)
-                {	    
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+                {
+
                     AddMatchedData(iNumTel, fast, slow, iTimeCsI);
                     //	     std::cout <<  "added" << std::endl;
                 }

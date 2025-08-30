@@ -33,10 +33,8 @@
 #pragma link C++ class TCHIResult+;
 #pragma link C++ class TCHICsIEnergy+;
 #pragma link C++ class TCHICsIGSIEnergy+;
-<<<<<<< HEAD
-=======
 #pragma link C++ class TRootCHIEvent+;
 #pragma link C++ class TRootDefine+;
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
+
 
 #endif

@@ -30,12 +30,9 @@ runs:
       shell: bash
 
     - name: mount cvmfs
-      run: |
-        if [ "${{ matrix.os }}" != "debian10" ]; then
-          apt-get update
-          apt-get install --fix-missing -y sudo wget gnupg lsb-release
-          sudo -H pip3 install --ignore-installed -U conan
-        fi
+      run: |    
+        apt-get update
+        apt-get install --fix-missing -y sudo wget gnupg lsb-release
         wget https://cernbox.cern.ch/remote.php/dav/public-files/RmnTeeOZpYjCJQb/masterkey.gsi.de.pub
         mkdir -p /etc/cvmfs/keys
         mv masterkey.gsi.de.pub /etc/cvmfs/keys

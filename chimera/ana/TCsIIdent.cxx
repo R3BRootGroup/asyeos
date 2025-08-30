@@ -225,16 +225,6 @@ void TCsIIdent::CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg,
     ECode cd = static_cast<ECode>(icode);
     chiresult->Setcod(cd);
     chiresult->SetZ(izt);
-<<<<<<< HEAD
-    chiresult->SetA(iat);
-
-    // fill pid
-    float pid = izt + 0.1 * (iat - 2.0 * izt);
-    if (izt < 0 && iat < 0)
-        chiresult->Setpid(100);
-    if (izt == 4 && iat == 8)
-        chiresult->Setpid(2.4);
-=======
     chiresult->SetA(TMath::Nint(iat));
 
     // fill pid
@@ -245,7 +235,6 @@ void TCsIIdent::CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg,
         chiresult->Setpid(100);
     if (izt == 4 && iat == 8)
         chiresult->Setpid(50);
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 }
 
 void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float slowp, int* icods, int* izts, float* as)
@@ -614,12 +603,8 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
         if (yy < y1)
             icode = 5;
     }
-<<<<<<< HEAD
-    if (icode == 4 || icode == 5)
-        a = -1.;
-=======
+
     // paolo 18072025 if(icode == 4 || icode == 5) a = -1.;
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration)
 
     // Other masses are possible ?
     if (icode == 0)

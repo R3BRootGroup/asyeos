@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fÃ¼r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -21,6 +21,7 @@
 
 #include "TCHIResult.h"
 #include "TCsIParams.h"
+#include <TMath.h>
 #include <cmath>
 #include <cstring>
 #include <fstream>
@@ -29,11 +30,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
-<<<<<<< HEAD
 
-=======
-#include <TMath.h>
->>>>>>> 9e0f3f8 (new classes for chimera ID and nergy calibration) using namespace std;
+using namespace std;
 
 const int CNTEL = 1192; // Chimera max number of telescopes
 const int UNSET = -10;  // A start init value for some variables
