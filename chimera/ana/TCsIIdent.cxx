@@ -56,7 +56,7 @@ int TCsIIdent::ReadAsciiFile()
 
     cout << "TCsIIdent>> ascii files=" << fname.c_str() << endl;
     getchar();
-    cout << "TCsIIdent>> press eneter to continue" << endl;
+    cout << "TCsIIdent>> press enter to continue" << endl;
 
     ifstream fd(fname.c_str());
     if (!fd)
@@ -162,7 +162,7 @@ int TCsIIdent::ReadAsciiFile()
 //  General routine for CsI charge and mass Identification
 //  based on procedures defined by the DP2 Orsay method.
 //  Adapted to the isospin program from the routine
-//  IdnCsOr developped by L. Tassan-Got.
+//  IdnCsOr developed by L. Tassan-Got.
 //  Re-written for the Chimera Unpacker, C++ version, e.d.f. 11/2015
 //  AsyEos-2   2025
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -170,8 +170,8 @@ int TCsIIdent::ReadAsciiFile()
 //     1  : Z ok, mais les masses superieures a A sont possibles
 //     2  : Z ok, mais les masses inferieures a A sont possibles
 //     3  : Z ok, mais les masses superieures ou inferieures a A sont possibles
-//     4  : Z ok, masse hors limite superieure ou egale a A
-//     5  : Z ok, masse hors limite inferieure ou egale a A
+//     4  : Z ok, masse hors limit superieure ou egale a A
+//     5  : Z ok, masse hors limit inferieure ou egale a A
 //     6  : au-dessus de la ligne fragment, Z est alors un Zmin
 //     7  : a gauche  de la ligne fragment, Z est alors un Zmin et le plus probable
 //     8  : Z indetermine ou (slow,fast) hors limites
@@ -239,7 +239,7 @@ void TCsIIdent::CsI_Identification(Int_t Numtel, Float_t fastpg, Float_t slowpg,
 
 void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float slowp, int* icods, int* izts, float* as)
 {
-    int kinf, ksup, kinfi, ksups;
+    int kind, ksup, kinfi, ksups;
     float dinf = 0.0, dsup = 0.0, dsups = 0.0, dinfi = 0.;
     int icode = 0;
     int ia1, ia2, j, ibif, ki, izt, ix1, ix2, it;
@@ -256,7 +256,7 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
     int* igap = param->Getgap();
 
     // clear params. Important
-    kinf = -1; // bug 11/2016
+    kind = -1; // bug 11/2016
     ksup = -1; // bug corrected 10/2016
     kinfi = 0;
     ksups = 0;
@@ -289,9 +289,9 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                 distgamma = dist;
             if (dist > 0.)
             {
-                kinfi = kinf;
+                kinfi = kind;
                 dinfi = dinf;
-                kinf = k;
+                kind = k;
                 dinf = dist;
             }
             else if (ksup == -1)
@@ -311,15 +311,15 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
     if (ksup >= 0)
     { // bug corrected 10/2016
         // point between two lines
-        if (kinf >= 0)
+        if (kind >= 0)
         { // bug corrected 11/2016
-            ki = iz[ksup] - iz[kinf];
+            ki = iz[ksup] - iz[kind];
             dt = dinf + dsup;
             // same Z
             if (ki == 0)
             {
-                izt = iz[kinf];
-                j = im[ksup] - im[kinf];
+                izt = iz[kind];
+                j = im[ksup] - im[kind];
                 dist = dt / (float)j;
 
                 //  A = Asup
@@ -364,8 +364,8 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                 else
                 {
                     ibif = 2;
-                    ki = kinf;
-                    a = im[kinf];
+                    ki = kind;
+                    a = im[kind];
                     yy = dinf;
                     if (kinfi == 0)
                     {
@@ -374,12 +374,12 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                         if (it == izt)
                         {
                             ibif = 0;
-                            ix1 = im[kinfi] - im[kinf];
+                            ix1 = im[kinfi] - im[kind];
                             y1 = -y1;
                         }
                         else
                         {
-                            x1 = igap[kinf];
+                            x1 = igap[kind];
                             x1 = fmax(x1, dist) / 2;
                             y1 = -fmin(y1, x1);
                             ix1 = -1;
@@ -387,7 +387,7 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                     }
                     else
                     {
-                        y1 = igap[kinf];
+                        y1 = igap[kind];
                         y1 = -fmax(y1, dist) / 2;
                         ix1 = -1;
                     }
@@ -396,7 +396,7 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                 }
             } // if(ki==0)
 
-            // Z differents
+            // Z different
             else
             {
                 if (iz[ksup] < 0)
@@ -450,11 +450,11 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                 // Z=Zinf
                 else
                 {
-                    ki = kinf;
-                    izt = iz[kinf];
-                    a = im[kinf];
+                    ki = kind;
+                    izt = iz[kind];
+                    a = im[kind];
                     yy = dinf;
-                    y2 = igap[kinf];
+                    y2 = igap[kind];
                     y2 = y2 / 2;
                     if (kinfi >= 0)
                     { // bug 11/2016
@@ -463,7 +463,7 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                         if (it == izt)
                         {
                             ibif = 1;
-                            ix1 = im[kinfi] - im[kinf];
+                            ix1 = im[kinfi] - im[kind];
                             x2 = (-y1 / (float)ix1) / 2;
                             y2 = fmax(y2, x2);
                             y2 = fmin(y2, dt / 2);
@@ -479,8 +479,8 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                         }
                     }
                 } // if(dinf > dsup)
-            }     // else Z differents
-        }         // if(kinf > 0)
+            }     // else Z different
+        }         // if(kind > 0)
 
         // Only the upper line found
         else if (iz[ksup] >= 0)
@@ -533,12 +533,12 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
     } // if(ksup > 0)
 
     // Only the lower line found
-    else if (kinf > 0)
+    else if (kind > 0)
     {
         // Sep. fragment
-        if (iz[kinf] < 0)
+        if (iz[kind] < 0)
         {
-            izt = iz[kinf - 1] + 1;
+            izt = iz[kind - 1] + 1;
             a = -1.;
             icode = 6;
             ki = 0;
@@ -547,11 +547,11 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
         else
         {
             ibif = 3;
-            ki = kinf;
-            izt = iz[kinf];
-            a = im[kinf];
+            ki = kind;
+            izt = iz[kind];
+            a = im[kind];
             yy = dinf;
-            y2 = igap[kinf];
+            y2 = igap[kind];
             y2 = y2 / 2;
             if (kinfi > 0)
             {
@@ -560,7 +560,7 @@ void TCsIIdent::CsI_Identification_Base(TCsIParams* param, float fastp, float sl
                 if (it == izt)
                 {
                     ibif = 1;
-                    ix1 = im[kinfi] - im[kinf];
+                    ix1 = im[kinfi] - im[kind];
                     x2 = (-y1 / (float)ix1) / 2;
                     y2 = fmax(y2, x2);
                     ix2 = 1;

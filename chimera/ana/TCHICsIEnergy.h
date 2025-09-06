@@ -39,7 +39,7 @@ class TCHICsIEnergy
     double fEnergy;       // Total energy
     ECsIEnergyCode fecod; // Quality
     string ffilenerg;     // energy calibration data file
-    string ffilenergrec;  // energy loss->enery reconstructed data file
+    string ffilenergrec;  // energy loss->energy reconstructed data file
     string ffilecut;
     bool fisdefined; // calibration data are present or not
   public:

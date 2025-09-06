@@ -140,7 +140,7 @@ class R3BAsyTofDvsNeuLandOnlineSpectra : public FairTask
     TCAInputConnector<R3BNeulandCalData> fNeulandCalData;
     TCAInputConnector<R3BNeulandHit> fNeulandHits;
 
-    // check for trigger should be done globablly (somewhere else)
+    // check for trigger should be done globally (somewhere else)
     R3BEventHeader* header = nullptr; /**< Event header. */
     R3BTofDMappingPar* fMapPar = nullptr;
     Int_t fTrigger = -1; /**< Trigger value. */

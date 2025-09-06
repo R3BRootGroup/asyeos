@@ -44,7 +44,7 @@ class TClonesArray;
 class R3BEventHeader;
 
 /**
- * This taks reads mapped data and plots online histograms
+ * This tasks reads mapped data and plots online histograms
  */
 class R3BAsyChimeraDoArray : public FairTask
 {
@@ -90,7 +90,7 @@ class R3BAsyChimeraDoArray : public FairTask
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
     TClonesArray* fChimeraArrayData;
-    // check for trigger should be done globablly (somewhere else)
+    // check for trigger should be done globally (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
     bool fOnline = false;

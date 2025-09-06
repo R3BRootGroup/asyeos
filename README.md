@@ -18,7 +18,7 @@ For the software-related user support you can post a new topic on our [forum](ht
 Please ask your questions, request features, and report issues by [creating a github issue](https://github.com/R3BRootGroup/asyeos/issues/new/choose).
 
 ## Code Formatting
-The AsyEOS project (as part of R3BRoot) uses clang-format-15 to ensure a common code formatting. The script "apply-format.sh" can be used for this purpose: 
+The AsyEOS project (as part of R3BRoot) uses clang-format-16 to ensure a common code formatting. The script "apply-format.sh" can be used for this purpose: 
 ~~~bash
 bash apply-format.sh
 ~~~
