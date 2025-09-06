@@ -63,7 +63,7 @@ void R3BAsyChimera::Initialize()
 
     // Initialise variables from Birk law
     Double_t dP = 1.;
-    // Set constants for Birk's Law implentation
+    // Set constants for Birk's Law implementation
     fBirkC0 = 1.;
     fBirkC1 = 0.0023 / dP;
     fBirkC2 = 0. / (dP * dP);

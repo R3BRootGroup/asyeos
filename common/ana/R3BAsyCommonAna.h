@@ -40,7 +40,7 @@ class TClonesArray;
 class R3BEventHeader;
 
 /**
- * This taks reads mapped data and plots online histograms
+ * This tasks reads mapped data and plots online histograms
  */
 class R3BAsyCommonAna : public FairTask
 {
@@ -108,7 +108,7 @@ class R3BAsyCommonAna : public FairTask
     Int_t CHI_RP_thr = 3;
     Int_t KRAB_RP_thr = 6;
 
-    // check for trigger should be done globablly (somewhere else)
+    // check for trigger should be done globally (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
 

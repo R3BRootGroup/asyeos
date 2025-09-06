@@ -131,21 +131,21 @@ Bool_t R3BAsyChimeraReader::R3BRead()
         if (verbose)
             std::cout << " ********* numchfast=" << numchfast << "   numchRGfast=" << numchRGfast << std::endl;
         if (numchfast != numchRGfast)
-            std::cout << "### CHIM_FAST  CHIM_RG_FAST lenght mismatch " << std::endl;
+            std::cout << "### CHIM_FAST  CHIM_RG_FAST length mismatch " << std::endl;
 
         auto const& numchslow = data->CHIM_SLOW;
         auto const& numchRGslow = data->CHIM_RG_SLOW;
         if (verbose)
             std::cout << " ********* numchslow=" << numchslow << "   numchRGslow=" << numchRGslow << std::endl;
         if (numchslow != numchRGslow)
-            std::cout << "### CHIM_SLOW  CHIM_RG_SLOW lenght mismatch " << std::endl;
+            std::cout << "### CHIM_SLOW  CHIM_RG_SLOW length mismatch " << std::endl;
 
         auto const& numchsil = data->CHIM_SIL;
         auto const& numchRGsil = data->CHIM_RG_SIL;
         if (verbose)
             std::cout << " ********* numchsil=" << numchsil << "   numchRGsil=" << numchRGsil << std::endl;
         if (numchsil != numchRGsil)
-            std::cout << "### CHIM_SIL  CHIM_RG_SIL lenght mismatch " << std::endl;
+            std::cout << "### CHIM_SIL  CHIM_RG_SIL length mismatch " << std::endl;
 
         auto const& numchtime = data->CHIM_TIME;
 
