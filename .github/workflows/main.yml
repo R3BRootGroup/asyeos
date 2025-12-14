@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
-# This is the main CI workflow for pull requests to the asyeos dev branch
+# This is the main CI workflow for pull requests to the AsyEOS dev branch
 # See the CI workflow developed for R3BRoot for more details
 
 name: CI-CD
@@ -35,7 +35,7 @@ jobs:
         # r3broot. Each group is used by only one job.
         repos: [ asyeos ]
         os: [ debian11, debian12 ]
-        fsv: [ jan24p1 ]
+        fsv: [ jan24p5 ]
         cpp: [ 17 ]
         
         # The list under "include" defines some properties for each group:
@@ -121,7 +121,6 @@ jobs:
           mv asyeos R3BRoot
           mv R3BRoot asyeos
           cd asyeos
-          git clone https://github.com/R3BRootGroup/macros.git
           git clone https://github.com/R3BRootGroup/R3BFileSource.git
           mv asyeos/ucesb .
           cmake . -B build -C cmake/CI_CD/configure_options.cmake -DBUILD_GEOMETRY=OFF
