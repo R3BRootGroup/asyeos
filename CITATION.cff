@@ -1,0 +1,42 @@
+# This CITATION.cff file was generated with cffinit.
+cff-version: 1.2.0
+title: AsyEOS software
+message: >-
+  If you use AsyEOS in your research, please cite it as
+  below.
+type: software
+authors:
+  - given-names: Enrico
+    family-names: De Filippo
+    affiliation: >-
+      INFN Laboratori Nazionali del Sud, 95123 Catania, Italy
+    orcid: https://orcid.org/0000-0001-9069-0305
+  - given-names: Hector
+    family-names: Alvarez Pol
+    email: hector.alvarez@usc.es
+    affiliation: >-
+      IGFAE, University of Santiago de Compostela, 15782
+      Santiago de Compostela, Spain
+    orcid: https://orcid.org/0000-0001-9643-6252
+  - given-names: Paolo
+    family-names: Russotto
+    email: russotto@lns.infn.it
+    affiliation: >-
+      INFN Laboratori Nazionali del Sud, 95123 Catania, Italy
+    orcid: https://orcid.org/0000-0001-5210-052X
+  - given-names: Jose Luis
+    family-names: Rodríguez-Sánchez
+    email: j.l.rodriguez.sanchez@udc.es
+    affiliation: >-
+      CITENI, Industrial Campus of Ferrol, University of
+      Coruña, 15403 Ferrol, Spain
+    orcid: https://orcid.org/0000-0002-4702-5294
+repository-code: https://github.com/R3BRootGroup/asyeos
+url: https://github.com/R3BRootGroup/asyeos
+abstract: >-
+  The AsyEOS (Asymmetric-matter Equation-Of-State) directory within the R3BRoot framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the detectors used in the AsyEOS/R3B (Reactions with Relativistic Radioactive Beams) experimental campaign at the GSI/FAIR (Facility for Antiproton and Ion Research) facility. AsyEOS-R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data to measure the flows of neutrons and light charged particles produced in Nucleus-Nucleus collisions in order to investigate symmetry energy of the nuclear equation of state at densities above the saturation one. The AsyEOS software package is a source distribution with recurring releases for MacOS and Linux.
+license: GPL-3.0
+version: dec25
+date-released: "2025-12-21"
+doi: 10.5281/zenodo.5549469
+

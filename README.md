@@ -3,7 +3,7 @@
 [![static analysis](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/static_analysis.yml) [![CI-CD](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml/badge.svg)](https://github.com/R3BRootGroup/asyeos/actions/workflows/main.yml)
 
 ## The AsyEOS Framework
-The AsyEOS (Asymmetric-matter Equation-Of-State) directory within the [R3BRoot](https://github.com/R3BRootGroup/R3BRoot) framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the detectors used in the AsyEOS/R3B (Reactions with Relativistic Radioactive Beams) experimental campaign at the GSI/FAIR (Facility for Antiproton and Ion Research) facility. AsyEOS-R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data to measure the flows of neutrons and light charged particles produced in Nucleus-Nucleus collisions in order to investigate symmetry energy of the nuclear equation of state at densities above the saturation one. The AsyEOS software package is a source distribution with recurring releases for macOS and Linux.
+The AsyEOS (Asymmetric-matter Equation-Of-State) directory within the [R3BRoot](https://github.com/R3BRootGroup/R3BRoot) framework provides the full detector definitions, Monte Carlo simulation tools, and digitization algorithms for the detectors used in the AsyEOS/R3B (Reactions with Relativistic Radioactive Beams) experimental campaign at the GSI/FAIR (Facility for Antiproton and Ion Research) facility. AsyEOS-R3BRoot, developed on top of the FairRoot framework, is a versatile toolkit for performing Monte Carlo simulations and processing experimental data to measure the flows of neutrons and light charged particles produced in Nucleus-Nucleus collisions in order to investigate symmetry energy of the nuclear equation of state at densities above the saturation one. The AsyEOS software package is a source distribution with recurring releases for MacOS and Linux.
 
 ## License
 AsyEOS is distributed under the terms of the GNU Lesser General Public Licence version 3 ([LGPLv3](https://github.com/R3BRootGroup/asyeos/blob/dev/LICENSE)).
@@ -31,7 +31,7 @@ First, you will need to install FairSoft, FairRoot and R3BRoot. For more details
 
 1. Install [FairSoft](https://github.com/FairRootGroup/FairSoft), required version Nov22p1 or later
 
-2. Install [FairRoot](https://github.com/FairRootGroup/FairRoot), required version 18.2.1 or later
+2. Install [FairRoot](https://github.com/FairRootGroup/FairRoot), required version 18.8.1 or later
 
 3. Install [R3BRoot](https://github.com/R3BRootGroup/R3BRoot), required version jun24 or later
 
@@ -42,7 +42,6 @@ export SIMPATH=%PATH_TO_FAIRSOFT%
 export FAIRROOTPATH=%PATH_TO_FAIRROOT%
 git clone https://github.com/R3BRootGroup/R3BRoot.git
 cd R3BRoot
-git clone https://github.com/R3BRootGroup/macros.git
 git clone https://github.com/R3BRootGroup/asyeos.git
 cd ..
 mkdir build
@@ -115,9 +114,9 @@ The following systems are tested regularly.
 | Almalinux   | x86\_64  | 9.3            | GCC 11.4.1    | 3.27.9 / 4.0.3  | C++17 / C++20   |
 | Almalinux   | x86\_64  | 9.4            | GCC 14.2.0    | 3.30.6          | C++17           |
 | RHEL        | x86\_64  | 9.6            | GCC 14.2.0    | 3.30.6          | C++17           |
-| Debian      | x86\_64  | 10             | GCC 8.3.0     | 3.27.4 / 4.0.3  | C++17           |
 | Debian      | x86\_64  | 11             | GCC 10.2.1    | 3.27.4 / 3.30.0 | C++17           |
 | Debian      | x86\_64  | 12             | GCC 12.2.0    | 3.27.4 / 3.30.0 | C++17 / C++20   |
+| Debian      | x86\_64  | 13             | GCC 14.2.0    | 3.31.6 / 4.0.3  | C++17           |
 | Ubuntu      | x86\_64  | 24.04          | GCC 13.3.0    | 3.28.3 / 4.0.3  | C++17 / C++20   |
 | Ubuntu      | x86\_64  | 25.04          | GCC 14.2.0    | 3.31.6 / 4.0.3  | C++17           |
 
