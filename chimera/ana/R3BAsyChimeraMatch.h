@@ -42,7 +42,7 @@ class TClonesArray;
 class R3BEventHeader;
 
 /**
- * This tasks reads mapped data and plots online histograms
+ * This taks reads mapped data and plots online histograms
  */
 class R3BAsyChimeraMatch : public FairTask
 {
@@ -51,7 +51,7 @@ class R3BAsyChimeraMatch : public FairTask
      * Default constructor.
      * Creates an instance of the task with default parameters.
      */
-    R3BAsyChimeraMatch(const char* inFileName);
+    R3BAsyChimeraMatch(const char* inFileName, const char* inFileName2);
 
     /**
      * Destructor.
@@ -97,6 +97,7 @@ class R3BAsyChimeraMatch : public FairTask
 
     inline void SetNTelMin(Int_t ntel) { NTelMin = ntel; }
     inline void SetNTelMax(Int_t ntel) { NTelMax = ntel; }
+    void Set_slow_corr(float slowcorr){slow_corr=slowcorr;}
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
@@ -104,8 +105,9 @@ class R3BAsyChimeraMatch : public FairTask
     bool fOnline = false;
     Int_t NTelMin = 0;
     Int_t NTelMax = 0;
+    float slow_corr= 1;
 
-    // check for trigger should be done globally (somewhere else)
+    // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
     Int_t fTrigger = -1;
@@ -113,8 +115,10 @@ class R3BAsyChimeraMatch : public FairTask
 
     Float_t offset_fast[ndim], gain_fast[ndim];
     Float_t offset_slow[ndim], gain_slow[ndim];
+    Float_t sat_slow[ndim];
 
     const char* finFileName;
+    const char* finFileName2;
 
     R3BAsyChimeraMatchedData* AddMatchedData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t timeCsI);
 

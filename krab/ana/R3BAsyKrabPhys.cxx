@@ -86,13 +86,15 @@ InitStatus R3BAsyKrabPhys::Init()
     LOG(info) << "R3BAsyKrabDoArray::Init DONE";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    // for online server
-    run->GetHttpServer()->Register("", this);
+    
+    if(fOnline){
+     // for online server
+     run->GetHttpServer()->Register("", this);
 
-    // Register command to reset histograms
-    // for online server
-    run->GetHttpServer()->RegisterCommand("Reset_Krab_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
-
+     // Register command to reset histograms
+     // for online server
+     run->GetHttpServer()->RegisterCommand("Reset_Krab_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
+    }
     // --- ------------------------------------- --- //
     // --- get access to mapped data of the TofW --- //
     // --- ------------------------------------- --- //
@@ -202,6 +204,10 @@ void R3BAsyKrabPhys::FinishEvent()
     if (fMappedItemsKrab)
     {
         fMappedItemsKrab->Clear();
+    }
+    if (fKrabPhysData)
+    {
+        fKrabPhysData->Clear();
     }
 }
 

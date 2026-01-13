@@ -39,7 +39,7 @@ class TCHICsIEnergy
     double fEnergy;       // Total energy
     ECsIEnergyCode fecod; // Quality
     string ffilenerg;     // energy calibration data file
-    string ffilenergrec;  // energy loss->energy reconstructed data file
+    string ffilenergrec;  // energy loss->enery reconstructed data file
     string ffilecut;
     bool fisdefined; // calibration data are present or not
   public:
@@ -92,13 +92,19 @@ class TCHICsIGSIEnergy : public TCHICsIEnergy
     TCutG* cut3Hebis;
     TCutG* cut7Li;
     TCutG* cut4He;
+    bool optZ2;
     // paolo 21/11/2011
   public:
+
+
     TCHICsIGSIEnergy(string filener, string filenerec, string calibdir); // Constructor
     ~TCHICsIGSIEnergy() {}                                               // Destructor
     int Init();                                                          // Initialization method
     void PrintData();                                                    // List Data file
     void EvalEnergy(int numtel, int fast, int slow, TCHIResult* idr);    // Calculate energy
+    void Set_optZ2(bool opt){optZ2=opt;}
+
+
     ClassDef(TCHICsIGSIEnergy, 1);
 };
 #endif

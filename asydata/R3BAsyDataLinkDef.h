@@ -32,4 +32,5 @@
 #pragma link C++ class R3BAsyKrabMappedData+;
 #pragma link C++ class R3BAsyKrabArrayData+;
 #pragma link C++ class R3BAsyKrabPhysData+;
+#pragma link C++ class R3BAsyChiKrabPhysData+;
 #endif
