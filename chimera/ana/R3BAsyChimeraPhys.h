@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------------
 // -----            R3BAsyChimeraPhys header file             -----
-// -----    Created 15/10/24  by E. De Filippo and P. Russotto         -----
+// -----    Created 12/01/26  by  P. Russotto         -----
 // -------------------------------------------------------------------------
 
 /******************************************************************************
@@ -28,17 +28,21 @@
 #include <sstream>
 
 #include "FairTask.h"
-#include "R3BAsyChimeraPhysData.h"
+#include "R3BAsyChimeraIdData.h"
+#include "R3BAsyKrabMappedData.h"
+#include "R3BAsyChiKrabPhysData.h"
 #include "TCanvas.h"
 #include "TH1.h"
 #include "TH2F.h"
 #include "TMath.h"
 
+#define ndd 500
+
 class TClonesArray;
 class R3BEventHeader;
 
 /**
- * This tasks reads mapped data and plots online histograms
+ * This taks reads mapped data and plots online histograms
  */
 class R3BAsyChimeraPhys : public FairTask
 {
@@ -98,39 +102,56 @@ class R3BAsyChimeraPhys : public FairTask
 
     // Accessor to select online mode
     inline void SetOnline(bool option) { fOnline = option; }
-    inline void SetRP_thr(Int_t thr) { RP_thr = thr; }
-    Int_t GetRP_thr() { return RP_thr; }
+    inline void SetCHIRP_thr(Int_t thr) { CHIRP_thr = thr; }
+    inline void SetKRABRP_thr(Int_t thr) { KRABRP_thr = thr; }
+    inline void SetKRAB_MULT_min(Int_t km) { KM_min = km; }
+    inline void SetKRAB_MULT_max(Int_t km) { KM_max = km; }
+    inline void SetEnergy(Int_t energy) { this_energy = energy; }
 
   private:
-    TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
-    TClonesArray* fChimeraPhysData;
+    TClonesArray* fChimeraIdData; /**< Array with chimera Id data */
+    TClonesArray* fMappedItemsKrab; /**< Array with krab mapped items. */
+    TClonesArray* fChiKrabPhysData;
     bool fOnline = false;
-    Int_t RP_thr = 3;
+    Int_t CHIRP_thr = 3;
+    Int_t KRABRP_thr = 3;
+    int this_energy=0;
+    float ymid, EAMax, KRABww;
+    float KM_min=0, KM_max=100;
+    float dy=0;
+    float qqx[ndd],qqy[ndd];
 
-    // check for trigger should be done globally (somewhere else)
+    // check for trigger should be done globablly (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
 
     // Canvas
-    TCanvas* c_CHIMERA_phys;
-    TH1I* fh1_CHIMERA_multi;
-    TH1F* fh1_CHIMERA_RP;
-    TH1F* fh1_CHIMERA_RP12;
-    TH2F* fh2_CHIMERA_crings;
-
-    TCanvas* c_CHIMERA_ped;
-    TH1F* fh1_CHIMERA_pedfast;
-    TH1F* fh1_CHIMERA_pedslow;
-
     Float_t GetTheta(int);
     Float_t GetPhi(int);
     Float_t GetThetaRnd(int);
     Float_t GetPhiRnd(int);
-
-    TRandom* rr;
+    Float_t GetThetaRndKRAB(int);
+    
+    TRandom* rr2;
+    TRandom* rr3;
     TRandom* rrn;
-
-    R3BAsyChimeraPhysData* AddPhysData(Float_t multi, Float_t CHIRP);
+    
+    TCanvas *cc1;
+    TCanvas *c_RP;
+    TCanvas *c_RP2;
+    TCanvas *c_RP3;
+    TCanvas *c_b;
+    TCanvas *c_b2;
+    TCanvas *cc4;
+    TCanvas *cc5;
+    TCanvas *cc4_bis;
+    TCanvas *cc5_bis;
+    TCanvas *cc14;
+    
+        
+    R3BAsyChiKrabPhysData* AddPhysData(Int_t Multi_CHI, Int_t ZBound_CHI, Float_t ZRat_CHI, Float_t ERat_CHI, Float_t RP_CHI, 
+                                       Int_t Multi_KRAB, Int_t MultiR0_KRAB, Int_t MultiR14_KRAB, Float_t RP_KRAB, 
+                                       Float_t RP_CHIKRAB, Float_t dRP_CHIKRAB);
 
   public:
     ClassDef(R3BAsyChimeraPhys, 1)

@@ -69,8 +69,8 @@ R3BAsyChimeraId::R3BAsyChimeraId(const char* inFileName)
 R3BAsyChimeraId::~R3BAsyChimeraId()
 {
     LOG(info) << "R3BAsyChimeraId::Delete instance";
-    //    if (fChimeraMatchedData)
-    //        delete fChimeraMatchedData;
+        if (fChimeraIdData)
+            delete fChimeraIdData;
 }
 
 InitStatus R3BAsyChimeraId::Init()
@@ -96,9 +96,10 @@ InitStatus R3BAsyChimeraId::Init()
     LOG(info) << "R3BAsyChimeraId::Init DONE";
 
     FairRunOnline* run = FairRunOnline::Instance();
+    UInt_t Nrun=run->getRunId();
 
     // --- ------------------------------------- --- //
-    // --- get access to mapped data of the TofW --- //
+    // --- get access to matched data of Chimera --- //
     // --- ------------------------------------- --- //
     if (verbose)
         LOG(info) << "R3BAsyChimeraId::Init line 80";
@@ -106,6 +107,8 @@ InitStatus R3BAsyChimeraId::Init()
     fChimeraMatchedData = (TClonesArray*)mgr->GetObject("AsyChimeraMatchedData");
     if (!fChimeraMatchedData)
     {
+        LOG(info) << "R3BAsyChimeraId:: fChimeraMatchedData not found";
+        getchar();
         //        return kFATAL;
     }
     if (verbose)
@@ -128,7 +131,8 @@ InitStatus R3BAsyChimeraId::Init()
 
     fCHICsIEnergy = new TCHICsIGSIEnergy(ECalibFileName, ECalibTableFileName, CalDirName);
     fCHICsIEnergy->Init();
-
+    fCHICsIEnergy->Set_optZ2(opt_Z2);
+    
     fCHIResult = new TCHIResult();
 
     rrn = new TRandom();
@@ -142,7 +146,9 @@ InitStatus R3BAsyChimeraId::Init()
     f1->cd();
 
     evt = 0;
-    chitree.Open("Id_run1670-1686_fr.root");
+    ostringstream os;
+    os << "Id_run" << Nrun << ".root";
+    chitree.Open(os.str().c_str());
     chitree.GetTree()->SetTitle("AsyEos beam");
     evt = chitree.GetCHIEvt();
     //**********************************************************************************
@@ -190,7 +196,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
         if (fChimeraMatchedData && fChimeraMatchedData->GetEntriesFast())
         {
             // --- --------------------- --- //
-            // --- loop over mapped data --- //
+            // --- loop over matched data --- //
             // --- --------------------- --- //
             nHits = fChimeraMatchedData->GetEntriesFast();
 
@@ -234,6 +240,8 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                 if (NumTel >= 80 && NumTel <= 399 && fCsIIdent->IsGridExisting(NumTel))
                 {
                     AddIdData(NumTel, Fast, Slow, TimeCsI, Z, A, Stopped, Icod, PID, DE, Energy);
+//                    std::cout << "R3BAsyChimeraID" << endl;
+//                    std::cout << num  << " " << NumTel << " " << Z << " " << A << " " << Energy << std::endl;
 
                     if (Icod < 10)
                     {
@@ -248,6 +256,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                         evt->fast[num] = Fast;
                         evt->slow[num] = Slow;
                         //	      cout << num << " *** " << evt->IdA[num] << " " << A << endl;
+//                        if(NumTel == 95) cout <<"R3BAsyChimeraId:: " <<  DE << " " << Fast << endl;
                         num++;
                     }
                     //              cout  << Z << " " << A << " " << Icod << " " << PID << " " << Fast << " " << NumTel
@@ -280,6 +289,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
             evt->Idmulti = num;
             chitree.GetTree()->Fill();
         }
+//        getchar();
 
         fNEvents += 1;
     }
@@ -307,10 +317,7 @@ void R3BAsyChimeraId::FinishTask()
         cc->Update(), cc->Write();
         h2_ylab_bt->Write();
     }
-    // p    f1->cd();
     chitree.Close();
-    // p    cc->Write();
-    // p    f1->Close();
 }
 
 Float_t R3BAsyChimeraId::GetThetaRnd(int numtel)

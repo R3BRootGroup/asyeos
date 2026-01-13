@@ -68,11 +68,15 @@ int TCHICsIGSIEnergy::Init()
                 {
                     fa[numtel] = a;
                     fb[numtel] = b;
-                }
+		    cout << "TCHICsIGSIEnergy:: " << numtel << " " << fa[numtel] << " " << fb[numtel] << endl;
+                 }
                 break;
         }
     }
     cout << "TCHICsIGSIEnergy>> Read " << row << " lines from calibration file " << ffilenerg << endl;
+    cout << "TCHICsIGSIEnergy>> press enter to continue" << endl;
+    getchar();
+    
     freg.close();
     fisdefined = true;
     // getchar();
@@ -157,6 +161,8 @@ int TCHICsIGSIEnergy::Init()
     */
 
     // paolo 21/11/2011
+    
+//    optZ2=false;
     return 0;
 }
 
@@ -199,7 +205,7 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
         }
     }
 
-    // if(numtel == 371) cout <<"TCHICsIGSIEnergy:: " <<  fa[371] << " " << fb[371] << " " << fast << " " << de << endl;
+//    if(numtel == 95) cout <<"bf TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " << fb[numtel] << endl;
     // paolo 21/11/2011
     int iii;
     int myflag = 0;
@@ -328,7 +334,8 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
 
                 if (de > 292.8 && de < 347.6 * tollup)
                 {
-                    for (iii = 0; iii < 41; iii++)
+                 if(!optZ2){
+		    for (iii = 0; iii < 41; iii++)
                     {
                         if (de >= DE13[iii] && de < DE13[iii + 1])
                         {
@@ -350,7 +357,13 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
                     idr->SetUnStopped();
                     if (idr->Getcod() < 3)
                         idr->Setcod(kICODE3); // ok....tbc
-                }
+                 }else{
+                    idr->SetA(2);
+		    idr->SetZ(2);
+		    fA = 2;
+		    fZ = 2;
+		 }
+		}
 
                 if (de > 347.6 * tollup)
                 {
@@ -676,6 +689,8 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
         */
 
     } // if(de>0){
+    
+//    if(numtel == 95) cout <<"aft TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " << fb[numtel] << endl;
 
     fDE = de;
     if (stopped)

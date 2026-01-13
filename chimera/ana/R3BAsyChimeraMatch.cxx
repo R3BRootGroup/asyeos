@@ -41,12 +41,13 @@
 
 #define verbose 0
 
-R3BAsyChimeraMatch::R3BAsyChimeraMatch(const char* inFileName)
+R3BAsyChimeraMatch::R3BAsyChimeraMatch(const char* inFileName, const char* inFileName2)
     : FairTask("AsyChimeraMatch", 1)
     , fMappedItemsChimera(NULL)
     , fChimeraMatchedData(0)
     , fNEvents(0)
     , finFileName(inFileName)
+    , finFileName2(inFileName2)
 
 {
 }
@@ -146,6 +147,28 @@ InitStatus R3BAsyChimeraMatch::Init()
         std::cout << n << " " << name << " " << arrow << " " << offword << " " << b << " " << gainword << " " << a
                   << std::endl;
     }
+    
+    
+    std::ifstream fsat(finFileName2, std::ifstream::in);
+
+    std::cout << finFileName2 << std::endl;
+
+    if (!fsat)
+    {
+        printf("R3BAsyChimeraMatch::Init cannot open input file: \n");
+        exit(1);
+    }
+
+    getline(fsat, dummy);
+    std::cout << dummy << std::endl;
+    for (int ih = 0; ih < (ndim - 80); ih++)
+    {
+        fsat >> n >> a;
+	if(a==0)a=3530;
+        sat_slow[n] = a;
+        std::cout << n << " sat_ch = " << a << std::endl;
+    }
+  
     LOG(info) << "R3BAsyChimeraMatch::Init DONE";
     getchar();
 
@@ -258,6 +281,8 @@ void R3BAsyChimeraMatch::Exec(Option_t* option)
                 }
                 //          std::cout << fast << " " << slow << " " << iNumTel << std::endl;
 
+                if(slow <  sat_slow[iNumTel]){slow = slow_corr * slow;}
+               
                 if ((slow > 0 && fast > 0) && iNumTel >= NTelMin && iNumTel <= NTelMax)
                 {
 
