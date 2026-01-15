@@ -147,8 +147,7 @@ InitStatus R3BAsyChimeraMatch::Init()
         std::cout << n << " " << name << " " << arrow << " " << offword << " " << b << " " << gainword << " " << a
                   << std::endl;
     }
-    
-    
+
     std::ifstream fsat(finFileName2, std::ifstream::in);
 
     std::cout << finFileName2 << std::endl;
@@ -164,11 +163,12 @@ InitStatus R3BAsyChimeraMatch::Init()
     for (int ih = 0; ih < (ndim - 80); ih++)
     {
         fsat >> n >> a;
-	if(a==0)a=3530;
+        if (a == 0)
+            a = 3530;
         sat_slow[n] = a;
         std::cout << n << " sat_ch = " << a << std::endl;
     }
-  
+
     LOG(info) << "R3BAsyChimeraMatch::Init DONE";
     getchar();
 
@@ -281,8 +281,11 @@ void R3BAsyChimeraMatch::Exec(Option_t* option)
                 }
                 //          std::cout << fast << " " << slow << " " << iNumTel << std::endl;
 
-                if(slow <  sat_slow[iNumTel]){slow = slow_corr * slow;}
-               
+                if (slow < sat_slow[iNumTel])
+                {
+                    slow = slow_corr * slow;
+                }
+
                 if ((slow > 0 && fast > 0) && iNumTel >= NTelMin && iNumTel <= NTelMax)
                 {
 

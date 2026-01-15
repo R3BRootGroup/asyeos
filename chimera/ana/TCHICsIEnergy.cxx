@@ -68,15 +68,15 @@ int TCHICsIGSIEnergy::Init()
                 {
                     fa[numtel] = a;
                     fb[numtel] = b;
-		    cout << "TCHICsIGSIEnergy:: " << numtel << " " << fa[numtel] << " " << fb[numtel] << endl;
-                 }
+                    cout << "TCHICsIGSIEnergy:: " << numtel << " " << fa[numtel] << " " << fb[numtel] << endl;
+                }
                 break;
         }
     }
     cout << "TCHICsIGSIEnergy>> Read " << row << " lines from calibration file " << ffilenerg << endl;
     cout << "TCHICsIGSIEnergy>> press enter to continue" << endl;
     getchar();
-    
+
     freg.close();
     fisdefined = true;
     // getchar();
@@ -161,8 +161,8 @@ int TCHICsIGSIEnergy::Init()
     */
 
     // paolo 21/11/2011
-    
-//    optZ2=false;
+
+    //    optZ2=false;
     return 0;
 }
 
@@ -205,7 +205,8 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
         }
     }
 
-//    if(numtel == 95) cout <<"bf TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " << fb[numtel] << endl;
+    //    if(numtel == 95) cout <<"bf TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " <<
+    //    fb[numtel] << endl;
     // paolo 21/11/2011
     int iii;
     int myflag = 0;
@@ -334,36 +335,39 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
 
                 if (de > 292.8 && de < 347.6 * tollup)
                 {
-                 if(!optZ2){
-		    for (iii = 0; iii < 41; iii++)
+                    if (!optZ2)
                     {
-                        if (de >= DE13[iii] && de < DE13[iii + 1])
+                        for (iii = 0; iii < 41; iii++)
                         {
-                            ;
-                            erec =
-                                E13[iii] + (de - DE13[iii]) / (DE13[iii + 1] - DE13[iii]) * (E13[iii + 1] - E13[iii]);
+                            if (de >= DE13[iii] && de < DE13[iii + 1])
+                            {
+                                ;
+                                erec = E13[iii] +
+                                       (de - DE13[iii]) / (DE13[iii + 1] - DE13[iii]) * (E13[iii + 1] - E13[iii]);
+                            }
+                            if (de < DE13[0])
+                            {
+                                erec = -100;
+                                idr->Setcod(kICODE8); // ok....tbc
+                            }
+                            if (de > DE13[40])
+                                erec = de + 1;
                         }
-                        if (de < DE13[0])
-                        {
-                            erec = -100;
-                            idr->Setcod(kICODE8); // ok....tbc
-                        }
-                        if (de > DE13[40])
-                            erec = de + 1;
+                        idr->SetA(3);
+                        fA = 3;
+                        stopped = 0;
+                        idr->SetUnStopped();
+                        if (idr->Getcod() < 3)
+                            idr->Setcod(kICODE3); // ok....tbc
                     }
-                    idr->SetA(3);
-                    fA = 3;
-                    stopped = 0;
-                    idr->SetUnStopped();
-                    if (idr->Getcod() < 3)
-                        idr->Setcod(kICODE3); // ok....tbc
-                 }else{
-                    idr->SetA(2);
-		    idr->SetZ(2);
-		    fA = 2;
-		    fZ = 2;
-		 }
-		}
+                    else
+                    {
+                        idr->SetA(2);
+                        idr->SetZ(2);
+                        fA = 2;
+                        fZ = 2;
+                    }
+                }
 
                 if (de > 347.6 * tollup)
                 {
@@ -689,8 +693,9 @@ void TCHICsIGSIEnergy::EvalEnergy(int numtel, int fast, int slow, TCHIResult* id
         */
 
     } // if(de>0){
-    
-//    if(numtel == 95) cout <<"aft TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " << fb[numtel] << endl;
+
+    //    if(numtel == 95) cout <<"aft TCHICsIGSIEnergy:: " <<  de << " " << fast << " " << fa[numtel] << " " <<
+    //    fb[numtel] << endl;
 
     fDE = de;
     if (stopped)

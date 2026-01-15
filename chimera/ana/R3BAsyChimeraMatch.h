@@ -97,7 +97,7 @@ class R3BAsyChimeraMatch : public FairTask
 
     inline void SetNTelMin(Int_t ntel) { NTelMin = ntel; }
     inline void SetNTelMax(Int_t ntel) { NTelMax = ntel; }
-    void Set_slow_corr(float slowcorr){slow_corr=slowcorr;}
+    void Set_slow_corr(float slowcorr) { slow_corr = slowcorr; }
 
   private:
     TClonesArray* fMappedItemsChimera; /**< Array with chimera mapped items. */
@@ -105,9 +105,9 @@ class R3BAsyChimeraMatch : public FairTask
     bool fOnline = false;
     Int_t NTelMin = 0;
     Int_t NTelMax = 0;
-    float slow_corr= 1;
+    float slow_corr = 1;
 
-    // check for trigger should be done globablly (somewhere else)
+    // check for trigger should be done globally (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
     Int_t fTrigger = -1;

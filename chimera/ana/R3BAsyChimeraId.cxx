@@ -69,8 +69,8 @@ R3BAsyChimeraId::R3BAsyChimeraId(const char* inFileName)
 R3BAsyChimeraId::~R3BAsyChimeraId()
 {
     LOG(info) << "R3BAsyChimeraId::Delete instance";
-        if (fChimeraIdData)
-            delete fChimeraIdData;
+    if (fChimeraIdData)
+        delete fChimeraIdData;
 }
 
 InitStatus R3BAsyChimeraId::Init()
@@ -96,7 +96,7 @@ InitStatus R3BAsyChimeraId::Init()
     LOG(info) << "R3BAsyChimeraId::Init DONE";
 
     FairRunOnline* run = FairRunOnline::Instance();
-    UInt_t Nrun=run->getRunId();
+    UInt_t Nrun = run->getRunId();
 
     // --- ------------------------------------- --- //
     // --- get access to matched data of Chimera --- //
@@ -132,7 +132,7 @@ InitStatus R3BAsyChimeraId::Init()
     fCHICsIEnergy = new TCHICsIGSIEnergy(ECalibFileName, ECalibTableFileName, CalDirName);
     fCHICsIEnergy->Init();
     fCHICsIEnergy->Set_optZ2(opt_Z2);
-    
+
     fCHIResult = new TCHIResult();
 
     rrn = new TRandom();
@@ -240,8 +240,9 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                 if (NumTel >= 80 && NumTel <= 399 && fCsIIdent->IsGridExisting(NumTel))
                 {
                     AddIdData(NumTel, Fast, Slow, TimeCsI, Z, A, Stopped, Icod, PID, DE, Energy);
-//                    std::cout << "R3BAsyChimeraID" << endl;
-//                    std::cout << num  << " " << NumTel << " " << Z << " " << A << " " << Energy << std::endl;
+                    //                    std::cout << "R3BAsyChimeraID" << endl;
+                    //                    std::cout << num  << " " << NumTel << " " << Z << " " << A << " " << Energy <<
+                    //                    std::endl;
 
                     if (Icod < 10)
                     {
@@ -256,7 +257,8 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                         evt->fast[num] = Fast;
                         evt->slow[num] = Slow;
                         //	      cout << num << " *** " << evt->IdA[num] << " " << A << endl;
-//                        if(NumTel == 95) cout <<"R3BAsyChimeraId:: " <<  DE << " " << Fast << endl;
+                        //                        if(NumTel == 95) cout <<"R3BAsyChimeraId:: " <<  DE << " " << Fast <<
+                        //                        endl;
                         num++;
                     }
                     //              cout  << Z << " " << A << " " << Icod << " " << PID << " " << Fast << " " << NumTel
@@ -289,7 +291,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
             evt->Idmulti = num;
             chitree.GetTree()->Fill();
         }
-//        getchar();
+        //        getchar();
 
         fNEvents += 1;
     }
