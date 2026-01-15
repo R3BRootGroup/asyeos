@@ -110,19 +110,17 @@ class R3BAsyChimeraId : public FairTask
     inline void SetGridFileName(string FileName) { GridFileName = FileName; }
     inline void SetECalibFileName(string FileName) { ECalibFileName = FileName; }
     inline void SetECalibTableFileName(string FileName) { ECalibTableFileName = FileName; }
-    void Set_optZ2(bool opt){opt_Z2=opt;}
-    //void Set_slow_corr(float slowcorr){slow_corr=slowcorr;}
-
-
+    void Set_optZ2(bool opt) { opt_Z2 = opt; }
+    // void Set_slow_corr(float slowcorr){slow_corr=slowcorr;}
 
   private:
     TClonesArray* fChimeraMatchedData; /**< Array with chimera matched items. */
     TClonesArray* fChimeraIdData;      /**< Array with chimera Id items. */
     bool fOnline = false;
     bool opt_Z2;
-    //float slow_corr;
+    // float slow_corr;
 
-    // check for trigger should be done globablly (somewhere else)
+    // check for trigger should be done globally (somewhere else)
     R3BEventHeader* header; /**< Event header.      */
     Int_t fNEvents;         /**< Event counter.     */
     Int_t fTrigger = -1;
@@ -130,8 +128,6 @@ class R3BAsyChimeraId : public FairTask
     TCsIIdent* fCsIIdent;
     TCHIResult* fCHIResult;
     TCHICsIGSIEnergy* fCHICsIEnergy;
-    
-    
 
     Float_t GetThetaRnd(int);
     Float_t GetPhiRnd(int);

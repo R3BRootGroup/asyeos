@@ -30,9 +30,17 @@ R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData()
 }
 
 // -----   Standard constructor   ------------------------------------------
-R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData(Int_t Multi_CHI, Int_t ZBound_CHI, Float_t ZRat_CHI, Float_t ERat_CHI, Float_t RP_CHI, 
-                          Int_t Multi_KRAB, Int_t MultiR0_KRAB, Int_t MultiR14_KRAB, Float_t RP_KRAB, 
-                          Float_t RP_CHIKRAB, Float_t dRP_CHIKRAB)
+R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData(Int_t Multi_CHI,
+                                             Int_t ZBound_CHI,
+                                             Float_t ZRat_CHI,
+                                             Float_t ERat_CHI,
+                                             Float_t RP_CHI,
+                                             Int_t Multi_KRAB,
+                                             Int_t MultiR0_KRAB,
+                                             Int_t MultiR14_KRAB,
+                                             Float_t RP_KRAB,
+                                             Float_t RP_CHIKRAB,
+                                             Float_t dRP_CHIKRAB)
     : fMulti_CHI(Multi_CHI)
     , fZBound_CHI(ZBound_CHI)
     , fZRat_CHI(ZRat_CHI)
