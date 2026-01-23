@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fï¿½r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -39,7 +39,8 @@ class R3BAsyChiKrabPhysData : public TObject
                           Int_t MultiR14_KRAB,
                           Float_t RP_KRAB,
                           Float_t RP_CHIKRAB,
-                          Float_t dRP_CHIKRAB);
+                          Float_t dRP_CHIKRAB,
+                          Float_t dRP12);
     /** Destructor **/
     virtual ~R3BAsyChiKrabPhysData() {}
 
@@ -57,6 +58,7 @@ class R3BAsyChiKrabPhysData : public TObject
 
     Float_t GetRP_CHIKRAB() const { return fRP_CHIKRAB; };
     Float_t GetdRP_CHIKRAB() const { return fdRP_CHIKRAB; };
+    Float_t GetdRP12() const { return fdRP12; };
 
   private:
     Int_t fMulti_CHI;
@@ -72,6 +74,8 @@ class R3BAsyChiKrabPhysData : public TObject
 
     Float_t fRP_CHIKRAB;
     Float_t fdRP_CHIKRAB;
+
+    Float_t fdRP12;
 
   public:
     ClassDef(R3BAsyChiKrabPhysData, 1)

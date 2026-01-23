@@ -158,7 +158,8 @@ class R3BAsyChimeraPhys : public FairTask
                                        Int_t MultiR14_KRAB,
                                        Float_t RP_KRAB,
                                        Float_t RP_CHIKRAB,
-                                       Float_t dRP_CHIKRAB);
+                                       Float_t dRP_CHIKRAB,
+                                       Float_t dRP12);
 
   public:
     ClassDef(R3BAsyChimeraPhys, 1)

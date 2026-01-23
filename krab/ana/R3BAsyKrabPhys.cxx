@@ -90,11 +90,11 @@ InitStatus R3BAsyKrabPhys::Init()
     if (fOnline)
     {
         // for online server
-        run->GetHttpServer()->Register("", this);
+        // run->GetHttpServer()->Register("", this);
 
         // Register command to reset histograms
         // for online server
-        run->GetHttpServer()->RegisterCommand("Reset_Krab_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
+        // run->GetHttpServer()->RegisterCommand("Reset_Krab_Phys", Form("/Objects/%s/->Reset_Histo()", GetName()));
     }
     // --- ------------------------------------- --- //
     // --- get access to mapped data of the TofW --- //

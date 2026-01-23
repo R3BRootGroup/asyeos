@@ -26,6 +26,7 @@ R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData()
     , fRP_KRAB(-1000.)
     , fRP_CHIKRAB(-1000.)
     , fdRP_CHIKRAB(-1000.)
+    , fdRP12(-1000.)
 {
 }
 
@@ -40,7 +41,8 @@ R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData(Int_t Multi_CHI,
                                              Int_t MultiR14_KRAB,
                                              Float_t RP_KRAB,
                                              Float_t RP_CHIKRAB,
-                                             Float_t dRP_CHIKRAB)
+                                             Float_t dRP_CHIKRAB,
+                                             Float_t dRP12)
     : fMulti_CHI(Multi_CHI)
     , fZBound_CHI(ZBound_CHI)
     , fZRat_CHI(ZRat_CHI)
@@ -52,6 +54,7 @@ R3BAsyChiKrabPhysData::R3BAsyChiKrabPhysData(Int_t Multi_CHI,
     , fRP_KRAB(RP_KRAB)
     , fRP_CHIKRAB(RP_CHIKRAB)
     , fdRP_CHIKRAB(dRP_CHIKRAB)
+    , fdRP12(dRP12)
 {
 }
 // -------------------------------------------------------------------------

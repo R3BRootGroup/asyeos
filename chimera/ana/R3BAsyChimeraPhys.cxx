@@ -730,8 +730,18 @@ void R3BAsyChimeraPhys::Exec(Option_t* option)
         h2_ZBound_Zrat->Fill(Zrat, ZBound);
         hp_ZBound_Zrat->Fill(Zrat, ZBound);
 
-        AddPhysData(
-            mult_CHI, ZBound, Zrat, Erat, RP_CHI, mult_KRAB, mult_KRABR0, mult_KRABR14, RP_KRAB, RP, dRP_CHI_KRAB);
+        AddPhysData(mult_CHI,
+                    ZBound,
+                    Zrat,
+                    Erat,
+                    RP_CHI,
+                    mult_KRAB,
+                    mult_KRABR0,
+                    mult_KRABR14,
+                    RP_KRAB,
+                    RP,
+                    dRP_CHI_KRAB,
+                    diffRP);
     } // if(trig == 1 && tpat&2)
     fNEvents += 1;
 }
@@ -903,7 +913,8 @@ R3BAsyChiKrabPhysData* R3BAsyChimeraPhys::AddPhysData(Int_t Multi_CHI,
                                                       Int_t MultiR14_KRAB,
                                                       Float_t RP_KRAB,
                                                       Float_t RP_CHIKRAB,
-                                                      Float_t dRP_CHIKRAB)
+                                                      Float_t dRP_CHIKRAB,
+                                                      Float_t dRP12)
 {
     TClonesArray& clref = *fChiKrabPhysData;
     Int_t size = clref.GetEntriesFast();
@@ -917,7 +928,8 @@ R3BAsyChiKrabPhysData* R3BAsyChimeraPhys::AddPhysData(Int_t Multi_CHI,
                                                    MultiR14_KRAB,
                                                    RP_KRAB,
                                                    RP_CHIKRAB,
-                                                   dRP_CHIKRAB);
+                                                   dRP_CHIKRAB,
+                                                   dRP12);
 }
 
 ClassImp(R3BAsyChimeraPhys)
