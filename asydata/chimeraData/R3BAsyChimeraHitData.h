@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------
 
 /******************************************************************************
- *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
+ *   Copyright (C) 2022 GSI Helmholtzzentrum fï¿½r Schwerionenforschung GmbH    *
  *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
@@ -31,9 +31,9 @@ class R3BAsyChimeraHitData : public TObject
      *@param fEloss  Energy Loss in [MeV]
      *@param fFast   Fast CsI component in arb. units
      *@param fSlow   Slow CsI component in arb. units
-     *@param fToF    Tof in [ns]
+     *@param fTime   Time in [ns]???
      **/
-    R3BAsyChimeraHitData(Int_t DetId, Double_t ELoss, Double_t Fast, Double_t Slow, Double_t ToF);
+    R3BAsyChimeraHitData(Int_t DetId, Double_t ELoss, Double_t Fast, Double_t Slow, Double_t Time);
 
     /** Destructor **/
     virtual ~R3BAsyChimeraHitData() {}
@@ -43,18 +43,18 @@ class R3BAsyChimeraHitData : public TObject
     Double_t GetEloss() const { return fELoss; }
     Double_t GetFast() const { return fFast; }
     Double_t GetSlow() const { return fSlow; }
-    Double_t GetToF() const { return fToF; }
+    Double_t GetTime() const { return fTime; }
 
     /** Modifiers **/
     void SetDetID(Int_t ndet) { fDetId = ndet; };
     void SetELoss(Double_t eloss) { fELoss = eloss; };
     void SetFast(Double_t fast) { fFast = fast; };
     void SetSlow(Double_t slow) { fSlow = slow; };
-    void SetTof(Double_t t) { fToF = t; };
+    void SetTime(Double_t t) { fTime = t; };
 
   private:
     Int_t fDetId;
-    Double_t fELoss, fFast, fSlow, fToF;
+    Double_t fELoss, fFast, fSlow, fTime;
 
     ClassDef(R3BAsyChimeraHitData, 1)
 };

@@ -20,6 +20,7 @@
 #pragma link off all functions;
 
 #pragma link C++ class R3BAsyChimera+;
+#pragma link C++ class R3BAsyChimeraTreat+;
 #pragma link C++ class R3BAsyChimeraContFact+;
 #pragma link C++ class R3BAsyChimeraDoArray+;
 #pragma link C++ class R3BAsyChimeraPuls+;
