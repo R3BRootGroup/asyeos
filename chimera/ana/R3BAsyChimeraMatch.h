@@ -120,6 +120,8 @@ class R3BAsyChimeraMatch : public FairTask
     const char* finFileName;
     const char* finFileName2;
 
+    Float_t slow_corr_ntel[ndim];
+
     R3BAsyChimeraMatchedData* AddMatchedData(UInt_t numtel, Float_t fast, Float_t slow, UInt_t timeCsI);
 
   public:

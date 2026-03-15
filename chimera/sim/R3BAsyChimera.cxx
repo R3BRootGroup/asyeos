@@ -26,6 +26,7 @@
 #include "TVirtualMCStack.h"
 
 #define U_MEV 931.4940954
+#define myverbose 0
 
 R3BAsyChimera::R3BAsyChimera()
     : R3BAsyChimera("")
@@ -72,6 +73,47 @@ void R3BAsyChimera::Initialize()
     // 1  fBirkCS1 =  1.2/dP;
     fBirkCS1 = 0.033 / dP; // 2 0.013 0.023
     fBirkCS2 = 0. / (dP * dP);
+    Double_t cutE1 = 1E-6; // 1 keV?????
+    Double_t cutE2 = 1E-6; // 1 keV?????
+
+    /*
+        if (gGeoManager) {
+         TGeoMedium* pCsI = gGeoManager->GetMedium("CsI");
+         if ( pCsI ) {
+          // Setting processes for CsI only
+             gMC->Gstpar(pCsI->GetId()  ,"LOSS",3);
+             gMC->Gstpar(pCsI->GetId()  ,"STRA",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"PAIR",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"COMP",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"PHOT",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"ANNI",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"BREM",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"HADR",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"DRAY",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"DCAY",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"MULS",1.0);
+             gMC->Gstpar(pCsI->GetId()  ,"RAYL",1.0);
+
+         // Setting Energy-CutOff for CsI Only
+
+            std::cout << "-I- R3bChimera Scintillator Medium Id " << pCsI->GetId() << " Energy Cut-Off : " << cutE1 << "
+     " << cutE2 << std::endl; std::cout << std::endl;
+
+            gMC->Gstpar(pCsI->GetId(),"CUTGAM",cutE1);   // gammas (GeV)
+            gMC->Gstpar(pCsI->GetId(),"CUTELE",cutE1);   // electrons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"CUTNEU",cutE1);   // neutral hadrons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"CUTHAD",cutE1);   // charged hadrons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"CUTMUO",cutE1);   // muons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"BCUTE",cutE1);    // electron bremsstrahlung (GeV)
+            gMC->Gstpar(pCsI->GetId(),"BCUTM",cutE1);    // muon and hadron bremsstrahlung(GeV)
+            gMC->Gstpar(pCsI->GetId(),"DCUTE",cutE1);    // delta-rays by electrons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"DCUTM",cutE1);    // delta-rays by muons (GeV)
+            gMC->Gstpar(pCsI->GetId(),"PPCUTM",cutE1);   // direct pair production by muons (GeV)
+
+         }
+
+     } //!gGeoManager
+    */
 }
 
 // -----   Public method ProcessHits  --------------------------------------
@@ -94,7 +136,9 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol)
     }
 
     // Sum energy loss for all steps in the active volume
-    fELoss += TVirtualMC::GetMC()->Edep() * 1000.; // in MeV;
+    Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.; // in MeV
+
+    fELoss += dE; // in MeV;
 
     Double_t M_in = TVirtualMC::GetMC()->TrackMass() * 1000.;
     // Charge and mass are now obtained from PDG Code
@@ -104,51 +148,57 @@ Bool_t R3BAsyChimera::ProcessHits(FairVolume* vol)
 
     Double_t fA_in = M_in / U_MEV;
     Double_t fZ_in = TVirtualMC::GetMC()->TrackCharge();
-
-    Double_t dE = TVirtualMC::GetMC()->Edep() * 1000.; // in MeV
     TString ptype = TVirtualMC::GetMC()->GetStack()->GetCurrentTrack()->GetName();
 
     Double_t lightYield = dE;
     Double_t slow = dE;
+    Double_t BirkC1 = fBirkC1;
+    Double_t BirkCS1 = fBirkCS1;
 
-    Double_t MCTrackCharge = TVirtualMC::GetMC()->TrackCharge();
-
-    if (MCTrackCharge != 0)
+    if (M_in < 900)
     {
-        Double_t birkC1Mod = 0;
-        // Eventually apply correction for higher charge states TBD
-        if (fBirkC0 == 1)
-        {
-            if (TMath::Abs(MCTrackCharge) >= 2)
-                birkC1Mod = fBirkC1 * 1.;
-            else
-                birkC1Mod = fBirkC1;
-        }
-        //     if (MCTrackCharge<0)birkC1Mod=0;
+        BirkC1 = 0;
+        BirkCS1 = 0;
+    }
 
-        Double_t birkCS1Mod = 0;
-        // Eventually apply correction for higher charge states TBD
-        if (fBirkCS0 == 1)
-        {
-            if (TMath::Abs(MCTrackCharge) >= 2)
-                birkCS1Mod = fBirkCS1 * 1.;
-            else
-                birkCS1Mod = fBirkCS1;
-        }
-        //     if (MCTrackCharge<0)birkCS1Mod=0;//2
+    Double_t dedxcm = 0.;
+    Double_t lightYieldxcm = 0.;
+    Double_t MCstep = TVirtualMC::GetMC()->TrackStep();
 
-        Double_t dedxcm = 0.;
-        Double_t lightYieldxcm = 0.;
-        Double_t MCstep = TVirtualMC::GetMC()->TrackStep();
-        if (MCstep > 0)
-        {
-            dedxcm = 1000. * TVirtualMC::GetMC()->Edep() / (MCstep * 4.51);
-            lightYield = lightYield / (1. + birkC1Mod * dedxcm + fBirkC2 * dedxcm * dedxcm);
-            fLightYield = fLightYield + lightYield;
-            lightYieldxcm = lightYield / MCstep;
-            slow = slow / (1. + birkCS1Mod * dedxcm + fBirkCS2 * dedxcm * dedxcm); // 2
-            fSlow = fSlow + slow;
-        }
+    if (myverbose)
+        std::cout << "R3BAsyChimera::ProcessHits ### "
+                  << " fZ_in= " << fZ_in << " fA_in= " << fA_in << "  M_in= " << M_in << " ptype= " << ptype
+                  << " dE=    " << dE << " MCstep=    " << MCstep << " birkC1=    " << BirkC1
+                  << " birkC2=    " << fBirkC2 << " birkCS1=    " << BirkCS1 << " birkCS2=    " << fBirkCS2
+                  << std::endl;
+    if (myverbose)
+        getchar();
+
+    if (MCstep != 0)
+    {
+        dedxcm = dE / (MCstep * 4.51);
+        lightYieldxcm = lightYield / MCstep;
+        fLightYield = fLightYield + lightYield / (1. + BirkC1 * dedxcm + fBirkC2 * dedxcm * dedxcm);
+        fSlow = fSlow + slow / (1. + BirkCS1 * dedxcm + fBirkCS2 * dedxcm * dedxcm);
+        if (myverbose)
+            std::cout << "R3BAsyChimera::ProcessHits ### ###  "
+                      << " fZ_in= " << fZ_in << " fA_in= " << fA_in << "  M_in= " << M_in << " ptype= " << ptype
+                      << " dE=    " << dE << " fELoss=    " << fELoss << " fLightYield=    " << fLightYield
+                      << " fSlow=    " << fSlow << std::endl;
+        if (myverbose)
+            getchar();
+    }
+    else
+    {
+        fLightYield = fLightYield + dE;
+        fSlow = fSlow + dE;
+        if (myverbose)
+            std::cout << "R3BAsyChimera::ProcessHits ### ### ###  "
+                      << " fZ_in= " << fZ_in << " fA_in= " << fA_in << "  M_in= " << M_in << " ptype= " << ptype
+                      << " dE=    " << dE << " fELoss=    " << fELoss << " fLightYield=    " << fLightYield
+                      << " fSlow=    " << fSlow << std::endl;
+        if (myverbose)
+            getchar();
     }
 
     if (fELoss > 0)

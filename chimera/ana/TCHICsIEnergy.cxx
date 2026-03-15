@@ -22,7 +22,7 @@ TCHICsIGSIEnergy::TCHICsIGSIEnergy(string filener, string filenerec, string cali
     cout << "TCHICsIGSIEnergy::ffilenergrec=" << ffilenergrec << endl;
     cout << "TCHICsIGSIEnergy::MAXTEL=" << MAXTEL << endl;
     cout << "TCHICsIGSIEnergy:: press enter to continue" << endl;
-    getchar();
+    //    getchar();
 
     for (int i = 0; i < MAXTEL; i++)
     {
@@ -75,7 +75,7 @@ int TCHICsIGSIEnergy::Init()
     }
     cout << "TCHICsIGSIEnergy>> Read " << row << " lines from calibration file " << ffilenerg << endl;
     cout << "TCHICsIGSIEnergy>> press enter to continue" << endl;
-    getchar();
+    //    getchar();
 
     freg.close();
     fisdefined = true;

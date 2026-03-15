@@ -61,7 +61,7 @@ R3BAsyChimeraReader::~R3BAsyChimeraReader()
 Bool_t R3BAsyChimeraReader::Init(ext_data_struct_info* a_struct_info)
 {
     Int_t ok;
-    R3BLOG(info, "");
+    R3BLOG(info, "R3BAsyChimeraReader");
     EXT_STR_h101_ASYCHIMERA_ITEMS_INFO(ok, *a_struct_info, fOffset, EXT_STR_h101_ASYCHIMERA, 0);
     if (!ok)
     {
