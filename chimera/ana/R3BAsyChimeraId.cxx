@@ -115,7 +115,7 @@ InitStatus R3BAsyChimeraId::Init()
         LOG(info) << "R3BAsyChimeraId::Init line 87";
 
     LOG(info) << "R3BAsyChimeraId::Init DONE";
-    getchar();
+    //    getchar();
     //**********************************************************************************
 
     string dir = "/u/russotto/R3BRoot/calfiles";
@@ -289,7 +289,7 @@ void R3BAsyChimeraId::Exec(Option_t* option)
                 fCHIResult->SetZ(-10);
             }
             evt->Idmulti = num;
-            chitree.GetTree()->Fill();
+            //            chitree.GetTree()->Fill();
         }
         //        getchar();
 

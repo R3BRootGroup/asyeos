@@ -146,7 +146,7 @@ R3BAsyChimeraPhys::~R3BAsyChimeraPhys()
 InitStatus R3BAsyChimeraPhys::Init()
 {
     LOG(info) << "R3BAsyChimeraPhys::Init ";
-    getchar();
+    //    getchar();
     // try to get a handle on the EventHeader. EventHeader may not be
     // present though and hence may be null. Take care when using.
 

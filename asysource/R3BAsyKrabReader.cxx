@@ -195,7 +195,7 @@ Bool_t R3BAsyKrabReader::R3BRead()
         {
             std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@" << std::endl;
             std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@" << std::endl;
-            getchar();
+            //            getchar();
         }
         float mult = 0;
         int imult = 0;
