@@ -162,15 +162,16 @@ InitStatus R3BAsyChimeraMatch::Init()
     std::cout << dummy << std::endl;
     for (int ih = 0; ih < (ndim - 80); ih++)
     {
-        fsat >> n >> a;
+        fsat >> n >> a >> b;
         if (a == 0)
             a = 3530;
         sat_slow[n] = a;
-        std::cout << n << " sat_ch = " << a << std::endl;
+        slow_corr_ntel[n] = b;
+        std::cout << n << " sat_ch = " << a << " slow_corr = " << b << std::endl;
     }
 
     LOG(info) << "R3BAsyChimeraMatch::Init DONE";
-    getchar();
+    //    getchar();
 
     return kSUCCESS;
 }
@@ -283,7 +284,7 @@ void R3BAsyChimeraMatch::Exec(Option_t* option)
 
                 if (slow < sat_slow[iNumTel])
                 {
-                    slow = slow_corr * slow;
+                    slow = slow_corr * slow * slow_corr_ntel[iNumTel];
                 }
 
                 if ((slow > 0 && fast > 0) && iNumTel >= NTelMin && iNumTel <= NTelMax)

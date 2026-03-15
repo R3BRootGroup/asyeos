@@ -55,7 +55,7 @@ int TCsIIdent::ReadAsciiFile()
     int ring, ntel, ia1, ia2;
 
     cout << "TCsIIdent>> ascii files=" << fname.c_str() << endl;
-    getchar();
+    //    getchar();
     cout << "TCsIIdent>> press enter to continue" << endl;
 
     ifstream fd(fname.c_str());
@@ -154,7 +154,7 @@ int TCsIIdent::ReadAsciiFile()
     }
     fd.close();
     cout << "TCsIIdent>> Read " << it << " telescopes from file " << fname.c_str() << endl;
-    getchar();
+    //    getchar();
     return status;
 }
 
