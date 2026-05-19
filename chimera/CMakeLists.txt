@@ -49,8 +49,7 @@ set(INCLUDE_DIRECTORIES
     DEPENDENCIES
     R3BAsyData 
     R3BData 
-    R3BBase 
-    Core 
+    R3BBase
     m)
 
 

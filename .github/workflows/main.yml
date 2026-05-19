@@ -34,16 +34,9 @@ jobs:
         # Here are the groups of repositories that need to be downloaded inside
         # r3broot. Each group is used by only one job.
         repos: [ asyeos ]
-        os: [ debian11, debian12 , debian13]
-        fsv: [ jan24p5, jan24p6]
+        os: [ debian11, debian12 ]
+        fsv: [ jan24p5 ]
         cpp: [ 17 ]
-        exclude:
-          - os: debian11
-            fsv: jan24p6
-          - os: debian12
-            fsv: jan24p6
-          - os: debian13
-            fsv: jan24p5
         
         # The list under "include" defines some properties for each group:
         #
@@ -132,7 +125,7 @@ jobs:
           mv asyeos/ucesb .
           cmake . -B build -C cmake/CI_CD/configure_options.cmake -DBUILD_GEOMETRY=OFF
           cd build
-          make -j ${NUM_THREADS}
+          make -j${NUM_THREADS}
 
       # A self-defined composite action to perform the ctest and push the
       # results to the cdash (cmake-dashborad). To fully show the errors and

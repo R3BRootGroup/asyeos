@@ -44,7 +44,6 @@ add_library_with_dictionary(
     ${INCLUDE_DIRECTORIES}
     DEPENDENCIES
     R3BData 
-    R3BBase 
-    Core 
+    R3BBase
     m)
  

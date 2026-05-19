@@ -38,6 +38,5 @@ set(INCLUDE_DIRECTORIES
     ${INCLUDE_DIRECTORIES}
     DEPENDENCIES
     R3BData 
-    R3BBase 
-    Core 
+    R3BBase
     m)
