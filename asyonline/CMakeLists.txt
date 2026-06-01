@@ -22,8 +22,7 @@ add_library_with_dictionary(
     INCLUDEDIRS
     ${CMAKE_CURRENT_SOURCE_DIR}
     DEPENDENCIES
-    R3BAsyData 
-    Spectrum 
+    R3BAsyData
     R3BBase 
     R3BData
     R3BNeulandShared
