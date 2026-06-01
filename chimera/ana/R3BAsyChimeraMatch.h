@@ -5,7 +5,7 @@
 
 /******************************************************************************
  *   Copyright (C) 2022 GSI Helmholtzzentrum für Schwerionenforschung GmbH    *
- *   Copyright (C) 2022-2025 Members of R3B Collaboration                     *
+ *   Copyright (C) 2022-2026 Members of R3B Collaboration                     *
  *                                                                            *
  *             This software is distributed under the terms of the            *
  *                 GNU Lesser General Public Licence (LGPL) version 3,        *
@@ -16,8 +16,7 @@
  * or submit itself to any jurisdiction.                                      *
  ******************************************************************************/
 
-#ifndef R3BAsyChimeraMatch_H
-#define R3BAsyChimeraMatch_H
+#pragma once
 
 #include <R3BShared.h>
 
@@ -36,7 +35,7 @@
 #include "TH2F.h"
 #include "TMath.h"
 
-#define ndim 400
+static constexpr int ndim = 400;
 
 class TClonesArray;
 class R3BEventHeader;
@@ -127,5 +126,3 @@ class R3BAsyChimeraMatch : public FairTask
   public:
     ClassDef(R3BAsyChimeraMatch, 1)
 };
-
-#endif
